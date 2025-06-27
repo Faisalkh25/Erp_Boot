@@ -35,22 +35,6 @@ public class EmployeeRestController {
     private EmployeeService employeeService;
 
     // handler for saving employee
-
-    // @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    // public ResponseEntity<Employee> createEmployeeWithImage(
-    // @RequestPart("employee") String employeeJson,
-    // @RequestPart(value = "image", required = false) MultipartFile image) throws
-    // IOException {
-
-    // ObjectMapper objectMapper = new ObjectMapper();
-    // Employee employee = objectMapper.readValue(employeeJson, Employee.class);
-
-    // Employee savedEmployee = employeeService.createEmployee(employee, image);
-
-    // return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
-
-    // }
-
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Employee> createEmployeeWithImage(
             @RequestPart("employee") String employeeJson,
@@ -92,24 +76,6 @@ public class EmployeeRestController {
     }
 
     // handler for updating employee
-
-    // @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    // public ResponseEntity<Employee> updateEmployee(
-    // @PathVariable int id,
-    // @RequestPart("employee") String employeeJson,
-    // @RequestPart(value = "image", required = false) MultipartFile image)
-    // throws JsonMappingException, JsonProcessingException
-
-    // {
-
-    // ObjectMapper objectMapper = new ObjectMapper();
-    // Employee employee = objectMapper.readValue(employeeJson, Employee.class);
-
-    // Employee updated = employeeService.updateEmployee(employee, id, image);
-
-    // return new ResponseEntity<>(updated, HttpStatus.OK);
-    // }
-
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Employee> updateEmployee(
             @PathVariable int id,

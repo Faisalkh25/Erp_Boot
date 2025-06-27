@@ -70,6 +70,9 @@ public class Employee {
 
     private LocalDateTime updated_at = LocalDateTime.now();
 
+    @Column(nullable = false)
+    private String password;
+
     private String profile_picture;
 
     @PreUpdate
@@ -84,7 +87,7 @@ public class Employee {
             String personal_email, String address, String contact, LocalDate joining_date, Department department,
             String gender, Level emp_level, String company, Shift shift, String employee_status, String joining_status,
             String working_status, int reporting_manager1, int reporting_manager2, Role role,
-            LocalDateTime date_created, LocalDateTime updated_at, String profile_picture) {
+            LocalDateTime date_created, LocalDateTime updated_at, String password, String profile_picture) {
         this.emp_id = emp_id;
         this.emp_code = emp_code;
         this.first_name = first_name;
@@ -108,6 +111,7 @@ public class Employee {
         this.role = role;
         this.date_created = date_created;
         this.updated_at = updated_at;
+        this.password = password;
         this.profile_picture = profile_picture;
     }
 
@@ -301,6 +305,14 @@ public class Employee {
 
     public void setProfile_picture(String profile_picture) {
         this.profile_picture = profile_picture;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
