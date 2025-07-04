@@ -8,13 +8,19 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "departments")
 public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int dept_id;
+    @Column(name = "dept_id")
+    @JsonProperty("deptId")
+    private int deptId;
+
+    @Column(name = "dept_name")
     private String dept_name;
 
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -23,18 +29,18 @@ public class Department {
     public Department() {
     }
 
-    public Department(int dept_id, String dept_name, LocalDateTime dateCreated) {
-        this.dept_id = dept_id;
+    public Department(int deptId, String dept_name, LocalDateTime dateCreated) {
+        this.deptId = deptId;
         this.dept_name = dept_name;
         this.dateCreated = dateCreated;
     }
 
-    public int getDept_id() {
-        return dept_id;
+    public int getDeptId() {
+        return deptId;
     }
 
-    public void setDept_id(int dept_id) {
-        this.dept_id = dept_id;
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 
     public String getDept_name() {

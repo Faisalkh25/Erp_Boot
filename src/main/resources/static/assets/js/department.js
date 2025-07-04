@@ -14,14 +14,14 @@ function fetchDepartment() {
       data.forEach(dept => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${dept.dept_id}</td>
+          <td>${dept.deptId}</td>
           <td>${dept.dept_name}</td>
           <td>
             <i class="fa-solid fa-pen-to-square text-primary me-2"
-               onclick="editDepartment(${dept.dept_id}, '${dept.dept_name}')"
+               onclick="editDepartment(${dept.deptId}, '${dept.dept_name}')"
                style="cursor: pointer; font-size: 18px;"></i>
             <i class="fa-solid fa-trash text-danger"
-               onclick="deleteDepartment(${dept.dept_id})"
+               onclick="deleteDepartment(${dept.deptId})"
                style="cursor: pointer; font-size: 18px;"></i>
           </td>
         `;
@@ -44,7 +44,7 @@ function saveDepartment(event) {
 
   const method = id ? "PUT" : "POST";
   const url = id ? `${apiUrl}/${id}` : apiUrl;
-  const bodyData = id ? { dept_id: parseInt(id), dept_name } : { dept_name };
+  const bodyData = id ? { deptId: parseInt(id), dept_name } : { dept_name };
 
   fetch(url, {
     method: method,
@@ -118,7 +118,7 @@ document.getElementById("editForm").addEventListener("submit", function (e) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ dept_id: parseInt(id), dept_name })
+    body: JSON.stringify({ deptId: parseInt(id), dept_name })
   })
     .then(response => {
       if (!response.ok) throw new Error("Failed to update");

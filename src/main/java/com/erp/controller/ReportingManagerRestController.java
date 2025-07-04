@@ -70,4 +70,15 @@ public class ReportingManagerRestController {
         rmService.deleteReportingManager(id);
         return new ResponseEntity<>("reporting manager deleted successfully", HttpStatus.GONE);
     }
+
+    // handler for getting all reporting managers by department
+    // like if admin select java then it should show all reporting managers of java
+    // department
+
+    @GetMapping("/by-department/{id}")
+    public ResponseEntity<List<ReportingManager>> showAllManagersByDepartmentId(@PathVariable int id) {
+        List<ReportingManager> rmManagers = rmService.getReportingManagersByDepartmentId(id);
+        return new ResponseEntity<>(rmManagers, HttpStatus.OK);
+    }
+
 }

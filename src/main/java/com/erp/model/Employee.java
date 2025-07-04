@@ -58,8 +58,13 @@ public class Employee {
     private String joining_status;
     private String working_status;
 
-    private int reporting_manager1;
-    private int reporting_manager2;
+    @ManyToOne
+    @JoinColumn(name = "reporting_manager1_id")
+    private ReportingManager reporting_manager1;
+
+    @ManyToOne
+    @JoinColumn(name = "reporting_manager2_id")
+    private ReportingManager reporting_manager2;
 
     @ManyToOne
     @JoinColumn(name = "emp_role")
@@ -86,7 +91,7 @@ public class Employee {
     public Employee(int emp_id, int emp_code, String first_name, String last_name, LocalDate dateOfBirth, String email,
             String personal_email, String address, String contact, LocalDate joining_date, Department department,
             String gender, Level emp_level, String company, Shift shift, String employee_status, String joining_status,
-            String working_status, int reporting_manager1, int reporting_manager2, Role role,
+            String working_status, ReportingManager reporting_manager1, ReportingManager reporting_manager2, Role role,
             LocalDateTime date_created, LocalDateTime updated_at, String password, String profile_picture) {
         this.emp_id = emp_id;
         this.emp_code = emp_code;
@@ -259,19 +264,19 @@ public class Employee {
         this.working_status = working_status;
     }
 
-    public int getReporting_manager1() {
+    public ReportingManager getReporting_manager1() {
         return reporting_manager1;
     }
 
-    public void setReporting_manager1(int reporting_manager1) {
+    public void setReporting_manager1(ReportingManager reporting_manager1) {
         this.reporting_manager1 = reporting_manager1;
     }
 
-    public int getReporting_manager2() {
+    public ReportingManager getReporting_manager2() {
         return reporting_manager2;
     }
 
-    public void setReporting_manager2(int reporting_manager2) {
+    public void setReporting_manager2(ReportingManager reporting_manager2) {
         this.reporting_manager2 = reporting_manager2;
     }
 
@@ -299,20 +304,20 @@ public class Employee {
         this.updated_at = updated_at;
     }
 
-    public String getProfile_picture() {
-        return profile_picture;
-    }
-
-    public void setProfile_picture(String profile_picture) {
-        this.profile_picture = profile_picture;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfile_picture() {
+        return profile_picture;
+    }
+
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
     }
 
 }

@@ -49,4 +49,9 @@ public class HomeController {
         return "dashboard/app/add-level";
     }
 
+    @GetMapping("/show-manager")
+    public String showManager() {
+        return "dashboard/app/r-manager";
+    }
+
 }

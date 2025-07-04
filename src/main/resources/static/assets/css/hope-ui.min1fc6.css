@@ -20840,9 +20840,9 @@ th {
 }
 
 .loader.simple-loader .loader-body {
-    background: url(../images/loader.gif) no-repeat scroll center center;
+    background: url(../../assets/custom_images/barrownz-logo.png) no-repeat scroll center center;
     -webkit-background-size: 20% 20%;
-    background-size: 20%;
+    background-size: 10%;
     width: 100%;
     height: 100%;
     position: relative

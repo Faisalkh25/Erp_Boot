@@ -34,7 +34,7 @@ function saveLevel(event) {
         .then(() => {
             document.getElementById("addLevelForm").reset();
             loadLevels();
-            showTopAlert("Level added successfully!", "success");
+            showTopAlert("✅ Level added successfully!", "success");
         })
         .catch(error => {
             console.error("Insert error:", error);
@@ -114,7 +114,7 @@ function submitEditLevel(event) {
             loadLevels();
             const modal = bootstrap.Modal.getInstance(document.getElementById("editLevelModal"));
             modal.hide();
-            showTopAlert("Level updated successfully!", "success");
+            showTopAlert("✅ Level updated successfully!", "success");
         })
         .catch(error => {
             console.error("Update error:", error);
@@ -144,7 +144,7 @@ function confirmDeleteLevel() {
 
             levelToDeleteId = null;
             loadLevels();
-            showTopAlert("Level deleted successfully!", "danger");
+            showTopAlert("✅ Level deleted successfully!", "danger");
         })
         .catch(error => {
             console.error("Delete error:", error);

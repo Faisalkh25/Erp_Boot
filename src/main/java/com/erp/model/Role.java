@@ -10,6 +10,8 @@ import jakarta.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -20,6 +22,7 @@ public class Role {
     private String role_name;
 
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     private Set<Employee> employee;
 
     @Column(name = "date_created", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

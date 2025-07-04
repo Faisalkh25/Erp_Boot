@@ -15,4 +15,6 @@ public interface ReportingManagerService {
     public ReportingManager updateReportingManager(ReportingManager rm, int id);
 
     public void deleteReportingManager(int id);
+
+    public List<ReportingManager> getReportingManagersByDepartmentId(int deptId);
 }

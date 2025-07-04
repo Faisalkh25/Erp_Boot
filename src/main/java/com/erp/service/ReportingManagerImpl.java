@@ -47,4 +47,10 @@ public class ReportingManagerImpl implements ReportingManagerService {
         rmRepo.deleteById(id);
     }
 
+    @Override
+    public List<ReportingManager> getReportingManagersByDepartmentId(int deptId) {
+        List<ReportingManager> allManagers = rmRepo.findByDepartment_DeptId(deptId);
+        return allManagers;
+    }
+
 }

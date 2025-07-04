@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.erp.dto.EmployeeDto;
 import com.erp.model.Employee;
 import com.erp.service.EmployeeService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -34,28 +33,38 @@ public class EmployeeRestController {
     @Autowired
     private EmployeeService employeeService;
 
+    private final ObjectMapper mapper;
+
+    public EmployeeRestController() {
+        this.mapper = new ObjectMapper();
+        this.mapper.registerModule(new JavaTimeModule());
+        this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
+
     // handler for saving employee
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Employee> createEmployeeWithImage(
             @RequestPart("employee") String employeeJson,
             @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // 👈 Optional, better formatting
+        // ObjectMapper objectMapper = new ObjectMapper();
+        // objectMapper.registerModule(new JavaTimeModule());
+        // objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-        Employee employee = objectMapper.readValue(employeeJson, Employee.class);
+        EmployeeDto employeedto = mapper.readValue(employeeJson, EmployeeDto.class);
 
-        Employee savedEmployee = employeeService.createEmployee(employee, image);
+        // Employee employee = objectMapper.readValue(employeeJson, Employee.class);
+
+        Employee savedEmployee = employeeService.createEmployee(employeedto, image);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
 
     // handler for getAllEmployees
 
     @GetMapping
-    public ResponseEntity<List<Employee>> showAllEmployees() {
+    public ResponseEntity<List<EmployeeDto>> showAllEmployees() {
+        List<EmployeeDto> allEmployees = employeeService.getAllEmployeesDto();
 
-        List<Employee> allEmployees = employeeService.showAllEmployees();
         return new ResponseEntity<>(allEmployees, HttpStatus.OK);
     }
 
@@ -81,16 +90,27 @@ public class EmployeeRestController {
             @PathVariable int id,
             @RequestPart("employee") String employeeJson,
             @RequestPart(value = "image", required = false) MultipartFile image)
-            throws JsonMappingException, JsonProcessingException {
+            throws IOException {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        // ObjectMapper objectMapper = new ObjectMapper();
+        // objectMapper.registerModule(new JavaTimeModule());
+        // objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-        Employee employee = objectMapper.readValue(employeeJson, Employee.class);
+        EmployeeDto employeedto = mapper.readValue(employeeJson, EmployeeDto.class);
 
-        Employee updated = employeeService.updateEmployee(employee, id, image);
+        // Employee employee = objectMapper.readValue(employeeJson, Employee.class);
+
+        Employee updated = employeeService.updateEmployee(employeedto, id, image);
         return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
+    // handler for getting all employees by departments like if java dept has 2
+    // employees then it will show only those two employees
+
+    @GetMapping("/by-department/{id}")
+    public ResponseEntity<List<Employee>> showAllEmployeesByDepartmentId(@PathVariable int id) {
+        List<Employee> empByDept = employeeService.getEmployeesByDepartmentId(id);
+        return new ResponseEntity<>(empByDept, HttpStatus.OK);
     }
 
 }

@@ -91,7 +91,7 @@ function saveShift(event) {
     .then(() => {
       document.getElementById("shiftForm").reset();
       fetchShifts();
-      showAlert("Shift added successfully!", "success");
+      showAlert("✅ Shift added successfully!", "success");
     })
     .catch(err => {
       console.error("Save error:", err);
@@ -111,7 +111,7 @@ function deleteShiftConfirmed() {
   fetch(`${shiftApiUrl}/${deleteShiftId}`, { method: "DELETE" })
     .then(() => {
       fetchShifts();
-      showAlert("Shift deleted successfully!", "success");
+      showAlert("✅ Shift deleted successfully!", "success");
     })
     .catch(err => {
       console.error("Delete error:", err);
@@ -191,7 +191,7 @@ function updateShift(event) {
     .then(() => {
       bootstrap.Modal.getInstance(modal).hide();
       fetchShifts();
-      showAlert("Record Updated Successfully..", "success");
+      showAlert("✅ Shift Updated Successfully..", "success");
     })
     .catch(err => {
       console.error("Update error:", err);

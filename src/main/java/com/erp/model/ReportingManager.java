@@ -17,6 +17,7 @@ public class ReportingManager {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rm_id")
     private int rm_id;
 
     private String rm_name1;
