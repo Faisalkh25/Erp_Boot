@@ -1,9 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default"
-  xmlns:th="http://www.thymeleaf.org">
-
-<!-- Mirrored from templates.iqonic.design/hope-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jun 2025 04:11:51 GMT -->
-
+<html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +10,6 @@
 
   <!-- Library / Plugin Css Build -->
   <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
 
   <!-- Hope Ui Design System Css -->
   <link rel="stylesheet" href="../../assets/css/hope-ui.min1fc6.css?v=4.0.0">
@@ -34,10 +29,22 @@
   <!-- font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-
 </head>
-
 <body onload="loadDepartment() ">
+
+<!-- ------------------------- -->
+<!------- Alert Placeholder ----->
+<!-- ------------------------- -->
+<div id="alertBox"
+     class="alert alert-success alert-dismissible fade show d-none"
+     role="alert"
+     style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: auto; max-width: 90%;">
+  <span id="alertMessage"></span>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<!-- -------------------------- -->
+<!-- Alert Placeholder End Here -->
+<!-- -------------------------- -->
 
 
   <div class="cursor-dot"></div>
@@ -246,116 +253,107 @@
                 </svg>
               </i>
             </a>
-
             <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
               <li class="nav-item">
-                  <a class="nav-link "  data-th-href="@{/user-profile}" >
-                      <i class="icon">
-                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                              <g>
-                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                              </g>
-                          </svg>
-                      </i>
-                      <i class="sidenav-mini-icon"> U </i>
-                      <span class="item-name">Employee Profile</span>
-                  </a>
+                <a class="nav-link " data-th-href="@{/user-profile}">
+                  <i class="icon">
+                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                      </g>
+                    </svg>
+                  </i>
+                  <i class="sidenav-mini-icon"> U </i>
+                  <span class="item-name">Employee Profile</span>
+                </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link " data-th-href="@{/show-add-department}">
-                      <i class="icon">
-                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                              <g>
-                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                              </g>
-                          </svg>
-                      </i>
-                      <i class="sidenav-mini-icon"> U </i>
-                      <span class="item-name">Add Department</span>
-                  </a>
+                <a class="nav-link " data-th-href="@{/show-add-department}">
+                  <i class="icon">
+                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                      </g>
+                    </svg>
+                  </i>
+                  <i class="sidenav-mini-icon"> U </i>
+                  <span class="item-name">Add Department</span>
+                </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link " data-th-href="@{/show-shift}">
-                      <i class="icon">
-                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                              <g>
-                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                              </g>
-                          </svg>
-                      </i>
-                      <i class="sidenav-mini-icon"> U </i>
-                      <span class="item-name">Add Shift</span>
-                  </a>
+                <a class="nav-link " data-th-href="@{/show-shift}">
+                  <i class="icon">
+                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                      </g>
+                    </svg>
+                  </i>
+                  <i class="sidenav-mini-icon"> U </i>
+                  <span class="item-name">Add Shift</span>
+                </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link " data-th-href="@{/show-level}">
-                      <i class="icon">
-                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                              <g>
-                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                              </g>
-                          </svg>
-                      </i>
-                      <i class="sidenav-mini-icon"> U </i>
-                      <span class="item-name">Add Level</span>
-                  </a>
+                <a class="nav-link " data-th-href="@{/show-level}">
+                  <i class="icon">
+                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                      </g>
+                    </svg>
+                  </i>
+                  <i class="sidenav-mini-icon"> U </i>
+                  <span class="item-name">Add Level</span>
+                </a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link " data-th-href="@{/show-manager}">
-                    <i class="icon">
-                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                            <g>
-                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                            </g>
-                        </svg>
-                    </i>
-                    <i class="sidenav-mini-icon"> U </i>
-                    <span class="item-name">Add Reporting Manager</span>
+                <a class="nav-link " data-th-href="@{/show-add-employee}">
+                  <i class="icon">
+                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                      </g>
+                    </svg>
+                  </i>
+                  <i class="sidenav-mini-icon"> A </i>
+                  <span class="item-name">Add Employee</span>
                 </a>
-            </li>
-              
-              <li class="nav-item">
-                  <a class="nav-link " data-th-href="@{/show-add-employee}">
-                      <i class="icon">
-                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                              <g>
-                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                              </g>
-                          </svg>
-                      </i>
-                      <i class="sidenav-mini-icon"> A </i>
-                      <span class="item-name">Add Employee</span>
-                  </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link " data-th-href="@{/show-list-employee}">
-                      <i class="icon">
-                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                              <g>
-                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                              </g>
-                          </svg>
-                      </i>
-                      <i class="sidenav-mini-icon"> U </i>
-                      <span class="item-name">Employee List</span>
-                  </a>
+                <a class="nav-link " data-th-href="@{/show-list-employee}">
+                  <i class="icon">
+                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                      </g>
+                    </svg>
+                  </i>
+                  <i class="sidenav-mini-icon"> U </i>
+                  <span class="item-name">Employee List</span>
+                </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link " data-th-href="@{/show-leave}">
-                      <i class="icon">
-                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                              <g>
-                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                              </g>
-                          </svg>
-                      </i>
-                      <i class="sidenav-mini-icon"> U </i>
-                      <span class="item-name">Add Leave Type </span>
-                  </a>
+                <a class="nav-link " data-th-href="@{/show-leave}">
+                  <i class="icon">
+                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <g>
+                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                      </g>
+                    </svg>
+                  </i>
+                  <i class="sidenav-mini-icon"> U </i>
+                  <span class="item-name">Add Leave Type </span>
+                </a>
               </li>
-          </ul>
-            
+            </ul>
           </li>
 
           <li class="nav-item">
@@ -496,7 +494,7 @@
                   <span class="item-name">Add Employee Salary</span>
                 </a>
               </li>
-             
+
             </ul>
           </li>
 
@@ -550,7 +548,6 @@
               </li>
             </ul>
           </li>
-          
           <li class="nav-item">
             <a class="nav-link " href="../admin.html">
               <i class="icon">
@@ -1225,25 +1222,58 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
-                  <h4 class="card-title typing-text">Add New Department</h4>
+                  <h4 class="card-title typing-text">Assign Employee Project</h4>
                 </div>
               </div>
               <div class="card-body">
                 <div class="new-user-info">
-                  <form id="departmentForm" onsubmit="saveDepartment(event)">
+<form id="assignProjectForm">
+  <div class="row">
+    <!-- Hidden field for project_id -->
+    <input type="hidden" id="project_id">
 
-                    <div class="row">
-                      <div class="form-group col-md-12">
-                        <label class="form-label" for="department">Department Name</label>
-                        <input type="hidden" class="form-control" id="dept_id" required="true"
-                          placeholder="Department Id">
-                        <input type="text" class="form-control" id="dept_name" 
-                          placeholder="Department Name">
-                      </div>
-                    </div>
+    <!-- Employee dropdown -->
+    <div class="form-group col-md-6">
+      <label>Employee Name</label>
+      <select class="form-control" id="employeeName" required>
+        <option value="" disabled selected>- Select Employee -</option>
+        <option value="1">Amit Kumar</option>
+        <option value="2">Faizal Khan</option>
+      </select>
+    </div>
 
-                    <button type="submit" class="btn btn-primary">Add New Department</button>
-                  </form>
+    <!-- Project dropdown area -->
+    <div class="form-group col-md-6" id="projectDropdownContainer">
+
+      <!-- Label + Add Link -->
+      <div class="d-flex justify-content-between align-items-center mb-1">
+  <label class="mb-0">Project Name</label>
+  <a href="javascript:void(0);" id="addProjectDropdown" style="color: #3A5E78; font-weight: bold; font-size: 14px;">
+    + Add Project
+  </a>
+</div>
+
+<!-- This should exist only once on the page -->
+<div class="form-group col-md-6" id="projectDropdownContainer">
+  <!-- Default dropdown wrapper -->
+  <div class="project-select-wrapper mb-2">
+    <select class="form-control" name="projectName[]" required>
+      <option value="" disabled selected>- Select Project -</option>
+      <!-- <option value="IEA">IEA</option>
+      <option value="ERP">ERP</option> -->
+    </select>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-3">Add New Project</button>
+</form>
+
+
+
                 </div>
               </div>
             </div>
@@ -1261,7 +1291,7 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
-                  <h4 class="card-title">Department List</h4>
+                  <h4 class="card-title typing-text">Assign Employee Projects List</h4>
                 </div>
               </div>
               <div class="card-body px-0">
@@ -1269,12 +1299,13 @@
                   <table id="user-list-table" class="table table-striped" role="grid" data-bs-toggle="data-table">
                     <thead>
                       <tr class="ligth">
-                        <th>Department Id</th>
-                        <th>Department Name</th>
-                        <th style="min-width: 100px">Action</th>
+                        <th class="text-center">Project Id</th>
+                        <th class="text-center">Employee Name</th>
+                        <th class="text-center">Project Name</th>
+                        <th class="text-center" style="min-width: 100px">Action</th>
                       </tr>
                     </thead>
-                    <tbody id="departmentList">
+                    <tbody id="assignmentTableBody">
                       <tr>
                         <td></td>
                         <td></td>
@@ -1561,53 +1592,6 @@
     </div>
   </div>
 
-
-<!-- -------------------------------- -->
-<!-- Edit Department Modal Start Here -->
-<!-- -------------------------------- -->
-<div class="modal fade edit-model" id="editDepartmentModal" tabindex="-1" aria-labelledby="editDepartmentLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <form id="editForm">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title text-white" id="editDepartmentLabel">Edit Department</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="edit_dept_id">
-          <div class="mb-3">
-            <label for="edit_dept_name" class="form-label">Department Name</label>
-            <input type="text" class="form-control" id="edit_dept_name" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Update</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-</div>
-
-<!-- ------------------------------ -->
-<!-- Edit Department Modal End Here -->
-<!-- ------------------------------ -->
-
-
-
-
-
-<!-- ------------------------- -->
-<!------- Alert Placeholder ----->
-<!-- ----------------- -->
-<div id="alertPlaceholder" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1055;"></div>
-<!-- -------------------------- -->
-<!-- Alert Placeholder End Here -->
-<!-- -------------------------- -->
-
-
   <!-- ------------------------------------ -->
   <!-- Delete Confirmation Modal Start Here -->
   <!-- ------------------------------------ -->
@@ -1638,7 +1622,6 @@
   <!-- Custom JS -->
   <script th:src="@{/assets/js/Custom.js}"></script>
 
-
   <!-- Library Bundle Script -->
   <script src="../../assets/js/core/libs.min.js"></script>
 
@@ -1664,20 +1647,10 @@
   <!-- Form Wizard Script -->
   <script src="../../assets/js/plugins/form-wizard.js"></script>
 
-  <!-- AOS Animation Plugin-->
-
   <!-- App Script -->
-  <script src="../../assets/js/hope-ui.js" defer></script>
+  <script src="../../assets/js/hope-ui.js"></script>
 
-  <script src="../../assets/js/department.js"></script>
-
-
-
-
-
+  <script src="../../assets/js/assignEmployeeProject.js"></script>
 
 </body>
-
-<!-- Mirrored from templates.iqonic.design/hope-ui/html/dist/dashboard/app/user-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jun 2025 04:11:51 GMT -->
-
 </html>

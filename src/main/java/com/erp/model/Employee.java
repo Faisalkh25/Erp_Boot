@@ -19,7 +19,8 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int emp_id;
+    @Column(name = "emp_id")
+    private int empId;
     private int emp_code;
 
     @Column(nullable = false)
@@ -88,12 +89,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int emp_id, int emp_code, String first_name, String last_name, LocalDate dateOfBirth, String email,
+    public Employee(int empId, int emp_code, String first_name, String last_name, LocalDate dateOfBirth, String email,
             String personal_email, String address, String contact, LocalDate joining_date, Department department,
             String gender, Level emp_level, String company, Shift shift, String employee_status, String joining_status,
             String working_status, ReportingManager reporting_manager1, ReportingManager reporting_manager2, Role role,
             LocalDateTime date_created, LocalDateTime updated_at, String password, String profile_picture) {
-        this.emp_id = emp_id;
+        this.empId = empId;
         this.emp_code = emp_code;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -120,12 +121,12 @@ public class Employee {
         this.profile_picture = profile_picture;
     }
 
-    public int getEmp_id() {
-        return emp_id;
+    public int getEmpId() {
+        return empId;
     }
 
-    public void setEmp_id(int emp_id) {
-        this.emp_id = emp_id;
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
     public int getEmp_code() {

@@ -2,6 +2,8 @@ package com.erp.model;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,7 @@ public class TaskType {
     @Column(name = "type_name")
     private String typeName;
 
+    @CreationTimestamp
     @Column(name = "date_Created", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dateCreated;
 

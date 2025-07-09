@@ -1,7 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default"
-    xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +10,6 @@
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
 
     <!-- Hope Ui Design System Css -->
     <link rel="stylesheet" href="../../assets/css/hope-ui.min1fc6.css?v=4.0.0">
@@ -29,12 +26,22 @@
     <!-- My Custom CSS -->
     <link rel="stylesheet" href="../../assets/css/custom.css">
 
-    <!-- Font Aoesome -->
+    <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
-
-<body onload="loadEmployees()">
+<body onload="loadSalaryList()">
+    <!-- ------------------------- -->
+    <!------- Alert Placeholder ----->
+    <!-- ------------------------- -->
+    <div id="alertBox" class="alert alert-success alert-dismissible fade show d-none" role="alert"
+        style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: auto; max-width: 90%;">
+        <span id="alertMessage"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <!-- -------------------------- -->
+    <!-- Alert Placeholder End Here -->
+    <!-- -------------------------- -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
     <!-- ------------ -->
@@ -49,11 +56,9 @@
     <!-- ---------- -->
     <!-- loader END -->
     <!-- ---------- -->
-
     <aside class="sidebar sidebar-default sidebar-white sidebar-base navs-rounded-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             <a href="../index.html" class="navbar-brand">
-
                 <!-- -------- -->
                 <!--Logo start-->
                 <!-- -------- -->
@@ -79,10 +84,6 @@
                 <!-- ------ -->
                 <!--logo End-->
                 <!-- ------ -->
-
-
-
-
                 <h4 class="logo-title">Barrownz</h4>
             </a>
             <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
@@ -98,9 +99,7 @@
         </div>
         <div class="sidebar-body pt-0 data-scrollbar">
             <div class="sidebar-list">
-                <!-- ------------------ -->
                 <!-- Sidebar Menu Start -->
-                <!-- ------------------ -->
                 <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
                     <li class="nav-item static-item">
                         <a class="nav-link static-item disabled" href="#" tabindex="-1">
@@ -108,10 +107,10 @@
                             <span class="mini-icon">-</span>
                         </a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">
+                        <a class="nav-link active" aria-current="page" data-th-href="@{/index}">
                             <i class="icon">
+
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -131,7 +130,6 @@
                             <span class="mini-icon">-</span>
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-auth" role="button"
                             aria-expanded="false" aria-controls="sidebar-user">
@@ -170,6 +168,7 @@
                                     <span class="item-name">Login</span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="../auth/confirm-mail.html">
                                     <i class="icon">
@@ -182,6 +181,20 @@
                                     </i>
                                     <i class="sidenav-mini-icon"> C </i>
                                     <span class="item-name">Confirm Mail</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../auth/lock-screen.html">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> L </i>
+                                    <span class="item-name">Lock Screen</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -198,6 +211,7 @@
                                     <span class="item-name">Recover password</span>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
 
@@ -238,105 +252,105 @@
                         </a>
                         <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                              <a class="nav-link " data-th-href="@{/user-profile}">
-                                <i class="icon">
-                                  <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <g>
-                                      <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                  </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">Employee Profile</span>
-                              </a>
+                                <a class="nav-link " data-th-href="@{/user-profile}">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Employee Profile</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link " data-th-href="@{/show-add-department}">
-                                <i class="icon">
-                                  <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <g>
-                                      <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                  </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">Add Department</span>
-                              </a>
+                                <a class="nav-link " data-th-href="@{/show-add-department}">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Add Department</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link " data-th-href="@{/show-shift}">
-                                <i class="icon">
-                                  <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <g>
-                                      <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                  </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">Add Shift</span>
-                              </a>
+                                <a class="nav-link " data-th-href="@{/show-shift}">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Add Shift</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link " data-th-href="@{/show-level}">
-                                <i class="icon">
-                                  <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <g>
-                                      <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                  </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">Add Level</span>
-                              </a>
+                                <a class="nav-link " data-th-href="@{/show-level}">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Add Level</span>
+                                </a>
                             </li>
-              
+
                             <li class="nav-item">
-                              <a class="nav-link " data-th-href="@{/show-add-employee}">
-                                <i class="icon">
-                                  <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <g>
-                                      <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                  </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> A </i>
-                                <span class="item-name">Add Employee</span>
-                              </a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link " data-th-href="@{/show-list-employee}">
-                                <i class="icon">
-                                  <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <g>
-                                      <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                  </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">Employee List</span>
-                              </a>
+                                <a class="nav-link " data-th-href="@{/show-add-employee}">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> A </i>
+                                    <span class="item-name">Add Employee</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link " data-th-href="@{/show-leave}">
-                                <i class="icon">
-                                  <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <g>
-                                      <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                    </g>
-                                  </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">Add Leave Type </span>
-                              </a>
+                                <a class="nav-link " data-th-href="@{/show-list-employee}">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Employee List</span>
+                                </a>
                             </li>
-                          </ul>
+                            <li class="nav-item">
+                                <a class="nav-link " data-th-href="@{/show-leave}">
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
+                                            viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Add Leave Type </span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="nav-item">
@@ -531,8 +545,8 @@
                                     <span class="item-name">Error 500</span>
                                 </a>
                             </li>
-
                         </ul>
+             
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="../admin.html">
@@ -550,6 +564,7 @@
                             <span class="item-name">Admin</span>
                         </a>
                     </li>
+                 
                     <li>
                         <hr class="hr-horizontal">
                     </li>
@@ -902,12 +917,12 @@
             <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar">
                 <div class="container-fluid navbar-inner">
                     <a href="../index.html" class="navbar-brand">
-
                         <!-- -------- -->
                         <!--Logo start-->
                         <!-- -------- -->
                         <div class="logo-main">
                             <div class="logo-normal">
+
                                 <img src="../../assets/custom_images/barrownz-logo.png" class="img-fluid"
                                     style="height: 30px; width: 30px;" alt="">
                             </div>
@@ -928,8 +943,6 @@
                         <!-- ------ -->
                         <!--logo End-->
                         <!-- ------ -->
-
-
                         <h4 class="logo-title">Barrownz</h4>
                     </a>
                     <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
@@ -1150,17 +1163,16 @@
                                     <img src="../../assets/images/avatars/avtar_3.png" alt="User-Profile"
                                         class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded">
                                     <div class="caption ms-3">
-                                        <!-- -------------------------- -->
-                                        <!-- IN/OUT Toggle Button Start -->
-                                        <!-- -------------------------- -->
-
+                                    <!-- -------------------------- -->
+                                    <!-- IN/OUT Toggle Button Start -->
+                                    <!-- -------------------------- -->
                                         <button id="toggleBtn" class="toggle-btn">
                                             <span id="textOut" class="toggle-text active fw-bold">OUT</span>
                                             <span id="textIn" class="toggle-text fw-bold">IN</span>
                                         </button>
-                                        <!-- ------------------------ -->
-                                        <!-- IN/OUT Toggle Button End -->
-                                        <!-- ------------------------ -->
+                                    <!-- ------------------------ -->
+                                    <!-- IN/OUT Toggle Button End -->
+                                    <!-- ------------------------ -->
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -1186,7 +1198,7 @@
                         <div class="col-md-12">
                             <div class="flex-wrap d-flex justify-content-between align-items-center">
                                 <div class="breadcrumb-line d-flex align-items-center gap-2">
-                                    <h6 class="mb-0">HOME</h6>
+                                    <h5 class="mb-0">HOME</h5>
                                     <span>
                                         <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1194,7 +1206,7 @@
                                                 stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </span>
-                                    <h6 class="mb-0">ADD EMPLOYEE</h6>
+                                    <h5 class="mb-0">ADD EMPLOYEE SALARY</h5>
                                 </div>
                                 <div>
                                     <a href="#" class="btn btn-link btn-soft-light">
@@ -1229,200 +1241,46 @@
                         class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX">
                 </div>
             </div>
-            <!-----------Nav End------------>
-            <!-- Nav Header Component End -->
             <!-- ------------------------ -->
-
+            <!-- Nav Header Component End -->
+            <!-----------Nav End------------>
+            <!-- ------------------------ -->
         </div>
 
-        <div class="conatiner-fluid content-inner mt-n5 py-0">
+        <div class="container px-5 mt-n5 py-0">
             <div>
                 <div class="row">
-
                     <div class="col-xl-12 col-lg-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title typing-text">Add Employee Information</h4>
+                                    <h4 class="card-title typing-text">Add Employee Salary</h4>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="new-user-info">
-                                  <form id="employeeForm" onsubmit="buildEmpFromForm(event)" enctype="multipart/form-data">
+                                    <!-- ---------------------- -->
+                                    <!-- Salary Form Start Here -->
+                                    <!-- ---------------------- -->
+                                    <form id="clientForm">
                                         <div class="row">
+                                            <input type="hidden" id="client_id">
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="empCode">Employee Code:</label>
-                                                <input type="number" class="form-control" required id="empCode"
-                                                    placeholder="Employee Code">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="firstName">First Name:</label>
-                                                <input type="text" class="form-control" required id="firstName"
-                                                    placeholder="First Name">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="lastName">Last Name:</label>
-                                                <input type="text" class="form-control" required id="lastName"
-                                                    placeholder="Last Name">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="dob">Date of Birth:</label>
-                                                <input type="date" class="form-control" required id="dob">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="gender">Employee Gender:</label>
-                                                <select class="form-control" id="gender" required>
-                                                    <option value="" disabled selected>-Select Gender-</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
+                                                <label>Employee Name</label>
+                                                <select class="form-control" id="employee" name="employee" required>
+                                                    <option value="" disabled selected>- Select Employee -</option> 
                                                 </select>
                                             </div>
-
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="email">Email:</label>
-                                                <input type="email" class="form-control" required id="email"
-                                                    placeholder="Email">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="personalEmail">Personal Email:</label>
-                                                <input type="email" class="form-control" required id="personalEmail"
-                                                    placeholder="Personal Email">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="address">Address:</label>
-                                                <input type="text" class="form-control" required id="address"
-                                                    placeholder="Address">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="contact">Mobile Number:</label>
-                                                <input type="text" class="form-control" required id="contact"
-                                                    placeholder="Mobile Number">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="joiningDate">Joining Date:</label>
-                                                <input type="date" class="form-control" required id="joiningDate">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="empLevel">Employee Level:</label>
-                                                <select class="form-control" id="level" required>
-                                                    <option value="" disabled selected>-Select Level-</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="company">Company:</label>
-                                                <select class="form-control" id="company" required>
-                                                    <option value="" disabled selected>-Select Company-</option>
-                                                    <option value="One">One</option>
-                                                    <option value="Two">Two</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="shift">Employee Shift:</label>
-                                                <select class="form-control" id="shift" required>
-                                                    <option value="" disabled selected>-Select Shift-</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="employeeStatus">Employee Status</label>
-                                                <select class="form-control" id="employeeStatus" required>
-                                                    <option value="" disabled selected>-Select Employee Status-</option>
-                                                    <option value="Training">Training</option>
-                                                    <option value="Provation">Provation</option>
-                                                    <option value="Confirm">Confirm</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="joiningStatus">Joining Status</label>
-                                                <select class="form-control" id="joiningStatus" required>
-                                                    <option value="" disabled selected>-Select Joining Status-</option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Block">Block</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="workingStatus">Working Status</label>
-                                                <select class="form-control" id="workingStatus" required>
-                                                    <option value="" disabled selected>-Select Working Status-</option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Terminated">Terminated</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="department">Department Name</label>
-                                                <select class="form-control" id="dept" required>
-                                                    <option value="" disabled selected>-Select Department-</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="rep_name1">Reporting Manager 1</label>
-                                                    <select class="form-control" id="rep_name1">
-                                                        <option value="" disabled selected>-Select Manager 1-</option>
-                                                    </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="rep_name2">Reporting Manager 2</label>
-                                                    <select class="form-control" id="rep_name2">
-                                                        <option value="" disabled selected>-Select Manager 2-</option>
-                                                    </select>
-                                            </div>
-                                        
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="role">Employee Role:</label>
-                                                <select class="form-control" id="role">
-                                                    <option value="" disabled selected>-Select Role-</option>
-                                                   
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="password">Password:</label>
-                                                <input type="password" class="form-control" id="password"
-                                                    placeholder="Password">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="confirmPassword">Repeat Password:</label>
-                                                <input type="password" class="form-control" id="confirmPassword"
-                                                     placeholder="Repeat Password">
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="image">Profile Picture:</label>
-                                                <input type="file" class="file-upload" id="profileImageInput" accept="image/*" />
-                                                <div class="mt-2">
-                                                    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc;" />
-                                                </div>
+                                                <label class="form-label" for="salary">Salary</label>
+                                                <input type="number" class="form-control" id="salary" name="salary" required="true" placeholder="Enter Salary">
                                             </div>
                                         </div>
-
-                                        <div class="checkbox">
-                                            <label class="form-label">
-                                                <input class="form-check-input me-2" type="checkbox" value=""
-                                                    id="twoFactorAuth">
-                                                Enable Two-Factor-Authentication
-                                            </label>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary mt-3">Add New Employee</button>
+                                        <button type="submit" class="btn btn-primary mt-3">Add Employee Salary</button>
                                     </form>
+                                    <!-- ---------------------- -->
+                                    <!-- Salary Form End Here -->
+                                    <!-- ---------------------- -->
                                 </div>
                             </div>
                         </div>
@@ -1430,100 +1288,51 @@
                 </div>
             </div>
         </div>
-
-        <div class="container-fluid content-inner py-0">
+        <!-- ---------------------------- -->
+        <!--Salary List Section Start Here-->
+        <!-- ---------------------------- -->
+        <div class="conatiner-fluid content-inner py-0">
             <div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="card position-relative"> 
+                        <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title">Employees List</h4>
+                                    <h4 class="card-title typing-text">Employees Salary List</h4>
                                 </div>
                             </div>
                             <div class="card-body px-0">
-                                <div class="table-scroll-container" id="scrollTableContainer">
-                                    <div class="table-responsive custom-scroll">
-                                        <table id="employeeTable" class="table user-list-table table-striped" role="grid" data-bs-toggle="data-table">
-                                            <thead class="text-center">
-                                                <tr class="light">
-                                                    <th>Profile Image</th>
-                                                    <th>Employee Id</th>
-                                                    <th>Employee Code</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>DOB</th>
-                                                    <th>Gender</th>
-                                                    <th>Personal Email</th>
-                                                    <th>Company Email</th>
-                                                    <th>Address</th>
-                                                    <th>Contact</th>
-                                                    <th>Joining Date</th>
-                                                    <th>Level</th>
-                                                    <th>Company</th>
-                                                    <th>Shift</th>
-                                                    <th>Employee Status</th>
-                                                    <th>Joining Status</th>
-                                                    <th>Working Status</th>
-                                                    <th>Department Name</th>
-                                                    <th>Reporing Manager-1</th>
-                                                    <th>Reporting Manager-2</th>
-                                                    <th>Role</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- --------------- -->
-                                                <!-- Employee data rows dynamically -->
-                                                <!-- --------------- -->
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div class="table-responsive">
+                                    <table id="user-list-table" class="table table-striped" role="grid" data-bs-toggle="data-table">
+                                        <thead>
+                                            <tr class="ligth">
+                                                <th class="text-center">Salary Id</th>
+                                                <th class="text-center">Employee Name</th>
+                                                <th class="text-center">Salary Amount</th>
+                                                <th class="text-center" style="min-width: 100px">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="salaryTableBody">
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-
-                                <!-- ------------------------------- -->
-                                <!-- ⬅️ ➡️ SCROLL BUTTONS AT BOTTOM -->
-                                <!-- ------------------------------- -->
-                                <div class="scroll-buttons-wrapper">
-                                    <button class="scroll-btn left-btn" onclick="scrollTable('left')">&#10094;</button>
-                                    <button class="scroll-btn right-btn"
-                                        onclick="scrollTable('right')">&#10095;</button>
-                                </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- ---------------------------- -->
+        <!--Salary List Section End Here-->
+        <!-- ---------------------------- -->
 
-
-        <!-- -------------------- -->
-        <!-- Footer Section Start -->
-        <!-- -------------------- -->
-        <footer class="footer">
-            <div class="footer-body">
-                <ul class="left-panel list-inline mb-0 p-0">
-                    <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a></li>
-                    <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a></li>
-                </ul>
-                <div class="right-panel text-center">
-                    ©
-                    <script>document.write(new Date().getFullYear())</script> Barrownz Group,
-                    <span class="">
-                        <svg class="icon-15" width="15" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z"
-                                fill="currentColor"></path>
-                        </svg>
-                    </span>269/9 Vastu Khand, Gomti Nagar, Lucknow.
-                </div>
-            </div>
-        </footer>
-        <!-- ------------------ -->
-        <!-- Footer Section End -->
-        <!-- ------------------ -->
+    <!-- ------------------ -->
+    <!-- Footer Section End -->
+    <!-- ------------------ -->
     </main>
     <a class="btn btn-fixed-end btn-primary btn-icon btn-setting" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasExample" role="button" aria-controls="offcanvasExample">
@@ -1536,10 +1345,9 @@
                 stroke-linecap="round" stroke-linejoin="round"></circle>
         </svg>
     </a>
-    <!-- --------------- -->
-    <!----- Wrapper End---->
+
+    <!-- Wrapper End-->
     <!-- offcanvas start -->
-    <!-- --------------- -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" data-bs-scroll="true"
         data-bs-backdrop="true" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
@@ -1806,194 +1614,71 @@
         </div>
     </div>
 
-
-     <!-- --------------------------- -->
-    <!-- Edit Alert Model Start Here -->
-    <!-- --------------------------- -->
-
-    <!-- Alert Placeholder (if not already added) -->
-<div id="alertPlaceholder"></div>
-
-<!-- Edit Employee Modal -->
-<div class="modal fade animate__animated animate__fadeInDown" id="editModal" tabindex="-1"
-    aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content rounded-4 shadow-lg border-0">
-      <form id="editEmpForm">
-        <div class="modal-header bg-primary text-white rounded-top-4">
-          <h5 class="modal-title text-light fw-bold" id="editModalLabel">Edit Employee</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    
+<!-- -------------------------------- -->
+<!-- Edit Department Modal Start Here -->
+<!-- -------------------------------- -->
+<div class="modal fade" id="editSalaryModal" tabindex="-1" aria-labelledby="editSalaryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="editSalaryForm">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title text-light">Edit Employee Salary</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-
-        <div class="modal-body p-4">
-            <input type="hidden" id="emp_id_hidden" name="emp_id_hidden" />
- 
-
-          <div class="row g-3">
-            <div class="form-group col-md-6">
-              <label>Employee Code</label>
-              <input type="number" class="form-control" id="editempCode" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>First Name</label>
-              <input type="text" class="form-control" id="editfirstName" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Last Name</label>
-              <input type="text" class="form-control" id="editlastName" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Date of Birth</label>
-              <input type="date" class="form-control" id="editdob" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Gender</label>
-              <select class="form-control" id="editgender" required>
-                <option value="" disabled selected>- Select Gender -</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Email</label>
-              <input type="email" class="form-control" id="editemail" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Personal Email</label>
-              <input type="email" class="form-control" id="editpersonalEmail" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Address</label>
-              <input type="text" class="form-control" id="editaddress" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Mobile Number</label>
-              <input type="text" class="form-control" id="editcontact" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Joining Date</label>
-              <input type="date" class="form-control" id="editjoiningDate" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Level</label>
-              <select class="form-control" id="editlevel" ></select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Company</label>
-              <select class="form-control" id="editcompany" required>
-                <option value="" disabled selected>- Select Company -</option>
-                <option value="One">One</option>
-                <option value="Two">Two</option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Shift</label>
-              <select class="form-control" id="editshift" ></select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Employee Status</label>
-              <select class="form-control" id="editemployeeStatus" required>
-                <option value="" disabled selected>- Select Status -</option>
-                <option value="Training">Training</option>
-                <option value="Provation">Provation</option>
-                <option value="Confirm">Confirm</option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Joining Status</label>
-              <select class="form-control" id="editjoiningStatus" required>
-                <option value="" disabled selected>- Select Joining Status -</option>
-                <option value="Active">Active</option>
-                <option value="Block">Block</option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Working Status</label>
-              <select class="form-control" id="editworkingStatus" required>
-                <option value="" disabled selected>- Select Working Status -</option>
-                <option value="Active">Active</option>
-                <option value="Terminated">Terminated</option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Department</label>
-              <select class="form-control" id="editdept" required></select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Reporting Manager 1</label>
-              <select class="form-control" id="editrep_name1"></select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Reporting Manager 2</label>
-              <select class="form-control" id="editrep_name2"></select>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label>Role</label>
-              <select class="form-control" id="editrole"></select>
-            </div>
+        <div class="modal-body">
+          <input type="hidden" id="edit_salary_id">
+          <div class="mb-3">
+            <label class="form-label">Employee Name</label>
+            <select class="form-control" id="editemployee" required>
+              <option disabled selected>- Select Employee -</option>
+            </select>
+          </div>
+            <div class="mb-3">
+            <label class="form-label">Salary</label>
+            <input type="text" class="form-control" id="editsalary" required>
           </div>
         </div>
-
-        <div class="modal-footer bg-light rounded-bottom-4">
-          <button type="submit" class="btn btn-success px-4">Update Employee</button>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Update</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<!-- ------------------------------ -->
+<!-- Edit Department Modal End Here -->
+<!-- ------------------------------ -->
 
-    <!-- ------------------------- -->
-    <!-- Edit Alert Model End Here -->
-    <!-- ------------------------- -->
-
-      <!-- ------------------------------------ -->
-  <!-- Delete Confirmation Modal Start Here -->
-  <!-- ------------------------------------ -->
-  <div class="modal fade delete-model" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title text-white" id="deleteConfirmLabel">Confirm Delete</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- ------------------------------------ -->
+    <!-- Delete Confirmation Modal Start Here --->
+    <!-- ------------------------------------ -->
+    <div class="modal fade delete-model" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title text-white" id="deleteConfirmLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this department?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          Are you sure you want to delete this department?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <!-- ------------------------------------ -->
-  <!-- Delete Confirmation Modal End Here -->
-  <!-- ------------------------------------ -->
+    <!-- ------------------------------------ -->
+    <!-- Delete Confirmation Modal End Here -->
+    <!-- ------------------------------------ -->
 
 
-    <!-- Employee JS-->
-    <script data-th-src="@{/assets/js/employee.js}"></script>
+    <!-- Custom JS -->
+    <script th:src="@{/assets/js/Custom.js}"></script>
 
     <!-- Library Bundle Script -->
     <script src="../../assets/js/core/libs.min.js"></script>
@@ -2020,14 +1705,12 @@
     <!-- Form Wizard Script -->
     <script src="../../assets/js/plugins/form-wizard.js"></script>
 
-    <!-- AOS Animation Plugin-->
-
     <!-- App Script -->
     <script src="../../assets/js/hope-ui.js" defer></script>
 
-    <!-- Custom JS -->
-    <script src="../../assets/js/Custom.js"></script>
-
+    <!-- Salary Custom JS  -->
+    <script src="../../assets/js/employeeSalary.js"></script>
 
 </body>
+
 </html>

@@ -17,6 +17,7 @@ public class TaskStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "status_id")
     private int statusId;
 
     @Column(name = "status_name")

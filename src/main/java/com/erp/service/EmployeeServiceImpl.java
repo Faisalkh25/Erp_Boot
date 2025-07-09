@@ -124,6 +124,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     // mapDto to employee
     private Employee mapDtoToEmployee(EmployeeDto dto, Employee employee) {
+
+        System.out.println("DTO password value during update: " + dto.getPassword());
+
         employee.setEmp_code(dto.getEmp_code());
         employee.setFirst_name(dto.getFirst_name());
         employee.setLast_name(dto.getLast_name());
@@ -134,6 +137,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setContact(dto.getContact());
         employee.setJoining_date(dto.getJoining_date());
         employee.setGender(dto.getGender());
+        // employee.setPassword(dto.getPassword());
+
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            employee.setPassword(dto.getPassword());
+        }
+
         // employee.setDepartment(departmentRepo.findById(dto.getDepartmentId()).orElse(null));
         if (dto.getDepartmentId() > 0) {
             employee.setDepartment(departmentRepo.findById(dto.getDepartmentId()).orElse(null));
@@ -154,8 +163,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (dto.getRoleId() > 0) {
             employee.setRole(roleRepo.findById(dto.getRoleId()).orElse(null));
         }
-        employee.setPassword(dto.getPassword());
-
         if (dto.getReportingManager1Id() != null && dto.getReportingManager1Id() > 0)
             employee.setReporting_manager1(rmRepo.findById(dto.getReportingManager1Id()).orElse(null));
 
@@ -174,7 +181,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         EmployeeDto dto = new EmployeeDto();
 
-        dto.setEmp_id(emp.getEmp_id());
+        dto.setEmp_id(emp.getEmpId());
         dto.setEmp_code(emp.getEmp_code());
         dto.setFirst_name(emp.getFirst_name());
         dto.setLast_name(emp.getLast_name());

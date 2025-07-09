@@ -54,4 +54,39 @@ public class HomeController {
         return "dashboard/app/r-manager";
     }
 
+    @GetMapping("/show-project")
+    public String showTaskProject() {
+        return "dashboard/app/task-project";
+    }
+
+    @GetMapping("/show-subject")
+    public String showTaskSubject() {
+        return "dashboard/app/task-subject";
+    }
+
+    @GetMapping("/show-priority")
+    public String showTaskPriority() {
+        return "dashboard/app/task-priority";
+    }
+
+    @GetMapping("/show-type")
+    public String showTaskType() {
+        return "dashboard/app/task-type";
+    }
+
+    @GetMapping("/show-status")
+    public String showTaskStatus() {
+        return "dashboard/app/task-status";
+    }
+
+    @GetMapping("/show-assign-employee")
+    public String showAssignEmployeeProject() {
+        return "dashboard/app/assign-employee-project";
+    }
+
+    @GetMapping("/show-EmployeeSalary")
+    public String showEmployeeSalary() {
+        return "dashboard/app/employee-salary";
+    }
+
 }
