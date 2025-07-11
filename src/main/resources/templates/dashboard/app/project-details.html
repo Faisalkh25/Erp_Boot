@@ -26,42 +26,43 @@
     <!-- My Custom CSS -->
     <link rel="stylesheet" href="../../assets/css/custom.css">
 
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Bootstrap Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- jQuery (required for Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
 </head>
-<body onload="loadSalaryList()">
-    <!-- ------------------------- -->
-    <!------- Alert Placeholder ----->
-    <!-- ------------------------- -->
-    <div id="alertBox" class="alert alert-success alert-dismissible fade show d-none" role="alert"
-        style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: auto; max-width: 90%;">
-        <span id="alertMessage"></span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <!-- -------------------------- -->
-    <!-- Alert Placeholder End Here -->
-    <!-- -------------------------- -->
+<body>
+
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
-    <!-- ------------ -->
     <!-- loader Start -->
-    <!-- ------------ -->
     <div id="loading">
         <div class="loader simple-loader">
             <div class="loader-body">
             </div>
         </div>
     </div>
-    <!-- ---------- -->
     <!-- loader END -->
-    <!-- ---------- -->
+
     <aside class="sidebar sidebar-default sidebar-white sidebar-base navs-rounded-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             <a href="../index.html" class="navbar-brand">
-                <!-- -------- -->
+
                 <!--Logo start-->
-                <!-- -------- -->
                 <div class="logo-main">
                     <div class="logo-normal">
 
@@ -81,9 +82,8 @@
                         </svg>
                     </div>
                 </div>
-                <!-- ------ -->
                 <!--logo End-->
-                <!-- ------ -->
+
                 <h4 class="logo-title">Barrownz</h4>
             </a>
             <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
@@ -107,10 +107,10 @@
                             <span class="mini-icon">-</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" data-th-href="@{/index}">
-                            <i class="icon">
 
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">
+                            <i class="icon">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -121,6 +121,7 @@
                             <span class="item-name">Admin Dashboard</span>
                         </a>
                     </li>
+
                     <li>
                         <hr class="hr-horizontal">
                     </li>
@@ -130,6 +131,7 @@
                             <span class="mini-icon">-</span>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-auth" role="button"
                             aria-expanded="false" aria-controls="sidebar-user">
@@ -168,7 +170,6 @@
                                     <span class="item-name">Login</span>
                                 </a>
                             </li>
-
                             <li class="nav-item">
                                 <a class="nav-link" href="../auth/confirm-mail.html">
                                     <i class="icon">
@@ -181,20 +182,6 @@
                                     </i>
                                     <i class="sidenav-mini-icon"> C </i>
                                     <span class="item-name">Confirm Mail</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../auth/lock-screen.html">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> L </i>
-                                    <span class="item-name">Lock Screen</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -211,146 +198,136 @@
                                     <span class="item-name">Recover password</span>
                                 </a>
                             </li>
-
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user" role="button"
-                            aria-expanded="false" aria-controls="sidebar-user">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user" role="button" aria-expanded="false" aria-controls="sidebar-user">
                             <i class="icon">
-                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z"
-                                        fill="currentColor"></path>
-                                    <path opacity="0.4"
-                                        d="M11.949 12.467C14.2851 12.467 16.1583 10.5831 16.1583 8.23351C16.1583 5.88306 14.2851 4 11.949 4C9.61293 4 7.73975 5.88306 7.73975 8.23351C7.73975 10.5831 9.61293 12.467 11.949 12.467Z"
-                                        fill="currentColor"></path>
-                                    <path opacity="0.4"
-                                        d="M21.0881 9.21923C21.6925 6.84176 19.9205 4.70654 17.664 4.70654C17.4187 4.70654 17.1841 4.73356 16.9549 4.77949C16.9244 4.78669 16.8904 4.802 16.8725 4.82902C16.8519 4.86324 16.8671 4.90917 16.8895 4.93889C17.5673 5.89528 17.9568 7.0597 17.9568 8.30967C17.9568 9.50741 17.5996 10.6241 16.9728 11.5508C16.9083 11.6462 16.9656 11.775 17.0793 11.7948C17.2369 11.8227 17.3981 11.8371 17.5629 11.8416C19.2059 11.8849 20.6807 10.8213 21.0881 9.21923Z"
-                                        fill="currentColor"></path>
-                                    <path
-                                        d="M22.8094 14.817C22.5086 14.1722 21.7824 13.73 20.6783 13.513C20.1572 13.3851 18.747 13.205 17.4352 13.2293C17.4155 13.232 17.4048 13.2455 17.403 13.2545C17.4003 13.2671 17.4057 13.2887 17.4316 13.3022C18.0378 13.6039 20.3811 14.916 20.0865 17.6834C20.074 17.8032 20.1698 17.9068 20.2888 17.8888C20.8655 17.8059 22.3492 17.4853 22.8094 16.4866C23.0637 15.9589 23.0637 15.3456 22.8094 14.817Z"
-                                        fill="currentColor"></path>
-                                    <path opacity="0.4"
-                                        d="M7.04459 4.77973C6.81626 4.7329 6.58077 4.70679 6.33543 4.70679C4.07901 4.70679 2.30701 6.84201 2.9123 9.21947C3.31882 10.8216 4.79355 11.8851 6.43661 11.8419C6.60136 11.8374 6.76343 11.8221 6.92013 11.7951C7.03384 11.7753 7.09115 11.6465 7.02668 11.551C6.3999 10.6234 6.04263 9.50765 6.04263 8.30991C6.04263 7.05904 6.43303 5.89462 7.11085 4.93913C7.13234 4.90941 7.14845 4.86348 7.12696 4.82926C7.10906 4.80135 7.07593 4.78694 7.04459 4.77973Z"
-                                        fill="currentColor"></path>
-                                    <path
-                                        d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z"
-                                        fill="currentColor"></path>
+                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z" fill="currentColor"></path>
+                                    <path opacity="0.4" d="M11.949 12.467C14.2851 12.467 16.1583 10.5831 16.1583 8.23351C16.1583 5.88306 14.2851 4 11.949 4C9.61293 4 7.73975 5.88306 7.73975 8.23351C7.73975 10.5831 9.61293 12.467 11.949 12.467Z" fill="currentColor"></path>
+                                    <path opacity="0.4" d="M21.0881 9.21923C21.6925 6.84176 19.9205 4.70654 17.664 4.70654C17.4187 4.70654 17.1841 4.73356 16.9549 4.77949C16.9244 4.78669 16.8904 4.802 16.8725 4.82902C16.8519 4.86324 16.8671 4.90917 16.8895 4.93889C17.5673 5.89528 17.9568 7.0597 17.9568 8.30967C17.9568 9.50741 17.5996 10.6241 16.9728 11.5508C16.9083 11.6462 16.9656 11.775 17.0793 11.7948C17.2369 11.8227 17.3981 11.8371 17.5629 11.8416C19.2059 11.8849 20.6807 10.8213 21.0881 9.21923Z" fill="currentColor"></path>
+                                    <path d="M22.8094 14.817C22.5086 14.1722 21.7824 13.73 20.6783 13.513C20.1572 13.3851 18.747 13.205 17.4352 13.2293C17.4155 13.232 17.4048 13.2455 17.403 13.2545C17.4003 13.2671 17.4057 13.2887 17.4316 13.3022C18.0378 13.6039 20.3811 14.916 20.0865 17.6834C20.074 17.8032 20.1698 17.9068 20.2888 17.8888C20.8655 17.8059 22.3492 17.4853 22.8094 16.4866C23.0637 15.9589 23.0637 15.3456 22.8094 14.817Z" fill="currentColor"></path>
+                                    <path opacity="0.4" d="M7.04459 4.77973C6.81626 4.7329 6.58077 4.70679 6.33543 4.70679C4.07901 4.70679 2.30701 6.84201 2.9123 9.21947C3.31882 10.8216 4.79355 11.8851 6.43661 11.8419C6.60136 11.8374 6.76343 11.8221 6.92013 11.7951C7.03384 11.7753 7.09115 11.6465 7.02668 11.551C6.3999 10.6234 6.04263 9.50765 6.04263 8.30991C6.04263 7.05904 6.43303 5.89462 7.11085 4.93913C7.13234 4.90941 7.14845 4.86348 7.12696 4.82926C7.10906 4.80135 7.07593 4.78694 7.04459 4.77973Z" fill="currentColor"></path>
+                                    <path d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z" fill="currentColor"></path>
                                 </svg>
                             </i>
                             <span class="item-name">Employees</span>
                             <i class="right-icon">
-                                <svg class="icon-18" xmlns="http://www.w3.org/2000/svg" width="18" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
+                                <svg class="icon-18" xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
                             </i>
                         </a>
                         <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
-                            <li class="nav-item">
-                                <a class="nav-link " data-th-href="@{/user-profile}">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> U </i>
-                                    <span class="item-name">Employee Profile</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " data-th-href="@{/show-add-department}">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> U </i>
-                                    <span class="item-name">Add Department</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " data-th-href="@{/show-shift}">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> U </i>
-                                    <span class="item-name">Add Shift</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " data-th-href="@{/show-level}">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> U </i>
-                                    <span class="item-name">Add Level</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link " data-th-href="@{/show-add-employee}">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> A </i>
-                                    <span class="item-name">Add Employee</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " data-th-href="@{/show-list-employee}">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> U </i>
-                                    <span class="item-name">Employee List</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " data-th-href="@{/show-leave}">
-                                    <i class="icon">
-                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
-                                            viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> U </i>
-                                    <span class="item-name">Add Leave Type </span>
-                                </a>
-                            </li>
-                        </ul>
+                          <li class="nav-item">
+                              <a class="nav-link "  data-th-href="@{/user-profile}" >
+                                  <i class="icon">
+                                      <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> U </i>
+                                  <span class="item-name">Employee Profile</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link " data-th-href="@{/show-add-department}">
+                                  <i class="icon">
+                                      <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> U </i>
+                                  <span class="item-name">Add Department</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link " data-th-href="@{/show-shift}">
+                                  <i class="icon">
+                                      <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> U </i>
+                                  <span class="item-name">Add Shift</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link " data-th-href="@{/show-level}">
+                                  <i class="icon">
+                                      <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> U </i>
+                                  <span class="item-name">Add Level</span>
+                              </a>
+                          </li>
+            
+                          <li class="nav-item">
+                            <a class="nav-link " data-th-href="@{/show-manager}">
+                                <i class="icon">
+                                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                        <g>
+                                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                </i>
+                                <i class="sidenav-mini-icon"> U </i>
+                                <span class="item-name">Add Reporting Manager</span>
+                            </a>
+                        </li>
+                          
+                          <li class="nav-item">
+                              <a class="nav-link " data-th-href="@{/show-add-employee}">
+                                  <i class="icon">
+                                      <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> A </i>
+                                  <span class="item-name">Add Employee</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link " data-th-href="@{/show-list-employee}">
+                                  <i class="icon">
+                                      <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> U </i>
+                                  <span class="item-name">Employee List</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link " data-th-href="@{/show-leave}">
+                                  <i class="icon">
+                                      <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                          <g>
+                                          <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                          </g>
+                                      </svg>
+                                  </i>
+                                  <i class="sidenav-mini-icon"> U </i>
+                                  <span class="item-name">Add Leave Type </span>
+                              </a>
+                          </li>
+                      </ul>
                     </li>
 
                     <li class="nav-item">
@@ -578,8 +555,8 @@
                                 </a>
                             </li>
                         </ul>
-             
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link " href="../admin.html">
                             <i class="icon">
@@ -596,7 +573,7 @@
                             <span class="item-name">Admin</span>
                         </a>
                     </li>
-                 
+
                     <li>
                         <hr class="hr-horizontal">
                     </li>
@@ -934,27 +911,21 @@
                         </ul>
                     </li>
                 </ul>
-                <!-- ---------------- -->
                 <!-- Sidebar Menu End -->
-                <!-- ---------------- -->
             </div>
         </div>
         <div class="sidebar-footer"></div>
     </aside>
     <main class="main-content">
         <div class="position-relative iq-banner">
-            <!-- ------- -->
             <!--Nav Start-->
-            <!-- ------- -->
             <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar">
                 <div class="container-fluid navbar-inner">
                     <a href="../index.html" class="navbar-brand">
-                        <!-- -------- -->
+
                         <!--Logo start-->
-                        <!-- -------- -->
                         <div class="logo-main">
                             <div class="logo-normal">
-
                                 <img src="../../assets/custom_images/barrownz-logo.png" class="img-fluid"
                                     style="height: 30px; width: 30px;" alt="">
                             </div>
@@ -972,9 +943,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <!-- ------ -->
-                        <!--logo End-->
-                        <!-- ------ -->
+
+
                         <h4 class="logo-title">Barrownz</h4>
                     </a>
                     <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
@@ -1195,16 +1165,19 @@
                                     <img src="../../assets/images/avatars/avtar_3.png" alt="User-Profile"
                                         class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded">
                                     <div class="caption ms-3">
-                                    <!-- -------------------------- -->
-                                    <!-- IN/OUT Toggle Button Start -->
-                                    <!-- -------------------------- -->
+
+                                        <!-- -------------------------- -->
+                                        <!-- IN/OUT Toggle Button Start -->
+                                        <!-- -------------------------- -->
+
                                         <button id="toggleBtn" class="toggle-btn">
                                             <span id="textOut" class="toggle-text active fw-bold">OUT</span>
                                             <span id="textIn" class="toggle-text fw-bold">IN</span>
                                         </button>
-                                    <!-- ------------------------ -->
-                                    <!-- IN/OUT Toggle Button End -->
-                                    <!-- ------------------------ -->
+
+                                        <!-- ------------------------ -->
+                                        <!-- IN/OUT Toggle Button End -->
+                                        <!-- ------------------------ -->
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -1221,6 +1194,7 @@
                     </div>
                 </div>
             </nav>
+
             <!-- -------------------------- -->
             <!-- Nav Header Component Start -->
             <!-- -------------------------- -->
@@ -1230,7 +1204,7 @@
                         <div class="col-md-12">
                             <div class="flex-wrap d-flex justify-content-between align-items-center">
                                 <div class="breadcrumb-line d-flex align-items-center gap-2">
-                                    <h5 class="mb-0">HOME</h5>
+                                    <h6 class="mb-0">HOME</h6>
                                     <span>
                                         <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1238,7 +1212,7 @@
                                                 stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </span>
-                                    <h5 class="mb-0">ADD EMPLOYEE SALARY</h5>
+                                    <h6 class="mb-0">ADD PROJECT DETAILS</h6>
                                 </div>
                                 <div>
                                     <a href="#" class="btn btn-link btn-soft-light">
@@ -1272,47 +1246,151 @@
                     <img src="../../assets/images/dashboard/top-header5.png" alt="header"
                         class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX">
                 </div>
-            </div>
+            </div> 
             <!-- ------------------------ -->
             <!-- Nav Header Component End -->
-            <!-----------Nav End------------>
+            <!-- ---------Nav End----------->
             <!-- ------------------------ -->
         </div>
+<!-- 🔔 Error Alert Message -->
+<div id="errorAlert" class="alert alert-danger d-none" role="alert">
+  <strong>⚠️</strong> <span id="errorMessageText">Error occurred</span>
+</div>
 
-        <div class="container px-5 mt-n5 py-0">
+
+<div id="alertPlaceholder" class="mt-2"></div>
+
+        <div class="conatiner-fluid content-inner mt-n5 py-0">
             <div>
                 <div class="row">
                     <div class="col-xl-12 col-lg-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title typing-text">Add Employee Salary</h4>
+                                    <h4 class="card-title typing-text">Add Project Details</h4>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="new-user-info">
-                                    <!-- ---------------------- -->
-                                    <!-- Salary Form Start Here -->
-                                    <!-- ---------------------- -->
-                                    <form id="clientForm">
+
+                                    <form id="projectDetailsForm">
+                                        <input type="hidden" id="Projectdetails_id">
                                         <div class="row">
-                                            <input type="hidden" id="client_id">
                                             <div class="form-group col-md-6">
-                                                <label>Employee Name</label>
-                                                <select class="form-control" id="employee" name="employee" required>
-                                                    <option value="" disabled selected>- Select Employee -</option> 
+                                                <label class="form-label" for="project_name">Project Name</label>
+                                                <select class="form-control" id="project_name" required>
+                                                    <option value="" disabled selected>-Select Project-</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="form-label" for="salary">Salary</label>
-                                                <input type="number" class="form-control" id="salary" name="salary" required="true" placeholder="Enter Salary">
+                                                <label class="form-label" for="client_name">Client Name</label>
+                                                <select class="form-control" id="client_name" required>
+                                                    <option value="" disabled selected>-Select Client-</option>
+                                                </select>
                                             </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="project_type">Project Type</label>
+                                                <select class="form-control" id="project_type" required>
+                                                    <option value="" disabled selected>-Select Type-</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="start_date">Start Date</label>
+                                                <input type="date" class="form-control" required id="start_date">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="end_date">End Date</label>
+                                                <input type="date" class="form-control" required id="end_date">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="submit_date">Submission Date</label>
+                                                <input type="date" class="form-control" required id="submit_date">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="project_rate">Project Amount</label>
+                                                <input type="number" class="form-control" required id="project_rate" placeholder="Enter Amount">
+                                            </div>
+
+                                            <!-- ✅ Rate Type (to be loaded from API) -->
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="rate_type">Amount Type</label>
+                                                <select class="form-control" id="rate_type" required>
+                                                    <option value="" disabled selected>-Select Amount Type-</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="project_priority">Project Priority</label>
+                                                <select class="form-control" id="project_priority" required>
+                                                    <option value="" disabled selected>-Select Project Priority-</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="project_leader">Project Leader</label>
+                                                <select class="form-control" id="project_leader" required>
+                                                    <option value="" disabled selected>-Select Project Leader-</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="remark">Remark</label>
+                                                <input type="text" class="form-control" required id="remark" placeholder="Remark">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="project_status">Project Status</label>
+                                                <select class="form-control" id="project_status" required>
+                                                    <option value="" disabled selected>-Select Project Status-</option>
+                                                </select>
+                                            </div>
+
+<div class="form-group col-md-4">
+  <label class="form-label">Project Team</label>
+  <div id="teamDropdown" class="dropdown">
+    <button class="btn custom-team-btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Select Team Members
+    </button>
+    <ul class="dropdown-menu w-100" id="teamDropdownList" style="max-height: 200px; overflow-y: auto;">
+      <!-- JS se dynamic items insert honge -->
+    </ul>
+  </div>
+</div>
+
+
+
+                                            <div class="form-group col-md-4">
+                                                <label class="form-label" for="rate-per-hour">Rate Per Hour</label>
+                                                <input type="number" class="form-control" required id="rate-per-hour" readonly>
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label class="form-label" for="calcultion">Rate Calcultion</label>
+                                                <input type="number" class="form-control" required id="calcultion" readonly>
+                                               
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="calcultion">Profit calculation</label>
+                                                <input type="number" class="form-control" id="profitBox" readonly>
+
+                                               
+                                            </div>
+
+                                            <div class="form-group col-md-12">
+                                                <label class="form-label" for="description">Description</label>
+                                                <textarea type="text" rows="3" col="6" class="form-control" required id="description" placeholder="Description"></textarea>
+                                            </div>
+
                                         </div>
-                                        <button type="submit" class="btn btn-primary mt-3">Add Employee Salary</button>
+                                        <button type="submit" class="btn btn-primary">Add New Project</button>
                                     </form>
-                                    <!-- ---------------------- -->
-                                    <!-- Salary Form End Here -->
-                                    <!-- ---------------------- -->
+
                                 </div>
                             </div>
                         </div>
@@ -1320,52 +1398,105 @@
                 </div>
             </div>
         </div>
-        <!-- ---------------------------- -->
-        <!--Salary List Section Start Here-->
-        <!-- ---------------------------- -->
-        <div class="conatiner-fluid content-inner py-0">
+
+        <div class="container-fluid content-inner py-0">
             <div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="card">
+                        <div class="card position-relative"> 
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title typing-text">Employees Salary List</h4>
+                                    <h4 class="card-title typing-text">Project Details List</h4>
                                 </div>
                             </div>
                             <div class="card-body px-0">
-                                <div class="table-responsive">
-                                    <table id="user-list-table" class="table table-striped" role="grid" data-bs-toggle="data-table">
-                                        <thead>
-                                            <tr class="ligth">
-                                                <th class="text-center">Salary Id</th>
-                                                <th class="text-center">Employee Name</th>
-                                                <th class="text-center">Salary Amount</th>
-                                                <th class="text-center" style="min-width: 100px">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="salaryTableBody">
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="table-scroll-container" id="scrollTableContainer">
+                                    <div class="table-responsive custom-scroll">
+                                        <table id="user-list-table" class="table table-striped" role="grid"
+                                            data-bs-toggle="data-table">
+                                            <thead class="text-center">
+                                                <tr class="light">
+                                                    <th class="text-center">Project Deatils Id</th> 
+                                                    <th class="text-center">Project Name</th>
+                                                    <th class="text-center">Client Name</th>
+                                                    <th class="text-center">Project Type</th>
+                                                    <th class="text-center">Start Date</th>
+                                                    <th class="text-center">End Date</th>
+                                                    <th class="text-center">Submission Date</th>
+                                                    <th class="text-center">Project Amount</th>
+                                                    <th class="text-center">Amount Type Type</th>
+                                                    <th class="text-center">Project Priority</th>
+                                                    <th class="text-center">Project Leader</th>
+                                                    <th class="text-center">Project Team</th>
+                                                    <th class="text-center">Man Per Hour</th>  
+                                                    <th class="text-center">Amount Calculation</th>
+                                                    <th class="text-center">Project Status</th>
+                                                    <th class="text-center">Remark</th>
+                                                    <th class="text-center">Description</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="projectListBody">
+                                                <!-- --------------- -->
+                                                <!-- Shift data rows -->
+                                                <!-- --------------- -->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
+
+                                <!-- ------------------------------- -->
+                                <!-- ⬅️ ➡️ SCROLL BUTTONS AT BOTTOM -->
+                                <!-- ------------------------------- -->
+                                <div class="scroll-buttons-wrapper">
+                                    <button class="scroll-btn left-btn" onclick="scrollTable('left')">&#10094;</button>
+                                    <button class="scroll-btn right-btn"
+                                        onclick="scrollTable('right')">&#10095;</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- ---------------------------- -->
-        <!--Salary List Section End Here-->
-        <!-- ---------------------------- -->
 
-    <!-- ------------------ -->
-    <!-- Footer Section End -->
-    <!-- ------------------ -->
+
+        <!-- ------------------ -->
+        <!-- Footer Section Start -->
+        <!-- ------------------ -->
+
+        <footer class="footer">
+            <div class="footer-body">
+                <ul class="left-panel list-inline mb-0 p-0">
+                    <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a></li>
+                </ul>
+                <div class="right-panel text-center">
+                    ©
+                    <script>document.write(new Date().getFullYear())</script> Barrownz Group,
+                    <span class="">
+                        <svg class="icon-15" width="15" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </span>269/9 Vastu Khand, Gomti Nagar, Lucknow.
+                </div>
+            </div>
+        </footer>
+
+        <!-- ------------------ -->
+        <!-- Footer Section End -->
+        <!-- ------------------ -->
+
     </main>
+
+    <!-- ---------- -->
+    <!-- Wrapper End-->
+    <!-- ---------- -->
+
     <a class="btn btn-fixed-end btn-primary btn-icon btn-setting" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasExample" role="button" aria-controls="offcanvasExample">
         <svg width="24" viewBox="0 0 24 24" class="animated-rotate icon-24" fill="none"
@@ -1378,8 +1509,13 @@
         </svg>
     </a>
 
+    <!-- ---------- -->
     <!-- Wrapper End-->
+    <!-- ---------- -->
+
+    <!-- --------------- -->
     <!-- offcanvas start -->
+    <!-- --------------- -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" data-bs-scroll="true"
         data-bs-backdrop="true" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
@@ -1646,71 +1782,235 @@
         </div>
     </div>
 
-    
-<!-- -------------------------------- -->
-<!-- Edit Department Modal Start Here -->
-<!-- -------------------------------- -->
-<div class="modal fade" id="editSalaryModal" tabindex="-1" aria-labelledby="editSalaryModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+    <!-- --------------- -->
+    <!-- offcanvas End -->
+    <!-- --------------- -->
+
+    <!-- --------------------------- -->
+    <!-- Edit Alert Model Start Here -->
+    <!-- --------------------------- -->
+
+<div class="modal fade" id="editProjectModal" tabindex="-1" aria-labelledby="editProjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
-      <form id="editSalaryForm">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title text-light">Edit Employee Salary</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      <form id="editProjectForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProjectModalLabel">Edit Project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <input type="hidden" id="edit_salary_id">
-          <div class="mb-3">
-            <label class="form-label">Employee Name</label>
-            <select class="form-control" id="editemployee" required>
-              <option disabled selected>- Select Employee -</option>
+
+        <div class="modal-body row g-3">
+
+          <input type="hidden" id="edit_project_id">
+
+          <!-- Project Name -->
+          <div class="col-md-6">
+            <label class="form-label">Project Name</label>
+            <select class="form-select" id="edit_project_name" required></select>
+          </div>
+
+          <!-- Client Name -->
+          <div class="col-md-6">
+            <label class="form-label">Client Name</label>
+            <select class="form-select" id="edit_client_name" required></select>
+          </div>
+
+          <!-- Project Type -->
+          <div class="col-md-6">
+            <label class="form-label">Project Type</label>
+            <select class="form-select" id="edit_project_type" required></select>
+          </div>
+
+          <!-- Priority -->
+          <div class="col-md-6">
+            <label class="form-label">Project Priority</label>
+            <select class="form-select" id="edit_project_priority" required></select>
+          </div>
+
+          <!-- Status -->
+          <div class="col-md-6">
+            <label class="form-label">Project Status</label>
+            <select class="form-select" id="edit_project_status" required></select>
+          </div>
+
+          <!-- Project Leader -->
+          <div class="col-md-6">
+            <label class="form-label">Project Leader</label>
+            <select class="form-select" id="edit_project_leader" required></select>
+          </div>
+
+          <!-- Start Date -->
+          <div class="col-md-6">
+            <label class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="edit_start_date" required>
+          </div>
+
+          <!-- End Date -->
+          <div class="col-md-6">
+            <label class="form-label">End Date</label>
+            <input type="date" class="form-control" id="edit_end_date" required>
+          </div>
+
+          <!-- Submission Date -->
+          <div class="col-md-6">
+            <label class="form-label">Submission Date</label>
+            <input type="date" class="form-control" id="edit_submit_date">
+          </div>
+
+          <!-- Rate -->
+          <div class="col-md-6">
+            <label class="form-label">Project Rate</label>
+            <input type="number" class="form-control" id="edit_project_rate" required>
+          </div>
+
+          <!-- Rate Type -->
+          <div class="col-md-6">
+            <label class="form-label">Rate Type</label>
+            <select class="form-select" id="edit_rate_type" required>
+              <option value="Hourly">Hourly</option>
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Monthly">Monthly</option>
             </select>
           </div>
-            <div class="mb-3">
-            <label class="form-label">Salary</label>
-            <input type="text" class="form-control" id="editsalary" required>
+
+<!-- Project Team -->
+<div class="col-md-6">
+  <label class="form-label">Project Team</label>
+  <div id="edit_team_dropdown_list" class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+    <!-- Team checkboxes will be dynamically appended here -->
+  </div>
+</div>
+
+
+          <!-- Man Per Hour -->
+          <div class="col-md-4">
+            <label class="form-label">Man Per Hour</label>
+            <input type="text" class="form-control" id="edit_rate_per_hour" readonly>
+          </div>
+
+            <!-- Rate Calculation -->
+          <div class="col-md-4">
+            <label class="form-label">Rate Calculation</label>
+            <input type="text" class="form-control" id="edit_rate_calcultion" readonly>
+          </div>
+
+          <!-- Profit -->
+          <div class="col-md-4">
+            <label class="form-label">Profit</label>
+            <input type="number" id="edit_profitBox" class="form-control" readonly>
+          </div>
+
+          <!-- Remarks -->
+          <div class="col-md-12">
+            <label class="form-label">Remarks</label>
+            <textarea class="form-control" id="edit_remark" rows="2"></textarea>
+          </div>
+
+          <!-- Description -->
+          <div class="col-md-12">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" id="edit_description" rows="2"></textarea>
           </div>
         </div>
+
         <div class="modal-footer">
-          <button class="btn btn-primary" type="submit">Update</button>
+          <div class="alert alert-success d-none" id="editSuccessAlert" role="alert">
+            ✅ Project updated successfully!
+          </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Project</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<!-- ------------------------------ -->
-<!-- Edit Department Modal End Here -->
-<!-- ------------------------------ -->
+    <!-- ------------------------- -->
+    <!-- Edit Alert Model End Here -->
+    <!-- ------------------------- -->
 
-    <!-- ------------------------------------ -->
-    <!-- Delete Confirmation Modal Start Here --->
-    <!-- ------------------------------------ -->
-    <div class="modal fade delete-model" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmLabel"
+
+    <!-- ------------------------ -->
+    <!-- Delete Alert Model Start -->
+    <!-- ------------------------ -->
+
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title text-white" id="deleteConfirmLabel">Confirm Delete</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h5 class="modal-title text-light" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this department?
+                    Are you sure you want to delete this shift record?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteShiftConfirmed()">Yes, Delete</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ------------------------------------ -->
-    <!-- Delete Confirmation Modal End Here -->
-    <!-- ------------------------------------ -->
+
+    <!-- ---------------------- -->
+    <!-- Delete Alert Model End -->
+    <!-- ---------------------- -->
 
 
-    <!-- Custom JS -->
-    <script th:src="@{/assets/js/Custom.js}"></script>
+    <script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  populateRateTypeDropdown();
+});
+
+async function populateRateTypeDropdown() {
+  try {
+    const res = await fetch('https://restcountries.com/v3.1/all?fields=currencies');
+    const countries = await res.json();
+
+    const currencyMap = new Map();
+
+    countries.forEach(country => {
+      if (country.currencies) {
+        // Loop through all currencies of the country
+        Object.entries(country.currencies).forEach(([code, currency]) => {
+          if (code && currency?.name && !currencyMap.has(code)) {
+            currencyMap.set(code, {
+              name: currency.name,
+              symbol: currency.symbol || ''
+            });
+          }
+        });
+      }
+    });
+
+    const rateTypeSelect = document.getElementById("rate_type");
+    rateTypeSelect.innerHTML = `<option value="" disabled selected>-Select Rate Type-</option>`;
+
+    // Sort currencies by code alphabetically
+    const sortedCurrencyList = Array.from(currencyMap.entries()).sort((a, b) =>
+      a[0].localeCompare(b[0])
+    );
+
+    sortedCurrencyList.forEach(([code, info]) => {
+      const option = document.createElement("option");
+      option.value = code;
+      option.text = `${info.name} (${code}) ${info.symbol}`;
+      rateTypeSelect.appendChild(option);
+    });
+
+  } catch (err) {
+    console.error("Error loading currencies:", err);
+  }
+}
+
+
+    </script>
+
+
+    <!-- My Shift JS -->
+     <script src="../../assets/js/project-details.js"></script> 
 
     <!-- Library Bundle Script -->
     <script src="../../assets/js/core/libs.min.js"></script>
@@ -1737,12 +2037,14 @@
     <!-- Form Wizard Script -->
     <script src="../../assets/js/plugins/form-wizard.js"></script>
 
+    <!-- AOS Animation Plugin-->
+
     <!-- App Script -->
     <script src="../../assets/js/hope-ui.js" defer></script>
 
-    <!-- Salary Custom JS  -->
-    <script src="../../assets/js/employeeSalary.js"></script>
+    <!-- Custom JS -->
+    <script src="../../assets/js/Custom.js"></script>
+
 
 </body>
-
 </html>

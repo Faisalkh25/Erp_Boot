@@ -21,6 +21,8 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
     private int empId;
+
+    @Column(name = "emp_code", unique = true, nullable = false)
     private int emp_code;
 
     @Column(nullable = false)

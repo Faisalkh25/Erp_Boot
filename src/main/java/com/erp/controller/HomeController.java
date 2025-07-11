@@ -89,4 +89,14 @@ public class HomeController {
         return "dashboard/app/employee-salary";
     }
 
+    @GetMapping("/show-projectDetails")
+    public String showProjectDetails() {
+        return "dashboard/app/project-details";
+    }
+
+    @GetMapping("/show-client")
+    public String showAddClient() {
+        return "dashboard/app/client";
+    }
+
 }

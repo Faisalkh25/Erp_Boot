@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class ProjectDetailsServiceImpl implements ProjectDetailsService {
     @Autowired
     private EmployeeSalaryRepository salaryRepo;
 
-    private List<Employee> buildTeamAndCalculate(ProjectDetailsRequestDto dto, ProjectDetails project) {
+    public List<Employee> buildTeamAndCalculate(ProjectDetailsRequestDto dto, ProjectDetails project) {
         List<Employee> team = new ArrayList<>();
         double totalDailyCost = 0.0;
         double totalManPerHour = 0.0;
@@ -107,76 +108,6 @@ public class ProjectDetailsServiceImpl implements ProjectDetailsService {
         return "Project saved successfully.";
     }
 
-    /*
-     * @Override
-     * public String createProject(ProjectDetailsRequestDto dto) {
-     * List<Employee> team = new ArrayList<>();
-     * double totalDailyCost = 0.0;
-     * double totalManPerHour = 0.0;
-     * 
-     * long projectDays = ChronoUnit.DAYS.between(dto.getStartDate(),
-     * dto.getEndDate());
-     * if (projectDays <= 0)
-     * throw new RuntimeException("Invalid project duration");
-     * 
-     * int daysInMonth = YearMonth.from(dto.getStartDate()).lengthOfMonth(); // 30
-     * or 31
-     * 
-     * for (Integer empId : dto.getTeamMemberIds()) {
-     * Employee emp = empRepo.findById(empId)
-     * .orElseThrow(() -> new RuntimeException("Employee not found: " + empId));
-     * 
-     * // EmployeeSalary salary = salaryRepo.findByEmployee_EmpId(empId)
-     * // .orElseThrow(() -> new RuntimeException("Salary not found for employee: "
-     * +
-     * // empId));
-     * 
-     * EmployeeSalary salary = salaryRepo.findByEmployee_EmpId(empId);
-     * if (salary == null) {
-     * throw new RuntimeException("salary not found for employee : " + empId);
-     * }
-     * 
-     * double perDay = salary.getMonthlySalary() / daysInMonth;
-     * double perHour = perDay / 9.0;
-     * 
-     * totalDailyCost += perDay * projectDays;
-     * totalManPerHour += perHour;
-     * 
-     * team.add(emp);
-     * }
-     * 
-     * if (totalDailyCost > dto.getRate()) {
-     * return "Project cost exceeds rate. Please revise team members.";
-     * }
-     * 
-     * ProjectDetails project = new ProjectDetails();
-     * project.setProjectName(projectRepo.findById(dto.getProjectId()).orElseThrow()
-     * );
-     * project.setClient(clientRepo.findById(dto.getClientId()).orElseThrow());
-     * project.setProjectType(typeRepo.findById(dto.getTypeId()).orElseThrow());
-     * project.setProjectPriority(priorityRepo.findById(dto.getPriorityId()).
-     * orElseThrow());
-     * project.setProject_status(statusRepo.findById(dto.getStatusId()).orElseThrow(
-     * ));
-     * project.setStartDate(dto.getStartDate());
-     * project.setEndDate(dto.getEndDate());
-     * project.setSubmissionDate(dto.getSubmissionDate());
-     * project.setProjectLeader(empRepo.findById(dto.getProjectLeaderId()).
-     * orElseThrow());
-     * project.setRate(dto.getRate());
-     * project.setRateType(dto.getRateType());
-     * project.setTeamMembers(team);
-     * project.setRemarks(dto.getRemarks());
-     * project.setDescription(dto.getDescription());
-     * project.setManPerHour(totalManPerHour);
-     * project.setRateCalculation(totalDailyCost);
-     * 
-     * repo.save(project);
-     * return "Project saved successfully.";
-     * }
-     * 
-     */
-
     @Override
     public String updateProject(int id, ProjectDetailsRequestDto dto) {
         ProjectDetails project = repo.findById(id)
@@ -208,9 +139,16 @@ public class ProjectDetailsServiceImpl implements ProjectDetailsService {
                 .orElseThrow(() -> new RuntimeException("Project not found with ID: " + id));
     }
 
+    // @Override
+    // public List<ProjectDetails> getAllProjectDetails() {
+    // return repo.findAll();
+    // }
+
     @Override
-    public List<ProjectDetails> getAllProjectDetails() {
-        return repo.findAll();
+    public List<ProjectDetailsRequestDto> getAllProjectDetails() {
+        return repo.findAll().stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -219,5 +157,59 @@ public class ProjectDetailsServiceImpl implements ProjectDetailsService {
                 .orElseThrow(() -> new RuntimeException("Project not found with ID: " + id));
         repo.delete(project);
         return "Project deleted successfully.";
+    }
+
+    // Convert to Dto method
+
+    private ProjectDetailsRequestDto convertToDto(ProjectDetails project) {
+        ProjectDetailsRequestDto dto = new ProjectDetailsRequestDto();
+
+        dto.setProjectDetailsId(project.getProjectDetailsid());
+
+        dto.setProjectId(project.getProjectName().getProjectId());
+        dto.setProjectName(project.getProjectName().getProjectName());
+
+        dto.setClientId(project.getClient().getClientId());
+        dto.setClientName(project.getClient().getClientName());
+
+        dto.setTypeId(project.getProjectType().getTypeId());
+        dto.setTypeName(project.getProjectType().getTypeName());
+
+        dto.setPriorityId(project.getProjectPriority().getPriorityId());
+        dto.setPriorityName(project.getProjectPriority().getPriorityName());
+
+        dto.setStatusId(project.getProject_status().getStatusId());
+        dto.setStatusName(project.getProject_status().getStatusName());
+
+        dto.setStartDate(project.getStartDate());
+        dto.setEndDate(project.getEndDate());
+        dto.setSubmissionDate(project.getSubmissionDate());
+
+        dto.setProjectLeaderId(project.getProjectLeader().getEmpId());
+        dto.setProjectLeaderName(project.getProjectLeader().getFirst_name() + " " +
+                (project.getProjectLeader().getLast_name() != null ? project.getProjectLeader().getLast_name() : ""));
+
+        dto.setRate(project.getRate());
+        dto.setRateType(project.getRateType());
+
+        dto.setManPerHour(project.getManPerHour());
+        dto.setRateCalculation(project.getRateCalculation());
+
+        dto.setRemarks(project.getRemarks());
+        dto.setDescription(project.getDescription());
+
+        // Team member IDs
+        List<Integer> teamIds = project.getTeamMembers().stream()
+                .map(emp -> emp.getEmpId())
+                .collect(Collectors.toList());
+        dto.setTeamMemberIds(teamIds);
+
+        // Team member names
+        List<String> teamNames = project.getTeamMembers().stream()
+                .map(emp -> emp.getFirst_name() + " " + (emp.getLast_name() != null ? emp.getLast_name() : ""))
+                .collect(Collectors.toList());
+        dto.setTeamMemberName(teamNames);
+
+        return dto;
     }
 }

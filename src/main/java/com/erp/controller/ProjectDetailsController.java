@@ -1,6 +1,8 @@
 package com.erp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erp.dto.ProjectDetailsRequestDto;
+import com.erp.model.Employee;
 import com.erp.model.ProjectDetails;
 import com.erp.service.ProjectDetailsService;
 
@@ -68,8 +71,8 @@ public class ProjectDetailsController {
 
     // Get all
     @GetMapping
-    public ResponseEntity<List<ProjectDetails>> getAllProjects() {
-        List<ProjectDetails> list = service.getAllProjectDetails();
+    public ResponseEntity<List<ProjectDetailsRequestDto>> getAllProjects() {
+        List<ProjectDetailsRequestDto> list = service.getAllProjectDetails();
         return ResponseEntity.ok(list);
     }
 
@@ -83,4 +86,17 @@ public class ProjectDetailsController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + e.getMessage());
         }
     }
+
+    @PostMapping("/calculate-cost")
+    public ResponseEntity<Map<String, Double>> calculateCost(@RequestBody ProjectDetailsRequestDto dto) {
+        ProjectDetails temp = new ProjectDetails();
+        List<Employee> team = service.buildTeamAndCalculate(dto, temp);
+
+        Map<String, Double> response = new HashMap<>();
+        response.put("rateCalculation", temp.getRateCalculation());
+        response.put("manPerHour", temp.getManPerHour());
+
+        return ResponseEntity.ok(response);
+    }
+
 }

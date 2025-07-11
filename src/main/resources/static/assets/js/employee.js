@@ -105,7 +105,7 @@ function resetForm() {
 function buildEmpFromForm() {
   const f = document.getElementById('employeeForm');
   const emp = {
-    emp_code: +f.empCode.value,
+    // emp_code: +f.empCode.value,
     first_name: f.firstName.value,
     last_name: f.lastName.value,
     dateOfBirth: f.dob.value,
@@ -123,7 +123,7 @@ function buildEmpFromForm() {
     levelId: f.level.value ? parseInt(f.level.value) : null,
     shiftId: f.shift.value ? parseInt(f.shift.value) : null,
     roleId: f.role.value ? parseInt(f.role.value) : null,
-    password: f.password.value  // ✅ Added password here
+    password: f.password.value  // Added password here
   };
 
   if (f.rep_name1.value) emp.reportingManager1Id = parseInt(f.rep_name1.value);
@@ -192,9 +192,9 @@ async function loadEmployees() {
       <td>${emp.reportingManager2Name || '-'}</td>
       <td>${emp.roleName || '-'}</td>
       <td>
-<button onclick="fillForm(${emp.emp_id})" class="btn btn-warning btn-sm">Edit</button>
-<button onclick="confirmDelete(${emp.emp_id})" class="btn btn-danger btn-sm">Delete</button>
 
+<i class="fa-solid fa-pen-to-square text-primary me-2" onclick="fillForm(${emp.emp_id})" style="cursor: pointer; font-size: 18px;"></i>
+          <i class="fa-solid fa-trash text-danger" onclick="confirmDelete(${emp.emp_id})" style="cursor: pointer; font-size: 18px;"></i>
 
       </td>
     </tr>
@@ -244,7 +244,7 @@ console.log("Selected Role ID:", emp.roleId);
 console.log("RM1:", emp.reportingManager1Id, "RM2:", emp.reportingManager2Id);
 
 
-  // Load dropdowns with selected value
+ 
   // Load dropdowns with selected value
 await loadDropdown('departments', 'editdept', 'Department', emp.departmentId || emp.department?.deptId);
 await loadDropdown('levels', 'editlevel', 'Level', emp.levelId || emp.level?.level_id);
@@ -373,10 +373,6 @@ function showDangerAlert(message) {
   setTimeout(() => alert.remove(), 3000);
 }
 
-
-// On page load
-// ... [your code unchanged till this point]
-
 // On page load
 document.addEventListener('DOMContentLoaded', () => {
   loadAllDropdowns();
@@ -389,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target.value) loadReportingManagersByDepartment(e.target.value);
   });
 
-  // ✅ Edit Form - Department change listener (Fix Added)
+  //  Edit Form - Department change listener (Fix Added)
   document.getElementById('editdept').addEventListener('change', async (e) => {
     const deptId = e.target.value;
     if (deptId) {
@@ -423,3 +419,240 @@ function scrollTable(direction) {
   }
 }
 
+document.getElementById('employeeForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  if (validateForm()) {
+      buildEmpFromForm(event); // Call your existing form submission function
+  }
+});
+
+function validateForm() {
+  let isValid = true;
+  
+  // Clear previous error messages
+  document.querySelectorAll('.error-message').forEach(el => el.remove());
+  document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+  // Employee Code validation
+  // const empCode = document.getElementById('empCode');
+  // if (!empCode.value.trim()) {
+  //     showError(empCode, 'Employee Code is required');
+  //     isValid = false;
+  // } else if (isNaN(empCode.value) || empCode.value <= 0) {
+  //     showError(empCode, 'Employee Code must be a positive number');
+  //     isValid = false;
+  // }
+
+  // First Name validation
+  const firstName = document.getElementById('firstName');
+  if (!firstName.value.trim()) {
+      showError(firstName, 'First Name is required');
+      isValid = false;
+  } else if (!/^[a-zA-Z]+$/.test(firstName.value.trim())) {
+      showError(firstName, 'First Name should contain only letters');
+      isValid = false;
+  }
+
+  // Last Name validation
+  const lastName = document.getElementById('lastName');
+  if (!lastName.value.trim()) {
+      showError(lastName, 'Last Name is required');
+      isValid = false;
+  } else if (!/^[a-zA-Z]+$/.test(lastName.value.trim())) {
+      showError(lastName, 'Last Name should contain only letters');
+      isValid = false;
+  }
+
+  // Date of Birth validation
+  const dob = document.getElementById('dob');
+  if (!dob.value) {
+      showError(dob, 'Date of Birth is required');
+      isValid = false;
+  } else {
+      const dobDate = new Date(dob.value);
+      const today = new Date();
+      const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+      
+      if (dobDate > minAgeDate) {
+          showError(dob, 'Employee must be at least 18 years old');
+          isValid = false;
+      }
+  }
+
+  // Gender validation
+  const gender = document.getElementById('gender');
+  if (!gender.value) {
+      showError(gender, 'Please select a gender');
+      isValid = false;
+  }
+
+  // Email validation
+  const email = document.getElementById('email');
+  if (!email.value.trim()) {
+      showError(email, 'Email is required');
+      isValid = false;
+  } else if (!/^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email.value.trim())) {
+      showError(email, 'Please enter a valid email (must start with letter)');
+      isValid = false;
+  }
+
+  // Personal Email validation
+  const personalEmail = document.getElementById('personalEmail');
+  if (personalEmail.value.trim() && !/^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(personalEmail.value.trim())) {
+      showError(personalEmail, 'Please enter a valid personal email (must start with letter)');
+      isValid = false;
+  }
+
+  // Address validation
+  const address = document.getElementById('address');
+  if (!address.value.trim()) {
+      showError(address, 'Address is required');
+      isValid = false;
+  }
+
+  // Contact validation
+  const contact = document.getElementById('contact');
+  if (!contact.value.trim()) {
+      showError(contact, 'Mobile Number is required');
+      isValid = false;
+  } else if (!/^[0-9]{10,15}$/.test(contact.value.trim())) {
+      showError(contact, 'Please enter a valid mobile number (10-15 digits)');
+      isValid = false;
+  }
+
+  // Joining Date validation
+const joiningDate = document.getElementById('joiningDate');
+if (!joiningDate.value) {
+    showError(joiningDate, 'Joining Date is required');
+    isValid = false;
+}
+
+  // Employee Level validation
+  const level = document.getElementById('level');
+  if (!level.value) {
+      showError(level, 'Please select an employee level');
+      isValid = false;
+  }
+
+  // Company validation
+  const company = document.getElementById('company');
+  if (!company.value) {
+      showError(company, 'Please select a company');
+      isValid = false;
+  }
+
+  // Shift validation
+  const shift = document.getElementById('shift');
+  if (!shift.value) {
+      showError(shift, 'Please select a shift');
+      isValid = false;
+  }
+
+  // Employee Status validation
+  const employeeStatus = document.getElementById('employeeStatus');
+  if (!employeeStatus.value) {
+      showError(employeeStatus, 'Please select an employee status');
+      isValid = false;
+  }
+
+  // Joining Status validation
+  const joiningStatus = document.getElementById('joiningStatus');
+  if (!joiningStatus.value) {
+      showError(joiningStatus, 'Please select a joining status');
+      isValid = false;
+  }
+
+  // Working Status validation
+  const workingStatus = document.getElementById('workingStatus');
+  if (!workingStatus.value) {
+      showError(workingStatus, 'Please select a working status');
+      isValid = false;
+  }
+
+  // Department validation
+  const dept = document.getElementById('dept');
+  if (!dept.value) {
+      showError(dept, 'Please select a department');
+      isValid = false;
+  }
+
+  // Reporting Manager 1 validation
+  const rep_name1 = document.getElementById('rep_name1');
+  if (!rep_name1.value) {
+      showError(rep_name1, 'Please select Reporting Manager 1');
+      isValid = false;
+  }
+
+  // Role validation
+  const role = document.getElementById('role');
+  if (!role.value) {
+      showError(role, 'Please select a role');
+      isValid = false;
+  }
+
+  // Password validation
+  const password = document.getElementById('password');
+  if (!password.value) {
+      showError(password, 'Password is required');
+      isValid = false;
+  } else if (password.value.length < 8) {
+      showError(password, 'Password must be at least 8 characters long');
+      isValid = false;
+  } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/.test(password.value)) {
+      showError(password, 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+      isValid = false;
+  }
+
+  // Confirm Password validation
+  const confirmPassword = document.getElementById('confirmPassword');
+  if (!confirmPassword.value) {
+      showError(confirmPassword, 'Please confirm your password');
+      isValid = false;
+  } else if (confirmPassword.value !== password.value) {
+      showError(confirmPassword, 'Passwords do not match');
+      isValid = false;
+  }
+
+  // Profile Picture validation (optional)
+  const profileImageInput = document.getElementById('profileImageInput');
+  if (profileImageInput.files.length > 0) {
+      const file = profileImageInput.files[0];
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      
+      if (!validImageTypes.includes(file.type)) {
+          showError(profileImageInput, 'Please upload a valid image file (JPEG, PNG, GIF)');
+          isValid = false;
+      }
+      
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+          showError(profileImageInput, 'Image size should be less than 2MB');
+          isValid = false;
+      }
+  }
+
+  return isValid;
+}
+
+function showError(inputElement, message) {
+  inputElement.classList.add('is-invalid');
+  
+  const errorElement = document.createElement('div');
+  errorElement.className = 'error-message text-danger mt-1 small';
+  errorElement.textContent = message;
+  
+  inputElement.parentNode.appendChild(errorElement);
+}
+
+// Image preview functionality
+document.getElementById('profileImageInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          const preview = document.getElementById('imagePreview');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+  }
+});

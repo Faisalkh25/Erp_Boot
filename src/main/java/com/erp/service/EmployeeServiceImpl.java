@@ -52,6 +52,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee employee = mapDtoToEmployee(dto, new Employee());
 
+        // auto-generate empCode
+        Integer maxCode = employeeRepo.findMaxEmpCode();
+        int nextEmpCode = (maxCode == null) ? 1000 : maxCode + 1;
+
+        employee.setEmp_code(nextEmpCode);
+
         if (file != null && !file.isEmpty()) {
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             Path uploadPath = Paths.get(uploadDir);
@@ -127,7 +133,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         System.out.println("DTO password value during update: " + dto.getPassword());
 
-        employee.setEmp_code(dto.getEmp_code());
+        // employee.setEmp_code(dto.getEmp_code());
         employee.setFirst_name(dto.getFirst_name());
         employee.setLast_name(dto.getLast_name());
         employee.setDateOfBirth(dto.getDateOfBirth());
