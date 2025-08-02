@@ -48,9 +48,15 @@ public class ProjectDetailsServiceImpl implements ProjectDetailsService {
         double totalDailyCost = 0.0;
         double totalManPerHour = 0.0;
 
-        int projectDays = Period.between(dto.getStartDate(), dto.getEndDate()).getDays();
-        if (projectDays <= 0) {
+        // int projectDays = Period.between(dto.getStartDate(),
+        // dto.getEndDate()).getDays();
+        long projectDays = ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate());
+        if (projectDays < 1) {
             throw new RuntimeException("Invalid project duration.");
+        }
+
+        if (dto.getRate() == null || dto.getRate() <= 0) {
+            throw new RuntimeException("Rate is missing or invalid");
         }
 
         for (Integer empId : dto.getTeamMemberIds()) {

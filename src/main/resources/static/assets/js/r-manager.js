@@ -1,4 +1,11 @@
-console.log("AMIT CHAURASIYA");
+
+//helper function for jwt headers
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem("token");
+  const headers = { "Authorization": `Bearer ${token}` };
+  if (isJson) headers["Content-Type"] = "application/json";
+  return headers;
+}
 
 const BASE_API = 'http://localhost:8080/api';
 let deleteRMId = null;
@@ -6,7 +13,9 @@ let deleteRMId = null;
 // Load departments in dropdown
 async function loadDepartments() {
   try {
-    const res = await fetch(`${BASE_API}/departments`);
+    const res = await fetch(`${BASE_API}/departments`, {
+          headers: getAuthHeaders(false)    //added jwt token 
+    });
     const data = await res.json();
     const select = document.getElementById('dep_name');
     select.innerHTML = `<option value="" disabled selected>-Select Department-</option>` +
@@ -68,7 +77,7 @@ async function saveReportingManager(e) {
   try {
     const res = await fetch(`${BASE_API}/managers`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getAuthHeaders(),   //added jwt token
       body: JSON.stringify(body)
     });
 
@@ -90,7 +99,9 @@ async function saveReportingManager(e) {
 // Load all reporting managers
 async function loadReportingManagers() {
   try {
-    const res = await fetch(`${BASE_API}/managers`);
+    const res = await fetch(`${BASE_API}/managers`, {
+         headers: getAuthHeaders(false)    //added jwt token
+    });
     const data = await res.json();
     const tbody = document.querySelector('#rmTable tbody');
 
@@ -129,7 +140,8 @@ async function confirmDelete() {
 
   try {
     const res = await fetch(`${BASE_API}/managers/${deleteRMId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: getAuthHeaders(false)   //added jwt token
     });
 
     const modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
@@ -153,12 +165,16 @@ async function confirmDelete() {
 // Edit reporting manager
 async function editRM(id) {
   try {
-    const res = await fetch(`${BASE_API}/managers/${id}`);
+    const res = await fetch(`${BASE_API}/managers/${id}`, {
+         headers: getAuthHeaders(false)   //added jwt token
+    });
     const data = await res.json();
 
     document.getElementById('edit_rm_id').value = data.rm_id;
 
-    const depRes = await fetch(`${BASE_API}/departments`);
+    const depRes = await fetch(`${BASE_API}/departments`, {
+      headers: getAuthHeaders(false)    //added jwt token
+    });
     const departments = await depRes.json();
     const depSelect = document.getElementById('edit_dep_name');
     depSelect.innerHTML = `<option value="" disabled selected>-Select Department-</option>` +
@@ -180,7 +196,9 @@ async function editRM(id) {
 // Load employees for edit modal
 async function loadEditEmployees(deptId) {
   try {
-    const res = await fetch(`${BASE_API}/employees/by-departments/${deptId}`);
+    const res = await fetch(`${BASE_API}/employees/by-departments/${deptId}`, {
+        headers: getAuthHeaders(false)   //added jwt token
+    });
     const data = await res.json();
 
     // const rm1 = document.getElementById('edit_rep_name1');
@@ -224,7 +242,7 @@ async function updateReportingManager(e) {
   try {
     const res = await fetch(`${BASE_API}/managers/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getAuthHeaders(),   //added jwt token
       body: JSON.stringify(body)
     });
 

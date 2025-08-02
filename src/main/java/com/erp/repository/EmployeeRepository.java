@@ -11,6 +11,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findByDepartment_DeptId(int deptId);
 
-    @Query("SELECT MAX(e.emp_code) from Employee e")
+    @Query("SELECT MAX(e.empCode) from Employee e")
     public Integer findMaxEmpCode();
+
+    public Employee findByEmpCode(int empCode);
 }

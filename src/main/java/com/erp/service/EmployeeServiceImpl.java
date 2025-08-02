@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private RoleRepository roleRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailService emailService;
+
     @Value("${file.upload-dir}")
     private String uploadDir;
 
@@ -56,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Integer maxCode = employeeRepo.findMaxEmpCode();
         int nextEmpCode = (maxCode == null) ? 1000 : maxCode + 1;
 
-        employee.setEmp_code(nextEmpCode);
+        employee.setEmpCode(nextEmpCode);
 
         if (file != null && !file.isEmpty()) {
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
@@ -70,7 +77,25 @@ public class EmployeeServiceImpl implements EmployeeService {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             employee.setProfile_picture(fileName);
+
         }
+
+        // code for sending email to their personal email with password and empCode
+
+        Employee savedEmployee = employeeRepo.save(employee);
+
+        if (savedEmployee.getPersonal_email() != null &&
+                savedEmployee.getEmpCode() != 0 &&
+                savedEmployee.getPassword() != null &&
+                savedEmployee.getEmail() != null) {
+
+            emailService.sendEmployeeDetails(
+                    savedEmployee.getPersonal_email(),
+                    savedEmployee.getEmail(),
+                    String.valueOf(savedEmployee.getEmpCode()),
+                    savedEmployee.getPassword());
+        }
+
         // System.out.println("DTO Department ID: " + dto.getDepartmentId());
         // System.out.println("Resolved Department: " +
         // departmentRepo.findById(dto.getDepartmentId()).orElse(null));
@@ -146,7 +171,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         // employee.setPassword(dto.getPassword());
 
         if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
-            employee.setPassword(dto.getPassword());
+            // employee.setPassword(dto.getPassword());
+            employee.setPassword(passwordEncoder.encode(dto.getPassword()));
         }
 
         // employee.setDepartment(departmentRepo.findById(dto.getDepartmentId()).orElse(null));
@@ -188,7 +214,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeDto dto = new EmployeeDto();
 
         dto.setEmp_id(emp.getEmpId());
-        dto.setEmp_code(emp.getEmp_code());
+        dto.setEmp_code(emp.getEmpCode());
         dto.setFirst_name(emp.getFirst_name());
         dto.setLast_name(emp.getLast_name());
         dto.setDateOfBirth(emp.getDateOfBirth());
@@ -238,6 +264,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return dto;
+    }
+
+    @Override
+    public Employee findByEmpCode(int empCode) {
+
+        Employee emp = employeeRepo.findByEmpCode(empCode);
+        return emp;
     }
 
 }

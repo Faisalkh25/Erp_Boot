@@ -99,4 +99,34 @@ public class HomeController {
         return "dashboard/app/client";
     }
 
+    @GetMapping("/show-table")
+    public String showTableDate() {
+        return "dashboard/table/table-data";
+    }
+
+    @GetMapping("/show-login")
+    public String showLoginPage() {
+        return "dashboard/app/login";
+    }
+
+    // handler for showing admin dashboard after login using js
+    @GetMapping("/dashboard/index.html")
+    public String adminDashboard() {
+        return "dashboard/index";
+    }
+
+    @GetMapping("/dashboard/employee-panel.html")
+    public String employeePanel() {
+        return "dashboard/employee-panel";
+    }
+
+    @GetMapping("/employee/dashboard/task")
+    public String employeeTaskDashboard() {
+        return "dashboard/app/employee-task-dashboard";
+    }
+
+    @GetMapping("/employee/dashboard/addTask")
+    public String employeeAddTask() {
+        return "dashboard/app/employee-addTask";
+    }
 }

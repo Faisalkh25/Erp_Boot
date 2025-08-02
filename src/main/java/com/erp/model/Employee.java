@@ -23,7 +23,7 @@ public class Employee {
     private int empId;
 
     @Column(name = "emp_code", unique = true, nullable = false)
-    private int emp_code;
+    private int empCode;
 
     @Column(nullable = false)
     private String first_name;
@@ -91,13 +91,13 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int empId, int emp_code, String first_name, String last_name, LocalDate dateOfBirth, String email,
+    public Employee(int empId, int empCode, String first_name, String last_name, LocalDate dateOfBirth, String email,
             String personal_email, String address, String contact, LocalDate joining_date, Department department,
             String gender, Level emp_level, String company, Shift shift, String employee_status, String joining_status,
             String working_status, ReportingManager reporting_manager1, ReportingManager reporting_manager2, Role role,
             LocalDateTime date_created, LocalDateTime updated_at, String password, String profile_picture) {
         this.empId = empId;
-        this.emp_code = emp_code;
+        this.empCode = empCode;
         this.first_name = first_name;
         this.last_name = last_name;
         this.dateOfBirth = dateOfBirth;
@@ -131,12 +131,12 @@ public class Employee {
         this.empId = empId;
     }
 
-    public int getEmp_code() {
-        return emp_code;
+    public int getEmpCode() {
+        return empCode;
     }
 
-    public void setEmp_code(int emp_code) {
-        this.emp_code = emp_code;
+    public void setEmpCode(int empCode) {
+        this.empCode = empCode;
     }
 
     public String getFirst_name() {

@@ -1,0 +1,41 @@
+const API = 'http://localhost:8080/api';
+
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+     const empCode = document.getElementById('employeeCode').value;
+       const password = document.getElementById('exampleInputPassword1').value;
+
+            const response = await fetch(`${API}/auth/login`, {
+                  method: 'POST',
+                  headers: {
+                         'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ empCode, password })
+             });
+
+             if(response.ok) {
+                const result = await response.json();
+                const token = result.token;
+                const role = result.role;
+
+                //stored token in localStorage
+                localStorage.setItem('token', token);
+                localStorage.setItem('role', role);
+
+                //redirect based on role
+                if(role === 'Admin') {
+                      window.location.href = '/dashboard/index.html';
+                } else if(role === 'HR') {
+                    window.location.href = '/dashboard/index.html';
+                } else if(role === 'Employee') {
+                    window.location.href = '/dashboard/employee-panel.html';
+                } else {
+                    alert('Unknown role, contact Admin.');
+                }
+                
+                // window.location.href = '/index';
+             } else {
+                alert('Invalid credentials');
+             }
+});

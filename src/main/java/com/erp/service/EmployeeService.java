@@ -27,4 +27,8 @@ public interface EmployeeService {
 
     List<Employee> getEmployeesByDepartmentId(int deptId);
 
+    // method for get Employee Code
+
+    public Employee findByEmpCode(int empCode);
+
 }

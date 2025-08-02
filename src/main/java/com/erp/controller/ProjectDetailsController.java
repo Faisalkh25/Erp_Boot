@@ -88,15 +88,21 @@ public class ProjectDetailsController {
     }
 
     @PostMapping("/calculate-cost")
-    public ResponseEntity<Map<String, Double>> calculateCost(@RequestBody ProjectDetailsRequestDto dto) {
-        ProjectDetails temp = new ProjectDetails();
-        List<Employee> team = service.buildTeamAndCalculate(dto, temp);
+    public ResponseEntity<?> calculateCost(@RequestBody ProjectDetailsRequestDto dto) {
+        try {
+            ProjectDetails temp = new ProjectDetails();
+            List<Employee> team = service.buildTeamAndCalculate(dto, temp);
 
-        Map<String, Double> response = new HashMap<>();
-        response.put("rateCalculation", temp.getRateCalculation());
-        response.put("manPerHour", temp.getManPerHour());
+            Map<String, Double> response = new HashMap<>();
+            response.put("rateCalculation", temp.getRateCalculation());
+            response.put("manPerHour", temp.getManPerHour());
 
-        return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "❌ Error: " + e.getMessage()));
+        }
     }
 
 }

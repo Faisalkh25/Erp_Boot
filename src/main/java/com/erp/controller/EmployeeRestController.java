@@ -113,4 +113,14 @@ public class EmployeeRestController {
         return new ResponseEntity<>(empByDept, HttpStatus.OK);
     }
 
+    // handler for getEmployee from employee code
+
+    @GetMapping("/by-empCode/{empCode}")
+    public ResponseEntity<Employee> getEmployeeByEmpCode(@PathVariable int empCode) {
+
+        Employee emp = employeeService.findByEmpCode(empCode);
+        return new ResponseEntity<>(emp, HttpStatus.OK);
+
+    }
+
 }

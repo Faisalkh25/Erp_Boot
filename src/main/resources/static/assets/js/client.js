@@ -1,3 +1,15 @@
+//helper function for generating header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+
 
 const API = "http://localhost:8080/api";
 
@@ -25,7 +37,9 @@ function showSuccessAlert(message) {
 
 //  Load Projects in Dropdown
 async function loadProjects(selectedId = null, targetDropdown = "projectDropdown") {
-  const res = await fetch(`${API}/projects`);
+  const res = await fetch(`${API}/projects`, {
+     headers: getAuthHeaders(false)  
+  });
   const projects = await res.json();
   const select = document.querySelector("select[name='projectName[]']");
   if (!select) return;
@@ -56,7 +70,7 @@ async function handleClientFormSubmit(e) {
 
   const res = await fetch(`${API}/clients`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(clientData),
   });
 
@@ -69,7 +83,9 @@ async function handleClientFormSubmit(e) {
 
 //  Load Clients into Table
 async function loadClients() {
-  const res = await fetch(`${API}/clients`);
+  const res = await fetch(`${API}/clients`, {
+     headers: getAuthHeaders(false) 
+  });
   const clients = await res.json();
 
   const tableBody = document.getElementById("clientTable");
@@ -96,7 +112,9 @@ async function loadClients() {
 
 //  Open Edit Modal
 async function openEditModal(id) {
-  const res = await fetch(`${API}/clients/${id}`);
+  const res = await fetch(`${API}/clients/${id}`, {
+     headers: getAuthHeaders(false)
+  });
   const client = await res.json();
 
   document.getElementById("edit_client_id").value = client.clientId;
@@ -110,7 +128,9 @@ async function openEditModal(id) {
 
 //  Load Projects in Edit Modal
 async function loadEditProjects(selectedId = null) {
-  const res = await fetch(`${API}/projects`);
+  const res = await fetch(`${API}/projects`, {
+    headers: getAuthHeaders(false)
+  });
   const projects = await res.json();
   const select = document.getElementById("edit_project_dropdown");
 
@@ -142,7 +162,7 @@ async function updateClient(e) {
 
   const res = await fetch(`${API}/clients/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(clientData),
   });
 
@@ -166,6 +186,7 @@ async function deleteClient() {
   if (clientIdToDelete) {
     await fetch(`${API}/clients/${clientIdToDelete}`, {
       method: "DELETE",
+      headers: getAuthHeaders(false)
     });
     loadClients();
     bootstrap.Modal.getInstance(document.getElementById("deleteConfirmModal")).hide();

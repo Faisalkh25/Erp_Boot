@@ -1,3 +1,17 @@
+//helper function for generating header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+////
+
+
 const API = "http://localhost:8080/api";
 let allEmployees = []; 
 let deleteSalaryId = null;
@@ -18,7 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // ---------------------------------------------------
 async function loadEmployeeDropdowns() {
   try {
-    const res = await fetch(`${API}/employees`);
+    const res = await fetch(`${API}/employees`, {
+        headers: getAuthHeaders()
+    });
     allEmployees = await res.json();
 
     populateEmployeeDropdown("employee");
@@ -65,7 +81,7 @@ async function addSalary(e) {
   try {
     const res = await fetch(`${API}/salary`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(payload)
     });
 
@@ -88,7 +104,9 @@ async function addSalary(e) {
 // ------------------------------
 async function loadSalaryList() {
   try {
-    const res = await fetch(`${API}/salary`);
+    const res = await fetch(`${API}/salary`, {
+         headers: getAuthHeaders()
+    });
     const data = await res.json();
 
     const tbody = document.getElementById("salaryTableBody");
@@ -124,14 +142,22 @@ async function loadSalaryList() {
 // -----------------------------
 async function openEditModal(id) {
   try {
-    const res = await fetch(`${API}/salary/${id}`);
+    const res = await fetch(`${API}/salary/${id}`, {
+      headers: getAuthHeaders()
+    });
     const salary = await res.json();
-
+ 
     document.getElementById("edit_salary_id").value = salary.salaryId;
     document.getElementById("editsalary").value = salary.monthlySalary;
-
-    populateEmployeeDropdown("editemployee", salary.employee.emp_id);
-
+ 
+    console.log("Salary Response:", salary);
+    console.log("salary.employee:", salary.employee);
+    console.log("salary.employee.emp_id:", salary.employee?.emp_id);
+    console.log("salary.employee.empId:", salary.employee?.empId);
+ 
+    const empId = salary.employee?.empId || salary.employee?.emp_id;
+    await populateEmployeeDropdown("editemployee", empId);
+ 
     const modal = new bootstrap.Modal(document.getElementById("editSalaryModal"));
     modal.show();
   } catch (err) {
@@ -165,7 +191,7 @@ async function updateSalary(e) {
   try {
     const res = await fetch(`${API}/salary/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(payload)
     });
 
@@ -203,7 +229,8 @@ async function confirmDelete() {
 
   try {
     const res = await fetch(`${API}/salary/${deleteSalaryId}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: getAuthHeaders()  
     });
 
     showAlert("Salary deleted successfully!", "danger");

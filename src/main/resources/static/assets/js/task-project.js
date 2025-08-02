@@ -1,3 +1,16 @@
+//helper function for jwt header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+///////
+
 const API = "http://localhost:8080/api/projects";
 let selectedDeleteProjectId = null;
 
@@ -15,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadProjects() {
   try {
-    const res = await fetch(API);
+    const res = await fetch(API, {
+      headers: getAuthHeaders() //  Added auth headers
+    });
     const data = await res.json();
     const tbody = document.querySelector("#projectTable tbody");
 
@@ -55,7 +70,7 @@ async function createProject(e) {
 
   const res = await fetch(API, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),   //added jwt auth
     body: JSON.stringify(project)
   });
 
@@ -77,7 +92,9 @@ async function createProject(e) {
 // ------------------------
 
 async function openEditModal(id) {
-  const res = await fetch(`${API}/${id}`);
+  const res = await fetch(`${API}/${id}`, {
+       headers: getAuthHeaders()  //added jwt auth
+  });
   const data = await res.json();
 
   document.getElementById("edit_project_id").value = data.projectId;
@@ -102,7 +119,7 @@ async function updateProject(e) {
 
   const res = await fetch(`${API}/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),   //added jwt auth
     body: JSON.stringify({ projectName: name })
   });
 
@@ -141,7 +158,8 @@ async function deleteProject() {
   if (!selectedDeleteProjectId) return;
 
   const res = await fetch(`${API}/${selectedDeleteProjectId}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: getAuthHeaders()  //added jwt auth
   });
 
   if (res.ok) {

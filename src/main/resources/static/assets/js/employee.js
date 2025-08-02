@@ -1,9 +1,21 @@
+//helper function for generating headers
+function getAuthHeaders(isJson = false) {
+  const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+  if (isJson) headers['Content-Type'] = 'application/json';
+  return headers;
+}
+///////////////////////////
+
+
 const API = 'http://localhost:8080/api';
 
 // Load dropdowns (Add or Edit)
 async function loadDropdown(endpoint, selectorId, placeholder = 'Select', selectedValue = null) {
   try {
-    const res = await fetch(`${API}/${endpoint}`);
+    const res = await fetch(`${API}/${endpoint}`, {
+     headers: getAuthHeaders()    //added jwt token
+    });
     const arr = await res.json();
     const sel = document.getElementById(selectorId);
 
@@ -30,7 +42,9 @@ async function loadDropdown(endpoint, selectorId, placeholder = 'Select', select
 // Load managers by department for Add form
 async function loadReportingManagersByDepartment(deptId) {
   try {
-    const res = await fetch(`${API}/managers/by-department/${deptId}`);
+    const res = await fetch(`${API}/managers/by-department/${deptId}`, {
+       headers: getAuthHeaders()    //added jwt token
+    });
     const data = await res.json();
 
     const sel1 = document.getElementById('rep_name1');
@@ -55,7 +69,9 @@ async function loadReportingManagersByDepartment(deptId) {
 // Load managers for edit form
 async function loadReportingManagersByDepartment(deptId, sel1Id = 'rep_name1', sel2Id = 'rep_name2', selected1 = null, selected2 = null) {
   try {
-    const res = await fetch(`${API}/managers/by-department/${deptId}`);
+    const res = await fetch(`${API}/managers/by-department/${deptId}`, {
+        headers: getAuthHeaders()  //added jwt token
+    });
     const data = await res.json();
 
     if (!Array.isArray(data)) {
@@ -148,7 +164,8 @@ async function submitForm(e) {
   const id = f.dataset.id;
   const res = await fetch(id ? `${API}/employees/${id}` : `${API}/employees`, {
     method: id ? 'PUT' : 'POST',
-    body: formData
+    body: formData,
+    headers: getAuthHeaders()  //added jwt token
   });
 
   if (res.ok) {
@@ -162,10 +179,21 @@ async function submitForm(e) {
 
 // Load employees
 async function loadEmployees() {
-  const res = await fetch(`${API}/employees`);
+
+  // const token = localStorage.getItem('token');
+  // console.log("JWT Token (loadEmployees):", token);
+
+  const res = await fetch(`${API}/employees`, {
+    headers: getAuthHeaders()   //added jwt token
+  });
   const arr = await res.json();
   const tbody = document.querySelector('#employeeTable tbody');
   if (!tbody) return;
+
+    // If DataTable exists, destroy it first
+    if ($.fn.DataTable.isDataTable('#employeeTable')) {
+      $('#employeeTable').DataTable().destroy();
+    }
 
   tbody.innerHTML = arr.map(emp => `
     <tr>
@@ -193,12 +221,15 @@ async function loadEmployees() {
       <td>${emp.roleName || '-'}</td>
       <td>
 
-<i class="fa-solid fa-pen-to-square text-primary me-2" onclick="fillForm(${emp.emp_id})" style="cursor: pointer; font-size: 18px;"></i>
-          <i class="fa-solid fa-trash text-danger" onclick="confirmDelete(${emp.emp_id})" style="cursor: pointer; font-size: 18px;"></i>
+  <i class="fa-solid fa-pen-to-square text-primary me-2 edit" data-id="${emp.emp_id}" style="cursor: pointer; font-size: 18px;"></i>
+  <i class="fa-solid fa-trash text-danger delete" data-id="${emp.emp_id}" style="cursor: pointer; font-size: 18px;"></i>
+
 
       </td>
     </tr>
   `).join('');
+
+  $('#employeeTable').DataTable();
 
   tbody.querySelectorAll('.edit').forEach(btn => {
     btn.addEventListener('click', () => fillForm(btn.dataset.id));
@@ -217,7 +248,9 @@ async function loadEmployees() {
 
 // Fill Edit Modal
 async function fillForm(id) {
-  const res = await fetch(`${API}/employees/${id}`);
+  const res = await fetch(`${API}/employees/${id}`, {
+    headers: getAuthHeaders()   //added jwt token
+  });
   const emp = await res.json();
 
   const f = document.getElementById('editEmpForm');
@@ -239,25 +272,29 @@ async function fillForm(id) {
   f.editjoiningStatus.value = emp.joining_status;
   f.editworkingStatus.value = emp.working_status;
 
-  console.log("Selected Dept ID:", emp.departmentId);
-console.log("Selected Role ID:", emp.roleId);
-console.log("RM1:", emp.reportingManager1Id, "RM2:", emp.reportingManager2Id);
+//   console.log("Selected Dept ID:", emp.departmentId);
+// console.log("Selected Role ID:", emp.roleId);
+// console.log("RM1:", emp.reportingManager1Id, "RM2:", emp.reportingManager2Id);
 
 
- 
   // Load dropdowns with selected value
 await loadDropdown('departments', 'editdept', 'Department', emp.departmentId || emp.department?.deptId);
-await loadDropdown('levels', 'editlevel', 'Level', emp.levelId || emp.level?.level_id);
+// await loadDropdown('levels', 'editlevel', 'Level', emp.levelId || emp.level?.level_id);
+await loadDropdown('levels', 'editlevel', 'Level', emp.emp_level?.level_id);
 await loadDropdown('shifts', 'editshift', 'Shift', emp.shiftId || emp.shift?.shift_id);
 await loadDropdown('roles', 'editrole', 'Role', emp.roleId || emp.role?.role_id);
 
-await loadReportingManagersByDepartment(
-  emp.departmentId || emp.department?.deptId,
-  'editrep_name1',
-  'editrep_name2',
-  emp.reportingManager1Id || emp.reportingManager1?.rm_id,
-  emp.reportingManager2Id || emp.reportingManager2?.rm_id
-);
+if (emp.department?.deptId) {
+  await loadReportingManagersByDepartment(
+    emp.department.deptId,
+    'editrep_name1',
+    'editrep_name2',
+    emp.reporting_manager1?.rm_id,
+    emp.reporting_manager2?.rm_id
+  );
+} else {
+  console.warn("⚠️ Department ID is missing for employee", emp);
+}
 
 
   // Show modal
@@ -301,7 +338,8 @@ document.getElementById('editEmpForm').addEventListener('submit', async function
 
   const res = await fetch(`${API}/employees/${id}`, {
     method: 'PUT',
-    body: formData
+    body: formData,
+    headers: getAuthHeaders()  //added jwt token
   });
 
   if (res.ok) {
@@ -326,7 +364,8 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', async () =
 
   try {
     const res = await fetch(`${API}/employees/${selectedDeleteEmpId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: getAuthHeaders()   //added jwt token
     });
 
     if (res.ok) {

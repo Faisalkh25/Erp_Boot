@@ -1,3 +1,16 @@
+//helper function for jwt header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+///////
+
 const PRIORITY_API = "http://localhost:8080/api/priority";
 let deleteId = null; // used for delete tracking
 
@@ -17,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(PRIORITY_API, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(), 
       body: JSON.stringify({ priorityName: name })
     })
       .then(res => res.json())
@@ -40,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(`${PRIORITY_API}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify({ priorityName: name })
     })
       .then(res => res.json())
@@ -57,7 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
   deleteBtn.addEventListener("click", () => {
     if (deleteId !== null) {
       fetch(`${PRIORITY_API}/${deleteId}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: getAuthHeaders()
       })
         .then(() => {
           const modal = bootstrap.Modal.getInstance(document.getElementById("deleteProjectModal"));
@@ -72,7 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 🔁 Load all priorities
 function loadPriorities() {
-  fetch(PRIORITY_API)
+  fetch(PRIORITY_API, {
+    headers: getAuthHeaders()
+  })
     .then(res => res.json())
     .then(data => {
       const tbody = document.getElementById("priorityTableBody");

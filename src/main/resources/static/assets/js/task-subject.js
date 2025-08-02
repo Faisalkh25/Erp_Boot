@@ -1,3 +1,16 @@
+//helper function for jwt header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+///////
+
 const API = "http://localhost:8080/api/subjects";
 
 let deleteSubjectId = null; // For storing ID to delete
@@ -17,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch(API, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),  //added jwt topken
       body: JSON.stringify(data)
     })
       .then(res => res.json())
@@ -41,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch(`${API}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(data)
     })
       .then(res => res.json())
@@ -57,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
     if (deleteSubjectId !== null) {
       fetch(`${API}/${deleteSubjectId}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: getAuthHeaders()
       })
         .then(() => {
           deleteSubjectId = null;
@@ -75,7 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // LOAD ALL SUBJECTS
 function loadSubjects() {
-  fetch(API)
+  fetch(API, {
+      headers: getAuthHeaders() //  Added auth headers
+  })
     .then(res => res.json())
     .then(subjects => {
       const tableBody = document.getElementById("subjectTableBody");

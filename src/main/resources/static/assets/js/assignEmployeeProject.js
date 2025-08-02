@@ -1,3 +1,17 @@
+//helper function for generating header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+////
+
+
 const API = "http://localhost:8080/api/employee-projects";
 const EMPLOYEE_API = "http://localhost:8080/api/employees";
 const PROJECT_API = "http://localhost:8080/api/projects";
@@ -65,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (assignments.length > 0) {
       fetch(API, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(assignments)
       })
         .then(res => res.json())
@@ -103,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(`${API}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(updatedData)
     })
       .then(res => {
@@ -125,7 +139,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //  Load Assignments and Group by Employee
 function loadAssignments() {
-  fetch(API)
+  fetch(API, {
+    headers: getAuthHeaders(false)
+  })
     .then(res => res.json())
     .then(data => {
       const grouped = groupByEmployee(data);
@@ -176,7 +192,9 @@ function groupByEmployee(data) {
 
 //  Load Employees
 function fetchEmployees() {
-  fetch(EMPLOYEE_API)
+  fetch(EMPLOYEE_API, {
+    headers: getAuthHeaders()
+  })
     .then(res => res.json())
     .then(data => {
       const select = document.getElementById("employeeName");
@@ -192,7 +210,9 @@ function fetchEmployees() {
 
 // Load Projects
 function fetchProjects() {
-  fetch(PROJECT_API)
+  fetch(PROJECT_API, {
+    headers: getAuthHeaders()
+  })
     .then(res => res.json())
     .then(data => {
       projectOptionsHTML = `<option value="" disabled selected>- Select Project -</option>`;
@@ -213,7 +233,10 @@ function confirmDelete(id) {
   modal.show();
 
   document.getElementById("confirmDeleteBtn").onclick = () => {
-    fetch(`${API}/${id}`, { method: "DELETE" })
+    fetch(`${API}/${id}`, { 
+      method: "DELETE",
+      headers: getAuthHeaders()
+     })
       .then(() => {
         modal.hide();
         showAlert("Project assignment successfully deleted!", "success");

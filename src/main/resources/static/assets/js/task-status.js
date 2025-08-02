@@ -1,3 +1,17 @@
+//helper function for jwt header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+/////
+
+
 const STATUS_API = "http://localhost:8080/api/status";
 let deleteId = null;
 
@@ -16,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(STATUS_API, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify({ statusName: name })
     })
       .then(res => res.json())
@@ -38,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(`${STATUS_API}/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify({ statusName: name })
     })
       .then(res => res.json())
@@ -55,7 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
   deleteBtn.addEventListener("click", () => {
     if (deleteId !== null) {
       fetch(`${STATUS_API}/${deleteId}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: getAuthHeaders()
       })
         .then(() => {
           const modal = bootstrap.Modal.getInstance(document.getElementById("deleteProjectModal"));
@@ -70,7 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //  Load all status records
 function loadStatus() {
-  fetch(STATUS_API)
+  fetch(STATUS_API, {
+      headers: getAuthHeaders()
+  })
     .then(res => res.json())
     .then(data => {
       const tbody = document.getElementById("statusTableBody");

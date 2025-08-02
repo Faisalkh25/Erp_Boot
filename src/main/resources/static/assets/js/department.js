@@ -5,7 +5,11 @@ window.onload = fetchDepartment;
 let deptIdToDelete = null; // For delete modal
 
 function fetchDepartment() {
-  fetch(apiUrl)
+  fetch(apiUrl, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
     .then(res => res.json())
     .then(data => {
       const list = document.getElementById("departmentList");
@@ -49,7 +53,8 @@ function saveDepartment(event) {
   fetch(url, {
     method: method,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
     },
     body: JSON.stringify(bodyData)
   })
@@ -82,7 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
     if (deptIdToDelete !== null) {
       fetch(`${apiUrl}/${deptIdToDelete}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
       })
         .then(() => {
           fetchDepartment();
@@ -116,7 +124,8 @@ document.getElementById("editForm").addEventListener("submit", function (e) {
   fetch(`${apiUrl}/${id}`, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
     },
     body: JSON.stringify({ deptId: parseInt(id), dept_name })
   })

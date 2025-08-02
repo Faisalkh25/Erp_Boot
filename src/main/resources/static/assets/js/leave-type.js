@@ -1,4 +1,17 @@
 
+//helper function for generating headers
+function getAuthHeaders(isJson = true) {
+    const token = localStorage.getItem('token');
+    const headers = {
+      "Authorization": `Bearer ${token}`
+    };
+    if (isJson) {
+      headers["Content-Type"] = "application/json";
+    }
+    return headers;
+  }
+  
+
 const apiUrl = 'http://localhost:8080/api/leavetypes';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadLeaveTypes() {
-    fetch(apiUrl)
+    fetch(apiUrl, {
+          headers: getAuthHeaders()   //added jwt token
+    })
         .then(response => response.json())
         .then(data => {
             const tbody = document.getElementById("leaveTypeTableBody");
@@ -53,7 +68,7 @@ function addLeaveType() {
 
     fetch(apiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),  //added jwt token
         body: JSON.stringify({ leave_type: leaveTypeInput })
     })
         .then(res => res.json())
@@ -65,7 +80,9 @@ function addLeaveType() {
 }
 
 function showEditModal(id) {
-    fetch(`${apiUrl}/${id}`)
+    fetch(`${apiUrl}/${id}`, {
+        headers: getAuthHeaders()  //added jwt token
+    })
         .then(res => res.json())
         .then(data => {
             document.getElementById("edit_dept_id").value = data.leavetype_id;
@@ -81,7 +98,7 @@ function updateLeaveType(id) {
 
     fetch(`${apiUrl}/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),  //get jwt token
         body: JSON.stringify(updatedLeaveType)
     })
         .then(res => res.json())
@@ -102,7 +119,8 @@ function showDeleteModal(id) {
 
 function deleteLeaveType(id) {
     fetch(`${apiUrl}/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: getAuthHeaders() //added jwt token
     })
         .then(() => {
             loadLeaveTypes();

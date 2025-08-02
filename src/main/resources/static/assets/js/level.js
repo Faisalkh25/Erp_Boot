@@ -1,3 +1,18 @@
+
+//helper function for generating headers
+function getAuthHeaders(isJson = true) {
+    const token = localStorage.getItem('token');
+    const headers = {
+      "Authorization": `Bearer ${token}`
+    };
+    if (isJson) {
+      headers["Content-Type"] = "application/json";
+    }
+    return headers;
+  }  
+
+
+
 const apiUrl = "http://localhost:8080/api/levels";
 let levelToDeleteId = null;
 
@@ -24,7 +39,8 @@ function saveLevel(event) {
 
     fetch(apiUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        // headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),    //added jwt token
         body: JSON.stringify(levelData)
     })
         .then(response => {
@@ -45,7 +61,9 @@ function saveLevel(event) {
 // ===================== LOAD =====================
 
 function loadLevels() {
-    fetch(apiUrl)
+    fetch(apiUrl, {
+        headers: getAuthHeaders(false)   //added jwt token
+    })
         .then(res => res.json())
         .then(data => {
             const tbody = document.getElementById("levelTableBody");
@@ -73,7 +91,9 @@ function loadLevels() {
 // ===================== EDIT =====================
 
 function editLevel(id) {
-    fetch(`${apiUrl}/${id}`)
+    fetch(`${apiUrl}/${id}`, {
+        headers: getAuthHeaders(false)
+    })
         .then(res => res.json())
         .then(level => {
             document.getElementById("edit_level_id").value = level.level_id;
@@ -103,7 +123,8 @@ function submitEditLevel(event) {
 
     fetch(`${apiUrl}/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        // headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(levelData)
     })
         .then(response => {
@@ -134,7 +155,8 @@ function confirmDeleteLevel() {
     if (!levelToDeleteId) return;
 
     fetch(`${apiUrl}/${levelToDeleteId}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: getAuthHeaders(false)
     })
         .then(response => {
             console.log("DELETE response status:", response.status);

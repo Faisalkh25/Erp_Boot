@@ -53,3 +53,67 @@ function animate() {
 }
 
 animate();
+
+// document.addEventListener("DOMContentLoaded", function () {
+
+//        const currentPath =  window.location.pathname;
+
+//      const links = document.querySelectorAll('#sidebar-user .nav-link, #sidebar-task .nav-link');
+
+//      links.forEach(link => {
+//          const href =  link.getAttribute('href');  
+         
+//          if(href && currentPath.includes(href)) {
+//              link.classList.add('active');
+
+//            const sidebarUser =  document.getElementById('sidebar-user');
+//            const sidebarTask =  document.getElementById('sidebar-task');
+
+//            if(sidebarUser && !sidebarUser.classList.contains('show')) {
+//             sidebarUser.classList.add('show');
+//            }
+
+//            if(sidebarTask && !sidebarTask.classList.contains('show')) {
+//             sidebarTask.classList.add('show');
+//            }
+
+
+//           const parentLi = sidebarUser.closest('.nav-item');
+//                 const parentTaskLi =  sidebarTask.closest('.nav-item');
+//             if(parentLi) {
+//               parentLi.classList.add('active');
+//             }
+//             if(parentTaskLi) {
+//               parentTaskLi.classList.add('active');
+//             }
+//          }
+//      });
+// }); 
+
+//js for making sidebar links active
+document.addEventListener("DOMContentLoaded", function () {
+  const currentPath = window.location.pathname;
+
+  const links = document.querySelectorAll('#sidebar-user .nav-link, #sidebar-task .nav-link');
+
+  links.forEach(link => {
+      const linkPath = new URL(link.href).pathname;
+
+      if (currentPath === linkPath) {
+          link.classList.add('active');
+
+          // Find the immediate parent collapse (like sidebar-user or sidebar-task)
+          const parentCollapse = link.closest('.collapse');
+          if (parentCollapse && !parentCollapse.classList.contains('show')) {
+              parentCollapse.classList.add('show');
+          }
+
+          // Highlight the main nav item (e.g., li.nav-item > a > ul)
+          const parentNavItem = parentCollapse.closest('.nav-item');
+          if (parentNavItem) {
+              parentNavItem.classList.add('active');
+          }
+      }
+  });
+});
+

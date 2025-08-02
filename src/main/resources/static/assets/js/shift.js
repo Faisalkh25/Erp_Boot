@@ -2,6 +2,19 @@
 // Shift Page Integration JS Start
 // -------------------------------
 
+//helper function for jwt header
+function getAuthHeaders(isJson = true) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+  if (isJson) {
+    headers["Content-Type"] = "application/json";
+  }
+  return headers;
+}
+
+
 const shiftApiUrl = "http://localhost:8080/api/shifts";
 let deleteShiftId = null;
 
@@ -33,7 +46,9 @@ function collectShiftFormValues() {
 }
 
 function fetchShifts() {
-  fetch(shiftApiUrl)
+  fetch(shiftApiUrl, {
+      headers: getAuthHeaders(false)      // added jwt token
+  }) 
     .then(res => res.json())
     .then(data => {
       const tableBody = document.getElementById("shiftList");
@@ -81,7 +96,7 @@ function saveShift(event) {
 
   fetch(shiftApiUrl, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),      //added jwt token
     body: JSON.stringify(shift)
   })
     .then(response => {
@@ -108,7 +123,9 @@ function confirmDelete(id) {
 function deleteShiftConfirmed() {
   if (!deleteShiftId) return;
 
-  fetch(`${shiftApiUrl}/${deleteShiftId}`, { method: "DELETE" })
+  fetch(`${shiftApiUrl}/${deleteShiftId}`, { 
+    method: "DELETE", 
+    headers: getAuthHeaders(false) })    //added jwt token
     .then(() => {
       fetchShifts();
       showAlert("✅ Shift deleted successfully!", "success");
@@ -123,7 +140,10 @@ function deleteShiftConfirmed() {
 }
 
 function editShift(id) {
-  fetch(`${shiftApiUrl}/${id}`)
+  fetch(`${shiftApiUrl}/${id}`, {
+       headers: getAuthHeaders(false)
+  }
+  )
     .then(res => res.json())
     .then(shift => {
       const modal = document.getElementById("editModal");
@@ -181,7 +201,7 @@ function updateShift(event) {
 
   fetch(`${shiftApiUrl}/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(updatedShift)
   })
     .then(res => {
