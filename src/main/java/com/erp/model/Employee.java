@@ -73,8 +73,8 @@ public class Employee {
     @JoinColumn(name = "emp_role")
     private Role role;
 
-    @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime date_created = LocalDateTime.now();
+    @Column(name = "date_created", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime dateCreated = LocalDateTime.now();
 
     private LocalDateTime updated_at = LocalDateTime.now();
 
@@ -95,7 +95,7 @@ public class Employee {
             String personal_email, String address, String contact, LocalDate joining_date, Department department,
             String gender, Level emp_level, String company, Shift shift, String employee_status, String joining_status,
             String working_status, ReportingManager reporting_manager1, ReportingManager reporting_manager2, Role role,
-            LocalDateTime date_created, LocalDateTime updated_at, String password, String profile_picture) {
+            LocalDateTime dateCreated, LocalDateTime updated_at, String password, String profile_picture) {
         this.empId = empId;
         this.empCode = empCode;
         this.first_name = first_name;
@@ -117,7 +117,7 @@ public class Employee {
         this.reporting_manager1 = reporting_manager1;
         this.reporting_manager2 = reporting_manager2;
         this.role = role;
-        this.date_created = date_created;
+        this.dateCreated = dateCreated;
         this.updated_at = updated_at;
         this.password = password;
         this.profile_picture = profile_picture;
@@ -291,14 +291,6 @@ public class Employee {
         this.role = role;
     }
 
-    public LocalDateTime getDate_created() {
-        return date_created;
-    }
-
-    public void setDate_created(LocalDateTime date_created) {
-        this.date_created = date_created;
-    }
-
     public LocalDateTime getUpdated_at() {
         return updated_at;
     }
@@ -321,6 +313,14 @@ public class Employee {
 
     public void setProfile_picture(String profile_picture) {
         this.profile_picture = profile_picture;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
 }

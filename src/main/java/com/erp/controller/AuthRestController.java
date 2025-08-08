@@ -45,7 +45,7 @@ public class AuthRestController {
         String token = jwtUtil.generateToken(String.valueOf(employee.getEmpCode()), employee.getEmpId());
         String role = employee.getRole().getRole_name();
 
-        return ResponseEntity.ok(new LoginResponse(token, role));
+        return ResponseEntity.ok(new LoginResponse(token, role, employee.getEmpCode()));
     }
 
 }

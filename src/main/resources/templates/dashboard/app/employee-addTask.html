@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Barrownz | Admin</title>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="https://templates.iqonic.design/hope-ui/html/dist/assets/images/favicon.ico">
+     <!-- Favicon -->
+ <link rel="shortcut icon" href="../../assets/custom_images/barrownz-logo.png" type="image/png">
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -110,7 +110,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">
+                        <a class="nav-link active" aria-current="page" data-th-href="@{/dashboard/employee-panel.html}">
                             <i class="icon">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -224,6 +224,7 @@
                                     <span class="item-name">Employee Information</span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link " href="/employee-gate-pass">
                                     <i class="icon">
@@ -306,7 +307,7 @@
                         </a>
                         <ul class="sub-nav collapse" id="sidebar-leave" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-apply-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/applyLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -320,7 +321,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-track-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/trackLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -334,7 +335,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-all-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/allLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -445,7 +446,7 @@
                         </a>
                         <ul class="sub-nav collapse" id="utilities-error" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-show-holiday">
+                                <a class="nav-link " data-th-href="@{/showHolidayList}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -479,7 +480,7 @@
             <!-- ------- -->
             <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar">
                 <div class="container-fluid navbar-inner">
-                    <a href="../index.html" class="navbar-brand">
+                    <a data-th-href="@{/dashboard/employee-panel.html}" class="navbar-brand"> 
 
                         <!-- -------- -->
                         <!--Logo start-->

@@ -18,10 +18,12 @@ document.getElementById('loginForm').addEventListener('submit', async function (
                 const result = await response.json();
                 const token = result.token;
                 const role = result.role;
+               const empCode = result.empCode;
 
                 //stored token in localStorage
                 localStorage.setItem('token', token);
                 localStorage.setItem('role', role);
+                localStorage.setItem('empCode', empCode);
 
                 //redirect based on role
                 if(role === 'Admin') {

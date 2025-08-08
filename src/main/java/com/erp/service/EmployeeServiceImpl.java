@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -209,7 +210,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     // department name, level name, shift name, role name, reporting manager 1 name,
     // reporting manager 2 name
 
-    private EmployeeDto convertToDto(Employee emp) {
+    public EmployeeDto convertToDto(Employee emp) {
 
         EmployeeDto dto = new EmployeeDto();
 
@@ -271,6 +272,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee emp = employeeRepo.findByEmpCode(empCode);
         return emp;
+    }
+
+    @Override
+    public List<Employee> getBirthdaysInCurrentMonth() {
+        int currentMonth = LocalDate.now().getMonthValue();
+        return employeeRepo.findAllWithBirthdayInMonth(currentMonth);
     }
 
 }

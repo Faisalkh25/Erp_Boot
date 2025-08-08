@@ -24662,7 +24662,8 @@ body.offcanvas-active {
 }
 
 .sidebar-base .nav-item .nav-link:not(.disabled) {
-    color: #6c757d
+    color: #6c757d;
+    /* color: #000c1f; */
 }
 
 .sidebar-base .nav-item .nav-link:not(.disabled) .right-icon {
@@ -24752,7 +24753,8 @@ body {
 }
 
 .main-content .content-inner {
-    min-height: calc(100vh - 6.6rem)
+    /* min-height: calc(100vh - 6.6rem) */
+    min-height: calc(100vh - 30.6rem);
 }
 
 .sidebar+.main-content {

@@ -28,7 +28,21 @@ public interface EmployeeService {
     List<Employee> getEmployeesByDepartmentId(int deptId);
 
     // method for get Employee Code
-
     public Employee findByEmpCode(int empCode);
+
+    // method for get Upcoming Birthdays
+    public List<Employee> getBirthdaysInCurrentMonth();
+
+    public default EmployeeDto convertToDto(Employee employee) {
+        EmployeeDto dto = new EmployeeDto();
+
+        dto.setEmp_id(employee.getEmpId());
+        dto.setEmp_code(employee.getEmpCode());
+        dto.setFirst_name(employee.getFirst_name());
+        dto.setLast_name(employee.getLast_name());
+
+        return dto;
+
+    }
 
 }

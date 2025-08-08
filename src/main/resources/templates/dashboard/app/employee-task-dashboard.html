@@ -8,7 +8,7 @@
     <title>Barrownz | Admin</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://templates.iqonic.design/hope-ui/html/dist/assets/images/favicon.ico">
+ <link rel="shortcut icon" href="../../assets/custom_images/barrownz-logo.png" type="image/png">
 
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -58,7 +58,7 @@
 
     <aside class="sidebar sidebar-default sidebar-white sidebar-base navs-rounded-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
-            <a href="../index.html" class="navbar-brand">
+            <a data-th-href="@{/dashboard/employee-panel.html}" class="navbar-brand">
 
                 <!-- -------- -->
                 <!--Logo start-->
@@ -312,7 +312,7 @@
                         </a>
                         <ul class="sub-nav collapse" id="sidebar-leave" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-apply-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/applyLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -326,7 +326,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-track-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/trackLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -340,7 +340,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-all-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/allLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -451,7 +451,7 @@
                         </a>
                         <ul class="sub-nav collapse" id="utilities-error" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-show-holiday">
+                                <a class="nav-link " data-th-href="@{/showHolidayList}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">

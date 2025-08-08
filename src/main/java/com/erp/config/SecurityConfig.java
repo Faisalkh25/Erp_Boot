@@ -41,12 +41,22 @@ public class SecurityConfig {
                                 "/api/employees",
                                 "/*.html",
                                 "/dashboard/app/**",
-                                "/employee/dashboard/**")
+                                // "/employee/dashboard/task",
+                                // "/employee/dashboard/addTask",
+                                "/employee/dashboard/**",
+                                "/showHoliday",
+                                "/showHolidayList",
+                                "/employee/dashboard/viewProfile")
                         .permitAll()
                         .requestMatchers("/admin/**").hasAuthority("Admin")
-                        .requestMatchers("/index/**").hasAuthority("HR")
+                        // .requestMatchers("/showHoliday").hasAuthority("HR")
+                        // .requestMatchers("/index/**").hasAuthority("HR")
+                        // .requestMatchers("/employee/dashboard/**").hasAuthority("Employee")
                         .requestMatchers("/api/employee-dashboard/**").hasAuthority("Employee")
                         .requestMatchers("/api/addTask/**").hasAuthority("Employee")
+                        .requestMatchers("/api/tasks/by-employee-today").hasAuthority("Employee")
+                        .requestMatchers("/api/quotes").hasAuthority("Employee")
+                        .requestMatchers("/api/employees/**").hasAuthority("Employee")
 
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

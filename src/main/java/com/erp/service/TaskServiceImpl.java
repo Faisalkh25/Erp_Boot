@@ -1,10 +1,13 @@
 package com.erp.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.erp.dto.TaskRequestDto;
+import com.erp.dto.TaskResponseDto;
 import com.erp.model.AddTask;
 import com.erp.repository.EmployeeRepository;
 import com.erp.repository.TaskPriorityRepository;
@@ -13,6 +16,9 @@ import com.erp.repository.TaskRepository;
 import com.erp.repository.TaskStatusRepository;
 import com.erp.repository.TaskSubjectRepository;
 import com.erp.repository.TaskTypeRepository;
+import com.erp.util.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -24,11 +30,12 @@ public class TaskServiceImpl implements TaskService {
     private TaskSubjectRepository taskSubjectRepo;
     private TaskProjectRepository taskProjectRepo;
     private EmployeeRepository employeeRepo;
+    private JwtUtil jwtUtil;
 
     public TaskServiceImpl(TaskRepository taskRepo, TaskTypeRepository taskTypeRepo,
             TaskPriorityRepository taskPriorityRepo, TaskStatusRepository taskStatusRepo,
             TaskSubjectRepository taskSubjectRepo, TaskProjectRepository taskProjectRepo,
-            EmployeeRepository employeeRepo) {
+            EmployeeRepository employeeRepo, JwtUtil jwtUtil) {
         this.taskRepo = taskRepo;
         this.taskTypeRepo = taskTypeRepo;
         this.taskPriorityRepo = taskPriorityRepo;
@@ -36,6 +43,7 @@ public class TaskServiceImpl implements TaskService {
         this.taskSubjectRepo = taskSubjectRepo;
         this.taskProjectRepo = taskProjectRepo;
         this.employeeRepo = employeeRepo;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -107,6 +115,41 @@ public class TaskServiceImpl implements TaskService {
         task.setEndDate(dto.getEndDate());
 
         return task;
+    }
+
+    @Override
+    public List<AddTask> getTasksForEmployeeByDate(int empId, LocalDate date) {
+
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(23, 59, 59);
+
+        return taskRepo.findByEmployeeEmpIdAndStartDateBetween(empId, startOfDay, endOfDay);
+
+    }
+
+    @Override
+    public List<TaskResponseDto> getTodayTasksByLoggedInEmployee(HttpServletRequest request) {
+        int empId = jwtUtil.extractEmpIdFromRequest(request);
+
+        LocalDate today = LocalDate.now();
+        List<AddTask> tasks = getTasksForEmployeeByDate(empId, today);
+
+        return tasks.stream().map(task -> {
+            TaskResponseDto dto = new TaskResponseDto();
+
+            dto.setTaskId(task.getTaskId());
+            dto.setProjectName(task.getTaskProject().getProjectName());
+            dto.setSubjectName(task.getTaskSubject().getSubjectName());
+            dto.setTypeName(task.getTaskType().getTypeName());
+            dto.setPriorityName(task.getTaskPriority().getPriorityName());
+            dto.setStatusName(task.getTaskStatus().getStatusName());
+            dto.setStartDate(task.getStartDate());
+            dto.setEndDate(task.getEndDate());
+            dto.setTaskQuantity(task.getTaskQuantity());
+            dto.setTaskDescription(task.getTaskDescription());
+            return dto;
+
+        }).toList();
     }
 
 }

@@ -40,6 +40,12 @@ function loadLeaveTypes() {
         .then(response => response.json())
         .then(data => {
             const tbody = document.getElementById("leaveTypeTableBody");
+
+                  // Destroy existing DataTable instance before replacing content
+           if ($.fn.DataTable.isDataTable('#level-list-table')) {
+            $('#leaveTypesTable').DataTable().destroy();
+          }
+
             tbody.innerHTML = "";
 
             data.forEach(leave => {
@@ -60,6 +66,9 @@ function loadLeaveTypes() {
 
                 tbody.appendChild(tr);
             });
+             // Reinitialize DataTable after DOM update
+      $('#leaveTypesTable').DataTable();
+
         });
 }
 

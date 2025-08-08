@@ -104,6 +104,18 @@ public class HomeController {
         return "dashboard/table/table-data";
     }
 
+    @GetMapping("/showHoliday")
+    public String showHoliday() {
+        return "dashboard/app/holiday";
+    }
+
+    // employee dashboard show HolidayList
+
+    @GetMapping("/showHolidayList")
+    public String showHolidayList() {
+        return "dashboard/app/employee-showHoliday";
+    }
+
     @GetMapping("/show-login")
     public String showLoginPage() {
         return "dashboard/app/login";
@@ -128,5 +140,30 @@ public class HomeController {
     @GetMapping("/employee/dashboard/addTask")
     public String employeeAddTask() {
         return "dashboard/app/employee-addTask";
+    }
+
+    @GetMapping("/employee/dashboard/applyLeave")
+    public String employeeApplyLeave() {
+        return "dashboard/app/employee-applyLeave";
+    }
+
+    @GetMapping("/employee/dashboard/trackLeave")
+    public String employeeTrackLeave() {
+        return "dashboard/app/employee-trackLeave";
+    }
+
+    @GetMapping("/employee/dashboard/allLeave")
+    public String employeeAllLeave() {
+        return "dashboard/app/employee-allLeave";
+    }
+
+    @GetMapping("/employee/dashboard/viewInfo")
+    public String viewEmployeeInfo() {
+        return "dashboard/app/view-employee-info";
+    }
+
+    @GetMapping("/employee/dashboard/viewProfile")
+    public String showEmployeeProfile() {
+        return "dashboard/app/employee-profile";
     }
 }

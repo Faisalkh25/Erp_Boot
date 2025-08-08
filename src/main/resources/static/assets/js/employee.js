@@ -197,7 +197,18 @@ async function loadEmployees() {
 
   tbody.innerHTML = arr.map(emp => `
     <tr>
-      <td>${emp.profile_picture ? `<img src="http://localhost:8080/uploads/${emp.profile_picture}" style="width:50px; height:50px; border-radius:50%; object-fit:cover;">` : '-'}</td>
+      <td>
+  ${
+    emp.profile_picture
+      ? `<img
+            src="http://localhost:8080/uploads/${emp.profile_picture}"
+            style="width:50px; height:50px; border-radius:50%; object-fit:cover; cursor:pointer;"
+            class="img-fluid rounded-circle"
+            onclick="showImageModal('http://localhost:8080/uploads/${emp.profile_picture}', '${emp.first_name}', '${emp.last_name}')">`
+      : '-'
+  }
+</td>
+ 
       <td>${emp.emp_id || '-'}</td>
       <td>${emp.emp_code || '-'}</td>
       <td>${emp.first_name || ''}</td>
@@ -695,3 +706,14 @@ document.getElementById('profileImageInput').addEventListener('change', function
       reader.readAsDataURL(file);
   }
 });
+
+//method to show Image Modal
+function showImageModal(imageUrl, firstName, lastName) {
+  document.getElementById("modalImage").src = imageUrl;
+  document.getElementById("modalEmployeeName").textContent = `${firstName || ''} ${lastName || ''}`;
+
+  const myModal = new bootstrap.Modal(document.getElementById('imageModal'));
+  myModal.show();
+}
+
+

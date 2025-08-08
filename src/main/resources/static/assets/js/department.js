@@ -13,6 +13,13 @@ function fetchDepartment() {
     .then(res => res.json())
     .then(data => {
       const list = document.getElementById("departmentList");
+
+        // Destroy existing DataTable instance before replacing content
+        if ($.fn.DataTable.isDataTable('#dept-list-table')) {
+          $('#dept-list-table').DataTable().destroy();
+        }
+
+
       list.innerHTML = "";
 
       data.forEach(dept => {
@@ -31,6 +38,10 @@ function fetchDepartment() {
         `;
         list.appendChild(row);
       });
+
+      // Reinitialize DataTable after DOM update
+      $('#dept-list-table').DataTable();
+
     })
     .catch(err => console.error("Fetch error:", err));
 }

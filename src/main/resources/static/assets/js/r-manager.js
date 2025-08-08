@@ -105,6 +105,11 @@ async function loadReportingManagers() {
     const data = await res.json();
     const tbody = document.querySelector('#rmTable tbody');
 
+         // Destroy existing DataTable instance before replacing content
+         if ($.fn.DataTable.isDataTable('#rmTable')) {
+          $('#rmTable').DataTable().destroy();
+        }
+
     if (!tbody) {
       console.error("Table body not found for #rmTable");
       return;
@@ -122,6 +127,10 @@ async function loadReportingManagers() {
         </td>
       </tr>
     `).join('');
+
+       // Reinitialize DataTable after DOM update
+       $('#rmTable').DataTable();
+
   } catch (err) {
     console.error("Failed to load reporting managers:", err);
   }

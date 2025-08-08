@@ -92,7 +92,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">
+                        <a class="nav-link active" aria-current="page" data-th-href="@{/dashboard/employee-panel.html}">
                             <i class="icon">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -193,7 +193,7 @@
                         </a>
                         <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-information">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/viewInfo}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -288,7 +288,7 @@
                         </a>
                         <ul class="sub-nav collapse" id="sidebar-leave" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-apply-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/applyLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -302,7 +302,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-track-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/trackLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -316,7 +316,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-all-leave">
+                                <a class="nav-link " data-th-href="@{/employee/dashboard/allLeave}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -427,7 +427,7 @@
                         </a>
                         <ul class="sub-nav collapse" id="utilities-error" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
-                                <a class="nav-link " href="/employee-show-holiday">
+                                <a class="nav-link " data-th-href="@{/showHolidayList}">
                                     <i class="icon">
                                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -725,7 +725,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/employee-show-profile">Profile</a></li>
+                                    <li><a class="dropdown-item" data-th-href="@{/employee/dashboard/viewProfile}">Profile</a></li>
                                     <li><a class="dropdown-item" href="/signin">Logout</a></li>
                                 </ul>
                             </li>
@@ -743,9 +743,10 @@
                         <div class="col-md-12">
                             <div class="flex-wrap d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h2>Welcome Employee..!</h2>
-                                    <p class="pt-2">Your dedication today builds the foundation for tomorrow's success.</p>
-
+                                    <h4 id="welcomeHeading">Welcome Employee..!</h4>
+                                    <p class="pt-2">Your dedication today builds the foundation for tomorrow's success.
+                                    </p>
+ 
                                 </div>
                             </div>
                         </div>
@@ -784,16 +785,11 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <hr>
-                                    <p class="fs-5 fw-semibold fst-italic mt-4 mb-2">
-                                        “SEO without content is like a car without fuel—it won't get you far..”
-                                    </p>
-                                    <p class="text-primary">
-                                        __(1230) Abhishek Jayaswal__
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center mt-4 px-3">
-                                        <button class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#addQuoteModal">New Quotes</button>
-                                        <span class="fw-bold">Date - 2025-07-16 10:01:36</span>
-                                    </div>
+                                   
+                                 <div id="quoteContainer">
+                                  <!-- latest quote will render here -->
+                                 </div>
+
                                 </div>
                             </div>
                         </div>
@@ -802,7 +798,7 @@
 
                 <!-- ADD NEW QUOTES MODEL FORM START HERE -->
 
-                <!-- ✅ Add Quote Modal -->
+                <!--  Add Quote Modal -->
 <div class="modal fade" id="addQuoteModal" tabindex="-1" aria-labelledby="addQuoteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow">
@@ -817,10 +813,7 @@
             <label for="quoteText" class="form-label">Quote</label>
             <textarea class="form-control" id="quoteText" name="quote" rows="4" required></textarea>
           </div>
-          <div class="mb-3">
-            <label for="authorName" class="form-label">Author</label>
-            <input type="text" class="form-control" id="authorName" name="author" required>
-          </div>
+         
         </div>
 
         <div class="modal-footer">
@@ -836,7 +829,7 @@
 <!-- ADD NEW QUOTES MODEL FORM END HERE -->
 
 <div class="col-lg-6 col-md-6 mb-4">
-  <div class="card h-100" style="min-height: 370px;"> <!-- 👈 Height increased here -->
+  <div class="card h-100" style="min-height: 370px;"> <!--  Height increased here -->
     <div class="card-header text-center py-2">
       <h5 class="card-title mb-0 fw-bold text-typing">Birthday</h5>
     </div>
@@ -900,6 +893,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-6 col-md-12 mb-3">
                     <div class="card h-100" style="border-radius: 6px; min-height: 340px;">
                         <!-- 👈 Set fixed min-height -->
@@ -1320,6 +1314,9 @@
             </div>
         </div>
     </div>
+
+
+    
     <script src="../assets/js/core/libs.min.js"></script>
     <script src="../assets/js/core/external.min.js"></script>
     <script src="../assets/js/charts/widgetcharts.js"></script>
@@ -1332,7 +1329,12 @@
     <script src="../assets/vendor/aos/dist/aos.js"></script>
     <script src="../assets/js/hope-ui.js" defer></script>
     <!-- Custom JS -->
+
+    <script data-th-src="@{/assets/js/quote.js}"></script>
     <script src="../assets/js/Custom.js"></script>
+
+    <script data-th-src="@{/assets/js/birthday.js}"></script>
+    <script data-th-src="@{/assets/js/employee-panel.js}"></script>
 </body>
 
 </html>

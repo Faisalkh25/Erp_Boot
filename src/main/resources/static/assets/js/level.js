@@ -67,6 +67,12 @@ function loadLevels() {
         .then(res => res.json())
         .then(data => {
             const tbody = document.getElementById("levelTableBody");
+
+              // Destroy existing DataTable instance before replacing content
+           if ($.fn.DataTable.isDataTable('#level-list-table')) {
+            $('#level-list-table').DataTable().destroy();
+          }
+
             tbody.innerHTML = "";
 
             data.forEach(level => {
@@ -84,6 +90,13 @@ function loadLevels() {
         </tr>`;
                 tbody.innerHTML += row;
             });
+
+             // Reinitialize DataTable after DOM update
+      $('#level-list-table').DataTable();
+
+   
+      
+
         })
         .catch(error => console.error("Load error:", error));
 }

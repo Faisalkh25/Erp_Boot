@@ -52,6 +52,13 @@ function fetchShifts() {
     .then(res => res.json())
     .then(data => {
       const tableBody = document.getElementById("shiftList");
+
+           // Destroy existing DataTable instance before replacing content
+           if ($.fn.DataTable.isDataTable('#shift-list-table')) {
+            $('#shift-list-table').DataTable().destroy();
+          }
+  
+
       tableBody.innerHTML = "";
 
       data.forEach(shift => {
@@ -85,6 +92,10 @@ function fetchShifts() {
         `;
         tableBody.appendChild(row);
       });
+
+      // Reinitialize DataTable after DOM update
+      $('#shift-list-table').DataTable();
+
     })
     .catch(err => console.error("Fetch error:", err));
 }

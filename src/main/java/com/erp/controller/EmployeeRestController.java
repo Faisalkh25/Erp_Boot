@@ -1,7 +1,17 @@
 package com.erp.controller;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.erp.dto.EmployeeDto;
 import com.erp.model.Employee;
+import com.erp.repository.EmployeeRepository;
 import com.erp.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -32,6 +43,9 @@ public class EmployeeRestController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     private final ObjectMapper mapper;
 
@@ -121,6 +135,42 @@ public class EmployeeRestController {
         Employee emp = employeeService.findByEmpCode(empCode);
         return new ResponseEntity<>(emp, HttpStatus.OK);
 
+    }
+
+    // handler for getting upcoming birthdays
+
+    @GetMapping("/birthdays/current-month")
+    public ResponseEntity<List<Map<String, String>>> getBirthdaysInCurrentMonth() {
+        List<Employee> employees = employeeService.getBirthdaysInCurrentMonth();
+
+        List<Map<String, String>> result = employees.stream().map(emp -> {
+            Map<String, String> map = new HashMap<>();
+            map.put("name", emp.getFirst_name() + " " + emp.getLast_name());
+            map.put("dob", emp.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd MMMM")));
+
+            return map;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<EmployeeDto> getLoggedInEmployeeProfile(Principal principal) {
+        try {
+
+            int empCode = Integer.parseInt(principal.getName());
+
+            Employee employee = employeeRepository.findByEmpCode(empCode);
+            if (employee == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+
+            EmployeeDto dto = employeeService.convertToDto(employee);
+
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
 }
