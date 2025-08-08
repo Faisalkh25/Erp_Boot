@@ -1,5 +1,6 @@
 package com.erp.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +21,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     // method to show upcoming birthdays
     @Query("SELECT e FROM Employee e WHERE MONTH(e.dateOfBirth) = :month")
     List<Employee> findAllWithBirthdayInMonth(@Param("month") int month);
+
+    // method to show new joinees
+    @Query("SELECT e FROM Employee e WHERE e.joining_date BETWEEN :startDate AND :endDate")
+    List<Employee> findByJoiningDateBetween(@Param("startDate") LocalDate starDate,
+            @Param("endDate") LocalDate endDate);
 
 }

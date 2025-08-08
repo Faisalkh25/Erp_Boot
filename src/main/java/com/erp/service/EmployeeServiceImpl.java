@@ -6,7 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -278,6 +281,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getBirthdaysInCurrentMonth() {
         int currentMonth = LocalDate.now().getMonthValue();
         return employeeRepo.findAllWithBirthdayInMonth(currentMonth);
+    }
+
+    @Override
+    public List<Map<String, Object>> getNewJoinees() {
+        LocalDate today = LocalDate.now();
+        LocalDate fourteenDaysAgo = today.minusDays(14);
+
+        return employeeRepo.findByJoiningDateBetween(fourteenDaysAgo, today)
+                .stream()
+                .map(emp -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("empCode", emp.getEmpCode());
+                    map.put("employeeName", emp.getFirst_name() + " " + emp.getLast_name());
+                    map.put("joinedOn", emp.getJoining_date().format(DateTimeFormatter.ofPattern("dd MM yyyy")));
+
+                    return map;
+                })
+                .collect(Collectors.toList());
+
     }
 
 }

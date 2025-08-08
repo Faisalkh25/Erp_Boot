@@ -37,7 +37,7 @@ public class SecurityConfig {
                                 "/api/auth/login",
                                 "/show-*",
                                 "/dashboard/**",
-                                "/css/**", "/js/**", "/images/**", "/assets/**",
+                                "/css/**", "/js/**", "/images/**", "/assets/**", "/uploads/**", "/custom_images/**",
                                 "/api/employees",
                                 "/*.html",
                                 "/dashboard/app/**",

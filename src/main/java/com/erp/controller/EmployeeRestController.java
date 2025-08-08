@@ -154,6 +154,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(result);
     }
 
+    // Amit code - handler for showing employee profile details
     @GetMapping("/profile")
     public ResponseEntity<EmployeeDto> getLoggedInEmployeeProfile(Principal principal) {
         try {
@@ -171,6 +172,13 @@ public class EmployeeRestController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    // handler for showing new joinees to all employees dashboard
+
+    @GetMapping("/get/new-joinees")
+    public List<Map<String, Object>> getNewJoinees() {
+        return employeeService.getNewJoinees();
     }
 
 }

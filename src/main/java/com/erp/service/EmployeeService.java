@@ -2,6 +2,7 @@ package com.erp.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,5 +45,8 @@ public interface EmployeeService {
         return dto;
 
     }
+
+    // method for new joinees
+    List<Map<String, Object>> getNewJoinees();
 
 }
