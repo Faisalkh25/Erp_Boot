@@ -2,25 +2,49 @@
 //  ADMIN PAGE TOGGLE BUTTON JS START HERE
 // ---------------------------------------
 
- const toggleBtn = document.getElementById('toggleBtn');
-    const textOut = document.getElementById('textOut');
-    const textIn = document.getElementById('textIn');
+//  const toggleBtn = document.getElementById('toggleBtn');
+//     const textOut = document.getElementById('textOut');
+//     const textIn = document.getElementById('textIn');
 
-    let isIn = false;
+//     let isIn = true;
 
-    toggleBtn.addEventListener('click', () => {
-      isIn = !isIn;
+//     toggleBtn.addEventListener('click', () => {
+//       isIn = !isIn;
 
-      if (isIn) {
-        textOut.classList.remove('active');
-        textIn.classList.add('active');
-        toggleBtn.classList.add('in');
-      } else {
-        textIn.classList.remove('active');
-        textOut.classList.add('active');
-        toggleBtn.classList.remove('in');
-      }
-    });
+//       if (isIn) {
+//         textOut.classList.remove('active');
+//         textIn.classList.add('active');
+//         toggleBtn.classList.add('in');
+//       } else {
+//         textIn.classList.remove('active');
+//         textOut.classList.add('active');
+//         toggleBtn.classList.remove('in');
+//       }
+//     });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("toggleBtn");
+
+  // Set default state as System In
+  let isIn = true;
+  toggleBtn.textContent = "System In";
+  toggleBtn.classList.add("in");
+
+  toggleBtn.addEventListener("click", function () {
+    if (isIn) {
+      toggleBtn.textContent = "System Out";
+      toggleBtn.classList.remove("in");
+      toggleBtn.classList.add("out");
+    } else {
+      toggleBtn.textContent = "System In";
+      toggleBtn.classList.remove("out");
+      toggleBtn.classList.add("in");
+    }
+    isIn = !isIn;
+  });
+});
+
 
 // -------------------------------------
 //  ADMIN PAGE TOGGLE BUTTON JS END HERE
@@ -116,6 +140,25 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   });
 });
+
+// IN OUT CAPTION JS START HERE
+document.addEventListener("DOMContentLoaded", function () {
+  const profileImg = document.getElementById("navbarEmpImage");
+  const dropdownMenu = document.getElementById("customDropdown");
+
+  profileImg.addEventListener("click", function (e) {
+      e.preventDefault();
+      dropdownMenu.classList.toggle("show");
+  });
+
+  // Click outside to close
+  document.addEventListener("click", function (event) {
+      if (!event.target.closest(".custom-drop")) {
+          dropdownMenu.classList.remove("show");
+      }
+  });
+});
+// IN OUT CAPTION JS END HERE
 
 
 

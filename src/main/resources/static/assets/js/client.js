@@ -89,6 +89,12 @@ async function loadClients() {
   const clients = await res.json();
 
   const tableBody = document.getElementById("clientTable");
+
+   // Destroy existing DataTable instance before replacing content
+   if ($.fn.DataTable.isDataTable('#client-list-table')) {
+    $('#client-list-table').DataTable().destroy();
+  }
+
   tableBody.innerHTML = "";
 
   clients.forEach(client => {
@@ -108,6 +114,8 @@ async function loadClients() {
     `;
     tableBody.appendChild(row);
   });
+    // Reinitialize DataTable after DOM update
+    $('#client-list-table').DataTable();
 }
 
 //  Open Edit Modal

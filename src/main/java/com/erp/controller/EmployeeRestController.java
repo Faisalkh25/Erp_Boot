@@ -94,8 +94,15 @@ public class EmployeeRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeEmployee(@PathVariable int id) {
-        employeeService.deleteEmployee(id);
-        return new ResponseEntity<>("employee deleted successfully.", HttpStatus.GONE);
+        // employeeService.deleteEmployee(id);
+        // return new ResponseEntity<>("employee deleted successfully.",
+        // HttpStatus.GONE);
+        try {
+            employeeService.deleteEmployee(id);
+            return ResponseEntity.ok("Employee deleted successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     // handler for updating employee
@@ -154,7 +161,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(result);
     }
 
-    // Amit code - handler for showing employee profile details
+    // Amit's code - handler for showing employee profile details
     @GetMapping("/profile")
     public ResponseEntity<EmployeeDto> getLoggedInEmployeeProfile(Principal principal) {
         try {
@@ -173,6 +180,7 @@ public class EmployeeRestController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+    // Amit's code - handler for showing employee profile details ends here
 
     // handler for showing new joinees to all employees dashboard
 

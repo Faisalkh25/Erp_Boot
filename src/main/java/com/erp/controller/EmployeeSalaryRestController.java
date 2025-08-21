@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erp.dto.EmployeeSalaryDto;
 import com.erp.model.EmployeeSalary;
 import com.erp.service.EmployeeSalaryService;
 
@@ -28,32 +29,33 @@ public class EmployeeSalaryRestController {
 
     // handler for creating salary
     @PostMapping
-    public ResponseEntity<EmployeeSalary> createEmployeeSalary(@RequestBody EmployeeSalary employeeSalary) {
-        EmployeeSalary createdSalary = employeeSalaryService.saveEmployeeSalary(employeeSalary);
-        return new ResponseEntity<>(createdSalary, HttpStatus.CREATED);
+    public ResponseEntity<EmployeeSalaryDto> createEmployeeSalary(@RequestBody EmployeeSalaryDto dto) {
+        EmployeeSalaryDto savedSalary = employeeSalaryService.saveEmployeeSalary(dto);
+        return new ResponseEntity<>(savedSalary, HttpStatus.CREATED);
     }
 
     // handler for getting All Salaries
 
     @GetMapping
-    public ResponseEntity<List<EmployeeSalary>> getAllSalaries() {
-        List<EmployeeSalary> allSalaries = employeeSalaryService.getAllSalary();
+    public ResponseEntity<List<EmployeeSalaryDto>> getAllSalaries() {
+        List<EmployeeSalaryDto> allSalaries = employeeSalaryService.getAllSalary();
         return new ResponseEntity<>(allSalaries, HttpStatus.OK);
     }
 
     // handler for get single Salary
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeSalary> getSingleSalary(@PathVariable int id) {
-        EmployeeSalary singleSalary = employeeSalaryService.getSingleSalary(id);
+    public ResponseEntity<EmployeeSalaryDto> getSingleSalary(@PathVariable int id) {
+        EmployeeSalaryDto singleSalary = employeeSalaryService.getSingleSalary(id);
         return new ResponseEntity<>(singleSalary, HttpStatus.OK);
     }
 
     // handler for update salary
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmployeeSalary> updateSalary(@PathVariable int id, @RequestBody EmployeeSalary empSalary) {
-        EmployeeSalary updatedSalary = employeeSalaryService.updateSalary(id, empSalary);
+    public ResponseEntity<EmployeeSalaryDto> updateSalary(@PathVariable int id,
+            @RequestBody EmployeeSalaryDto empSalary) {
+        EmployeeSalaryDto updatedSalary = employeeSalaryService.updateSalary(id, empSalary);
         return new ResponseEntity<>(updatedSalary, HttpStatus.OK);
     }
 
@@ -68,8 +70,8 @@ public class EmployeeSalaryRestController {
     // Handler for get Salary By employee Id
 
     @GetMapping("/by-employee/{empId}")
-    public ResponseEntity<EmployeeSalary> getEmployeeSalaryByEmployeeId(@PathVariable int empId) {
-        EmployeeSalary salary = employeeSalaryService.getSalaryByEmployeeId(empId);
+    public ResponseEntity<EmployeeSalaryDto> getEmployeeSalaryByEmployeeId(@PathVariable int empId) {
+        EmployeeSalaryDto salary = employeeSalaryService.getSalaryByEmployeeId(empId);
         if (salary != null) {
             return new ResponseEntity<>(salary, HttpStatus.OK);
         } else {

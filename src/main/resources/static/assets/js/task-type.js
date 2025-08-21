@@ -95,6 +95,12 @@ function loadTypes() {
     .then(res => res.json())
     .then(types => {
       const tableBody = document.getElementById("typeTableBody");
+
+        // Destroy existing DataTable instance before replacing content
+        if ($.fn.DataTable.isDataTable('#task-type-table')) {
+          $('#task-type-table').DataTable().destroy();
+        }
+
       tableBody.innerHTML = "";
 
       types.forEach((type, index) => {
@@ -114,6 +120,8 @@ function loadTypes() {
           </tr>
         `;
       });
+       // Reinitialize DataTable after DOM update
+       $('#task-type-table').DataTable();
     });
 }
 

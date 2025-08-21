@@ -5,14 +5,16 @@ public class LoginResponse {
     private String token;
     private String role;
     private int empCode;
+    private int empId;
 
     public LoginResponse() {
     }
 
-    public LoginResponse(String token, String role, int empCode) {
+    public LoginResponse(String token, String role, int empCode, int empId) {
         this.token = token;
         this.role = role;
         this.empCode = empCode;
+        this.empId = empId;
     }
 
     public String getToken() {
@@ -37,6 +39,14 @@ public class LoginResponse {
 
     public void setEmpCode(int empCode) {
         this.empCode = empCode;
+    }
+
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
 }

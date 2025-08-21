@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class EmployeeDto {
 
-    private int emp_id;
+    private int empId;
     private int emp_code;
     private String first_name;
     private String last_name;
@@ -45,13 +45,13 @@ public class EmployeeDto {
     public EmployeeDto() {
     }
 
-    public EmployeeDto(int emp_id, int emp_code, String first_name, String last_name, LocalDate dateOfBirth,
+    public EmployeeDto(int empId, int emp_code, String first_name, String last_name, LocalDate dateOfBirth,
             String gender, String email, String personal_email, String address, String contact, LocalDate joining_date,
             String company, String employee_status, String joining_status, String working_status, int departmentId,
             String departmentName, int levelId, BigDecimal levelName, int shiftId, String shiftName, int roleId,
             String roleName, Integer reportingManager1Id, String reportingManager1Name, Integer reportingManager2Id,
             String reportingManager2Name, String password, String profile_picture) {
-        this.emp_id = emp_id;
+        this.empId = empId;
         this.emp_code = emp_code;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -82,12 +82,12 @@ public class EmployeeDto {
         this.profile_picture = profile_picture;
     }
 
-    public int getEmp_id() {
-        return emp_id;
+    public int getEmpId() {
+        return empId;
     }
 
-    public void setEmp_id(int emp_id) {
-        this.emp_id = emp_id;
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
     public int getEmp_code() {

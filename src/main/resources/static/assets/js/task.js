@@ -25,7 +25,7 @@ function getEmpIdFromToken() {
   }
 }
 
-const API_BASE = 'http://localhost:8080/api';
+const API_TASK = 'http://localhost:8080/api';
 
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 //load dropdowns
 async function loadDropdowns() {
   try {
-    const res = await fetch(`${API_BASE}/employee-dashboard/dropdowns`, {
+    const res = await fetch(`${API_TASK}/employee-dashboard/dropdowns`, {
       headers: getAuthHeaders()
     });
     if (!res.ok) throw new Error("Failed to fetch dropdown data");
@@ -105,7 +105,7 @@ async function handleTaskSubmit(e) {
   };
 
   try {
-    const res = await fetch(`${API_BASE}/addTask`, {
+    const res = await fetch(`${API_TASK}/addTask`, {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify(taskData)
@@ -126,7 +126,7 @@ async function handleTaskSubmit(e) {
 async function fetchAndDisplayTasks() {
 
   try {
-    const res = await fetch(`${API_BASE}/addTask/by-employee-today`, {
+    const res = await fetch(`${API_TASK}/addTask/by-employee-today`, {
       headers: getAuthHeaders()
     });
     const tasks = await res.json();
@@ -172,7 +172,7 @@ async function fetchAndDisplayTasks() {
 // open edit modal
 async function openEditModal(taskId) {
   try {
-    const res = await fetch(`${API_BASE}/addTask/${taskId}`, {
+    const res = await fetch(`${API_TASK}/addTask/${taskId}`, {
       headers: getAuthHeaders()
     });
 
@@ -219,7 +219,7 @@ document.getElementById("editTaskForm").addEventListener("submit", async functio
   };
 
   try {
-    const res = await fetch(`${API_BASE}/addTask/${taskId}`, {
+    const res = await fetch(`${API_TASK}/addTask/${taskId}`, {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(taskData)
@@ -237,7 +237,7 @@ document.getElementById("editTaskForm").addEventListener("submit", async functio
   }
 });
 
-console.log("hello")
+
 
 
 

@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erp.dto.EmployeeSalaryDto;
+import com.erp.model.Employee;
 import com.erp.model.EmployeeSalary;
+import com.erp.repository.EmployeeRepository;
 import com.erp.repository.EmployeeSalaryRepository;
 
 @Service
@@ -14,35 +17,69 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
     @Autowired
     private EmployeeSalaryRepository employeeSalaryRepo;
 
+    @Autowired
+    private EmployeeRepository employeeRepo;
+
     @Override
-    public EmployeeSalary saveEmployeeSalary(EmployeeSalary salary) {
-        return employeeSalaryRepo.save(salary);
+    public EmployeeSalaryDto saveEmployeeSalary(EmployeeSalaryDto dto) {
+        // return employeeSalaryRepo.save(salary);
+
+        Employee employee = employeeRepo.findById(dto.getEmpId())
+                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + dto.getEmpId()));
+
+        EmployeeSalary employeeSalary = new EmployeeSalary();
+        employeeSalary.setEmployee(employee);
+        employeeSalary.setMonthlySalary(dto.getMonthlySalary());
+
+        EmployeeSalary saved = employeeSalaryRepo.save(employeeSalary);
+
+        String employeeName = employee.getFirst_name() + " " + employee.getLast_name();
+
+        return new EmployeeSalaryDto(saved.getSalaryId(), saved.getEmployee().getEmpId(),
+                saved.getMonthlySalary(), employeeName);
+
     }
 
     @Override
-    public List<EmployeeSalary> getAllSalary() {
-        List<EmployeeSalary> allSalaries = employeeSalaryRepo.findAll();
-        return allSalaries;
+    public List<EmployeeSalaryDto> getAllSalary() {
+        return employeeSalaryRepo.findAll().stream()
+                .map(s -> new EmployeeSalaryDto(s.getSalaryId(), s.getEmployee().getEmpId(), s.getMonthlySalary(),
+                        s.getEmployee().getFirst_name() + " " + s.getEmployee().getLast_name()))
+                .toList();
+
     }
 
     @Override
-    public EmployeeSalary getSingleSalary(int id) {
+    public EmployeeSalaryDto getSingleSalary(int id) {
         EmployeeSalary salary = employeeSalaryRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("salary id not found :" + id));
-        return salary;
+        return new EmployeeSalaryDto(salary.getSalaryId(), salary.getEmployee().getEmpId(), salary.getMonthlySalary(),
+                salary.getEmployee().getFirst_name() + " " + salary.getEmployee().getLast_name());
     }
 
     @Override
-    public EmployeeSalary updateSalary(int id, EmployeeSalary salary) {
+    public EmployeeSalaryDto updateSalary(int id, EmployeeSalaryDto dto) {
         EmployeeSalary existingSalary = employeeSalaryRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("salary id not found :" + id));
 
-        existingSalary.setMonthlySalary(salary.getMonthlySalary());
-        existingSalary.setEmployee(salary.getEmployee());
+        Employee employee = employeeRepo.findById(dto.getEmpId())
+                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + dto.getEmpId()));
 
-        EmployeeSalary updatedSalary = employeeSalaryRepo.save(existingSalary);
-        return updatedSalary;
+        existingSalary.setMonthlySalary(dto.getMonthlySalary());
+        existingSalary.setEmployee(employee);
+
+        EmployeeSalary updated = employeeSalaryRepo.save(existingSalary);
+
+        String employeeName = employee.getFirst_name() + " " + employee.getLast_name();
+
+        return new EmployeeSalaryDto(updated.getSalaryId(), updated.getEmployee().getEmpId(),
+                updated.getMonthlySalary(), employeeName);
     }
+
+    // existingSalary.setEmployee(salary.getEmployee());
+
+    // EmployeeSalary updatedSalary = employeeSalaryRepo.save(existingSalary);
+    // return updatedSalary;
 
     @Override
     public void deleteSalary(int id) {
@@ -50,8 +87,13 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
     }
 
     @Override
-    public EmployeeSalary getSalaryByEmployeeId(int empId) {
-        return employeeSalaryRepo.findByEmployee_EmpId(empId);
+    public EmployeeSalaryDto getSalaryByEmployeeId(int empId) {
+        // return employeeSalaryRepo.findByEmployee_EmpId(empId);
+        EmployeeSalary salary = employeeSalaryRepo.findByEmployee_EmpId(empId);
+        if (salary == null) {
+            throw new RuntimeException("No salary found for employee id: " + empId);
+        }
+        return new EmployeeSalaryDto(salary.getSalaryId(), salary.getEmployee().getEmpId(), salary.getMonthlySalary(),
+                salary.getEmployee().getFirst_name() + " " + salary.getEmployee().getLast_name());
     }
-
 }

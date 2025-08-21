@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const editForm = document.getElementById("editPriorityForm");
   const deleteBtn = document.getElementById("confirmDeleteProject");
 
-  // ✅ Create new priority
+  //  Create new priority
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// 🔁 Load all priorities
+//  Load all priorities
 function loadPriorities() {
   fetch(PRIORITY_API, {
     headers: getAuthHeaders()
@@ -92,6 +92,12 @@ function loadPriorities() {
     .then(res => res.json())
     .then(data => {
       const tbody = document.getElementById("priorityTableBody");
+
+       // Destroy existing DataTable instance before replacing content
+       if ($.fn.DataTable.isDataTable('#priorityTable')) {
+        $('#priorityTable').DataTable().destroy();
+      }
+
       tbody.innerHTML = "";
 
       data.forEach((p, index) => {
@@ -106,6 +112,8 @@ function loadPriorities() {
           </tr>
         `;
       });
+        // Reinitialize DataTable after DOM update
+        $('#priorityTable').DataTable();
     });
 }
 

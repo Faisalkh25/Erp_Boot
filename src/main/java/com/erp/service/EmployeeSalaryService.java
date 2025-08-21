@@ -2,21 +2,22 @@ package com.erp.service;
 
 import java.util.List;
 
+import com.erp.dto.EmployeeSalaryDto;
 import com.erp.model.EmployeeSalary;
 
 public interface EmployeeSalaryService {
 
-    public EmployeeSalary saveEmployeeSalary(EmployeeSalary salary);
+    public EmployeeSalaryDto saveEmployeeSalary(EmployeeSalaryDto salary);
 
-    public List<EmployeeSalary> getAllSalary();
+    public List<EmployeeSalaryDto> getAllSalary();
 
-    public EmployeeSalary getSingleSalary(int id);
+    public EmployeeSalaryDto getSingleSalary(int id);
 
-    public EmployeeSalary updateSalary(int id, EmployeeSalary salary);
+    public EmployeeSalaryDto updateSalary(int id, EmployeeSalaryDto dto);
 
     public void deleteSalary(int id);
 
     // get salary by employee Id
-    public EmployeeSalary getSalaryByEmployeeId(int empId);
+    public EmployeeSalaryDto getSalaryByEmployeeId(int empId);
 
 }

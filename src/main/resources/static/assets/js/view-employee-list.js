@@ -1,4 +1,4 @@
-console.log("Amit");
+
 //helper function for generating header
 function getAuthHeaders(isJson = true) {
   const token = localStorage.getItem('token');
@@ -12,7 +12,7 @@ function getAuthHeaders(isJson = true) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  loadEmployees(); // ✅ Correct function call
+  loadEmployees(); // Correct function call
 });
 
 async function loadEmployees() {
@@ -38,7 +38,7 @@ async function loadEmployees() {
         <td>${emp.personal_email || '-'}</td>
         <td>${emp.joining_date || '-'}</td>
         <td>
-  <i class="fa-solid fa-eye text-primary view-profile" style="cursor:pointer;" data-emp-id="${emp.emp_id}"></i>
+  <i class="fa-solid fa-eye text-primary view-profile" style="cursor:pointer;" data-emp-id="${emp.empId}"></i>
 </td>
 
       </tr>
@@ -55,7 +55,7 @@ document.addEventListener("click", function (e) {
     const empId = e.target.getAttribute("data-emp-id");
     if (empId) {
       // Redirect to profile page with empId in query string
-      window.location.href = `/employee-show-profile?empId=${empId}`;
+      window.location.href = `/viewProfile?empId=${empId}`;
     }
   }
 });

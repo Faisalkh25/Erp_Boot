@@ -23,7 +23,7 @@ window.onload = fetchShifts;
 document.getElementById("editShiftForm").addEventListener("submit", updateShift);
 document.getElementById("shiftForm").addEventListener("submit", saveShift);
 
-// 🔧 Collect form values for add
+// Collect form values for add
 function collectShiftFormValues() {
   return {
     shift_name: document.getElementById("shiftname").value,
@@ -134,17 +134,43 @@ function confirmDelete(id) {
 function deleteShiftConfirmed() {
   if (!deleteShiftId) return;
 
+  // fetch(`${shiftApiUrl}/${deleteShiftId}`, { 
+  //   method: "DELETE", 
+  //   headers: getAuthHeaders(false) })    
+  //   .then(() => {
+  //     fetchShifts();
+  //     showAlert("✅ Shift deleted successfully!", "success");
+  //   })
+  //   .catch(err => {
+  //     console.error("Delete error:", err);
+  //     showAlert("Error deleting shift", "danger");
+  //   });
+
   fetch(`${shiftApiUrl}/${deleteShiftId}`, { 
     method: "DELETE", 
-    headers: getAuthHeaders(false) })    //added jwt token
-    .then(() => {
-      fetchShifts();
-      showAlert("✅ Shift deleted successfully!", "success");
-    })
-    .catch(err => {
-      console.error("Delete error:", err);
-      showAlert("Error deleting shift", "danger");
-    });
+    headers: getAuthHeaders(false) 
+  })
+  .then(response => {
+    if (response.ok) {
+        return response.text().then(msg => {
+            fetchShifts();
+            showAlert(" ✅ " + msg, "danger");
+        });       
+    }
+      else if (response.status === 409) {
+            return response.text().then(msg => {
+                showAlert(" ⚠️ " + msg, "warning");
+            });
+      } else {
+        return response.text().then(msg => {
+          showAlert("❌ " + msg, "danger");
+        });
+      }
+  })
+  .catch(err => {
+        console.error("Delete error: " + err);
+        showAlert("Unexpected error while deleting shift", "danger");
+  });
 
   const modal = bootstrap.Modal.getInstance(document.getElementById("confirmDeleteModal"));
   modal.hide();
@@ -258,38 +284,55 @@ function setSessionValue(sessionNum, inVal, outVal, container = document) {
   row.querySelectorAll("input")[1].value = outVal;
 }
 
-function showAlert(message, type) {
-  document.querySelectorAll(".custom-alert").forEach(el => el.remove());
+// function showAlert(message, type) {
+//   document.querySelectorAll(".custom-alert").forEach(el => el.remove());
 
-  const alertBox = document.createElement("div");
-  alertBox.className = `alert alert-${type} alert-dismissible fade show custom-alert animate__animated animate__fadeInDown`;
-  alertBox.role = "alert";
+//   const alertBox = document.createElement("div");
+//   alertBox.className = `alert alert-${type} alert-dismissible fade show custom-alert animate__animated animate__fadeInDown`;
+//   alertBox.role = "alert";
 
-  alertBox.style.position = "fixed";
-  alertBox.style.top = "10px";
-  alertBox.style.left = "50%";
-  alertBox.style.transform = "translateX(-50%)";
-  alertBox.style.zIndex = "1055";
-  alertBox.style.width = "max-content";
-  alertBox.style.maxWidth = "90%";
+//   alertBox.style.position = "fixed";
+//   alertBox.style.top = "10px";
+//   alertBox.style.left = "50%";
+//   alertBox.style.transform = "translateX(-50%)";
+//   alertBox.style.zIndex = "1055";
+//   alertBox.style.width = "max-content";
+//   alertBox.style.maxWidth = "90%";
 
-  alertBox.innerHTML = `
-    ${message}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  `;
+//   alertBox.innerHTML = `
+//     ${message}
+//     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+//   `;
 
-  document.body.appendChild(alertBox);
+//   document.body.appendChild(alertBox);
 
-  setTimeout(() => {
-    alertBox.classList.remove("animate__fadeInDown");
-    alertBox.classList.add("animate__fadeOutUp");
-    setTimeout(() => alertBox.remove(), 1000);
-  }, 3000);
-}
+//   setTimeout(() => {
+//     alertBox.classList.remove("animate__fadeInDown");
+//     alertBox.classList.add("animate__fadeOutUp");
+//     setTimeout(() => alertBox.remove(), 1000);
+//   }, 3000);
+// }
 
 // ------------------------------
 // Shift Page Scroll Bar JS Start
 // ------------------------------
+
+function showAlert(message, type = "success") {
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`;
+  const placeholder = document.getElementById("alertPlaceholder");
+  placeholder.innerHTML = "";
+  placeholder.appendChild(wrapper);
+
+  setTimeout(() => {
+    const alertInstance = bootstrap.Alert.getOrCreateInstance(wrapper.querySelector(".alert"));
+    if (alertInstance) alertInstance.close();
+  }, 3000);
+}
 
 function scrollTable(direction) {
   const container = document.getElementById("scrollTableContainer").querySelector(".custom-scroll");

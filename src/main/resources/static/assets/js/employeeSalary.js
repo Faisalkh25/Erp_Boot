@@ -51,7 +51,7 @@ function populateEmployeeDropdown(selectId, selectedEmpId = null) {
   select.innerHTML = `<option value="" disabled selected>- Select Employee -</option>`;
   allEmployees.forEach(emp => {
     const option = document.createElement("option");
-    option.value = emp.emp_id;
+    option.value = emp.empId;
     option.textContent = `${emp.first_name} ${emp.last_name}`;
     if (selectedEmpId && selectedEmpId == emp.emp_id) {
       option.selected = true;
@@ -74,8 +74,10 @@ async function addSalary(e) {
   }
 
   const payload = {
+    empId: parseInt(empId),
     monthlySalary: parseFloat(salary),
-    employee: { empId: parseInt(empId) }
+    // employee: { empId: parseInt(empId) } 
+    
   };
 
   try {
@@ -110,13 +112,19 @@ async function loadSalaryList() {
     const data = await res.json();
 
     const tbody = document.getElementById("salaryTableBody");
+
+     // Destroy existing DataTable instance before replacing content
+     if ($.fn.DataTable.isDataTable('#salary-list-table')) {
+      $('#salary-list-table').DataTable().destroy();
+    }
+
     tbody.innerHTML = "";
 
     data.forEach(salary => {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td class="text-center">${salary.salaryId}</td>
-        <td class="text-center">${salary.employee.first_name} ${salary.employee.last_name}</td>
+        <td class="text-center">${salary.employeeName}
         <td class="text-center">${salary.monthlySalary}</td>
         <td class="text-center">
           <i class="fa-solid fa-pen-to-square text-primary me-2"
@@ -129,6 +137,9 @@ async function loadSalaryList() {
       `;
       tbody.appendChild(row);
     });
+
+     // Reinitialize DataTable after DOM update
+     $('#salary-list-table').DataTable();
   } catch (err) {
     console.error("Failed to load salaries:", err);
   }
@@ -184,8 +195,9 @@ async function updateSalary(e) {
   }
 
   const payload = {
+    empId: parseInt(empId),
     monthlySalary: parseFloat(salary),
-    employee: { empId: parseInt(empId) }
+    // employee: { empId: parseInt(empId) }
   };
 
   try {

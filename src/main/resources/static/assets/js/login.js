@@ -16,16 +16,21 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
              if(response.ok) {
                 const result = await response.json();
+                //
+                console.log("Full login response: ", result);
                 const token = result.token;
                 const role = result.role;
                const empCode = result.empCode;
+               const empId = result.empId;
 
                 //stored token in localStorage
                 localStorage.setItem('token', token);
                 localStorage.setItem('role', role);
                 localStorage.setItem('empCode', empCode);
+                localStorage.setItem('empId', empId);
+                console.log("Stored empId:", empId);
 
-                //redirect based on role
+
                 if(role === 'Admin') {
                       window.location.href = '/dashboard/index.html';
                 } else if(role === 'HR') {

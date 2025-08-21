@@ -34,6 +34,11 @@ async function loadProjects() {
     const data = await res.json();
     const tbody = document.querySelector("#projectTable tbody");
 
+    // Destroy existing DataTable instance before replacing content
+    if ($.fn.DataTable.isDataTable('#projectTable')) {
+      $('#projectTable').DataTable().destroy();
+    }
+
     tbody.innerHTML = data.map(p => `
       <tr>
         <td class="text-center">${p.projectId}</td>
@@ -48,6 +53,10 @@ async function loadProjects() {
         </td>
       </tr>
     `).join("");
+
+     // Reinitialize DataTable after DOM update
+     $('#projectTable').DataTable();
+
   } catch (error) {
     console.error("Failed to load projects", error);
   }

@@ -37,7 +37,7 @@ public interface EmployeeService {
     public default EmployeeDto convertToDto(Employee employee) {
         EmployeeDto dto = new EmployeeDto();
 
-        dto.setEmp_id(employee.getEmpId());
+        dto.setEmpId(employee.getEmpId());
         dto.setEmp_code(employee.getEmpCode());
         dto.setFirst_name(employee.getFirst_name());
         dto.setLast_name(employee.getLast_name());

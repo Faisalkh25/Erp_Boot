@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -146,7 +147,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(int id) {
-        employeeRepo.deleteById(id);
+        // employeeRepo.deleteById(id);
+        try {
+            employeeRepo.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Employee is assigned in salary table, cannot be deleted.");
+        }
     }
 
     // method for get employees by departmentId
@@ -217,7 +223,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         EmployeeDto dto = new EmployeeDto();
 
-        dto.setEmp_id(emp.getEmpId());
+        dto.setEmpId(emp.getEmpId());
         dto.setEmp_code(emp.getEmpCode());
         dto.setFirst_name(emp.getFirst_name());
         dto.setLast_name(emp.getLast_name());

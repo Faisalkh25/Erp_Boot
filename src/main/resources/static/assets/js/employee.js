@@ -5,7 +5,7 @@ function getAuthHeaders(isJson = false) {
   if (isJson) headers['Content-Type'] = 'application/json';
   return headers;
 }
-///////////////////////////
+///
 
 
 const API = 'http://localhost:8080/api';
@@ -209,7 +209,7 @@ async function loadEmployees() {
   }
 </td>
  
-      <td>${emp.emp_id || '-'}</td>
+      <td>${emp.empId || '-'}</td>
       <td>${emp.emp_code || '-'}</td>
       <td>${emp.first_name || ''}</td>
       <td>${emp.last_name || ''}</td>
@@ -228,12 +228,12 @@ async function loadEmployees() {
       <td>${emp.working_status || '-'}</td>
       <td>${emp.departmentName || '-'}</td>
       <td>${emp.reportingManager1Name || '-'}</td>
-      <td>${emp.reportingManager2Name || '-'}</td>
+      <td>${emp.reportingManager2Name || '-'}</td>  
       <td>${emp.roleName || '-'}</td>
       <td>
 
-  <i class="fa-solid fa-pen-to-square text-primary me-2 edit" data-id="${emp.emp_id}" style="cursor: pointer; font-size: 18px;"></i>
-  <i class="fa-solid fa-trash text-danger delete" data-id="${emp.emp_id}" style="cursor: pointer; font-size: 18px;"></i>
+  <i class="fa-solid fa-pen-to-square text-primary me-2 edit" data-id="${emp.empId}" style="cursor: pointer; font-size: 18px;"></i>
+  <i class="fa-solid fa-trash text-danger delete" data-id="${emp.empId}" style="cursor: pointer; font-size: 18px;"></i>
 
 
       </td>
@@ -370,25 +370,54 @@ function confirmDelete(empId) {
 
 
 // Delete
+// document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+//   if (!selectedDeleteEmpId) return;
+
+//   try {
+//     const res = await fetch(`${API}/employees/${selectedDeleteEmpId}`, {
+//       method: 'DELETE',
+//       headers: getAuthHeaders()   
+//     });
+
+//     if (res.ok) {
+      
+//       showDangerAlert("Employee deleted successfully");
+//       await loadEmployees();
+//     } else {
+//             showDangerAlert("Employee deleted successfully");
+//       await loadEmployees();
+//     }
+//   } catch (err) {
+//     console.error("Error during delete:", err);
+//   } finally {
+//     selectedDeleteEmpId = null;
+//     const modalEl = document.getElementById('deleteConfirmModal');
+//     if (bootstrap.Modal.getInstance(modalEl)) {
+//       bootstrap.Modal.getInstance(modalEl).hide();
+//     }
+//   }
+// });
+
 document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
   if (!selectedDeleteEmpId) return;
 
   try {
     const res = await fetch(`${API}/employees/${selectedDeleteEmpId}`, {
       method: 'DELETE',
-      headers: getAuthHeaders()   //added jwt token
+      headers: getAuthHeaders()
     });
 
+    const message = await res.text();
+
     if (res.ok) {
-      
-      showDangerAlert("Employee deleted successfully");
+      showSuccessAlert(message || "Employee deleted successfully");
       await loadEmployees();
     } else {
-            showDangerAlert("Employee deleted successfully");
-      await loadEmployees();
+      showDangerAlert(message || "Employee is assigned in salary table, cannot be deleted");
     }
   } catch (err) {
     console.error("Error during delete:", err);
+    showDangerAlert("Something went wrong while deleting employee");
   } finally {
     selectedDeleteEmpId = null;
     const modalEl = document.getElementById('deleteConfirmModal');

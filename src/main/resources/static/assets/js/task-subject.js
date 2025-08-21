@@ -95,6 +95,12 @@ function loadSubjects() {
     .then(res => res.json())
     .then(subjects => {
       const tableBody = document.getElementById("subjectTableBody");
+
+        // Destroy existing DataTable instance before replacing content
+        if ($.fn.DataTable.isDataTable('#subject-table')) {
+          $('#subject-table').DataTable().destroy();
+        }
+
       tableBody.innerHTML = "";
 
       subjects.forEach((subject, index) => {
@@ -114,6 +120,8 @@ function loadSubjects() {
           </tr>
         `;
       });
+       // Reinitialize DataTable after DOM update
+       $('#subject-table').DataTable();
     });
 }
 

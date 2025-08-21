@@ -1,10 +1,12 @@
 package com.erp.util;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -25,14 +27,37 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateToken(String empCode, int empId) {
+    /*
+     * public String generateToken(String empCode, int empId) {
+     * SecretKey key = (SecretKey) getSignKey();
+     * 
+     * return Jwts.builder()
+     * .subject(empCode)
+     * .claim("empId", empId) // custom claim
+     * .issuedAt(new Date())
+     * .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30
+     * minutes
+     * .signWith(key)
+     * .compact();
+     * 
+     * }
+     * 
+     */
+
+    public String generateToken(UserDetails userDetails, int empId) {
         SecretKey key = (SecretKey) getSignKey();
 
         return Jwts.builder()
-                .subject(empCode)
-                .claim("empId", empId) // custom claim
+                // .subject(empCode)
+                .subject(userDetails.getUsername()) // empCode
+                .claim("empId", empId)
+                .claim("authorities", userDetails.getAuthorities()
+                        .stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
+
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30 minutes
                 .signWith(key)
                 .compact();
 

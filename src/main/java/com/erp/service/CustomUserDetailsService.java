@@ -31,6 +31,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         System.out.println("Logged in with empCode: " + empCode + " | Role: " + roleName);
 
+        // String springRole = "ROLE_" + roleName;
+
         return new org.springframework.security.core.userdetails.User(
                 String.valueOf(employee.getEmpCode()),
                 employee.getPassword(),

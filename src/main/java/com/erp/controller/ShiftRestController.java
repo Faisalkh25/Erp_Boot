@@ -1,6 +1,7 @@
 package com.erp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -60,7 +61,19 @@ public class ShiftRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteShift(@PathVariable int id) {
-        shiftService.deleteShift(id);
-        return new ResponseEntity<>("Shift deleted successfully", HttpStatus.GONE);
+        // shiftService.deleteShift(id);
+        // return new ResponseEntity<>("Shift deleted successfully", HttpStatus.GONE);
+
+        // new code
+        try {
+            shiftService.deleteShift(id);
+            return ResponseEntity.ok("Shift deleted successfully.");
+        } catch (DataIntegrityViolationException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Shift is assigned to an employee and cannot be deleted.");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while deleting the shift");
+        }
     }
 }

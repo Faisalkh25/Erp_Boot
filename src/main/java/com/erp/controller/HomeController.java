@@ -162,8 +162,15 @@ public class HomeController {
         return "dashboard/app/view-employee-info";
     }
 
-    @GetMapping("/employee/dashboard/viewProfile")
+    @GetMapping("/viewProfile")
     public String showEmployeeProfile() {
         return "dashboard/app/employee-profile";
+    }
+
+    // handler for showing landing page
+
+    @GetMapping("/landingPage")
+    public String showLandingPage() {
+        return "dashboard/home";
     }
 }

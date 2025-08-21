@@ -268,6 +268,12 @@ async function loadProjectTable() {
       });
       const data = await res.json();
       const tbody = document.getElementById("projectListBody");
+
+        // Destroy existing DataTable instance before replacing content
+        if ($.fn.DataTable.isDataTable('#project-details-table')) {
+          $('#project-details-table').DataTable().destroy();
+        }
+
       tbody.innerHTML = "";
 
 data.forEach(project => {
@@ -312,6 +318,9 @@ data.forEach(project => {
   `;
   tbody.appendChild(tr);
 });
+
+  // Reinitialize DataTable after DOM update
+  $('#project-details-table').DataTable();
 
 
     } catch (err) {

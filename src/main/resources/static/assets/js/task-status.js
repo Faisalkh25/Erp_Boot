@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const editForm = document.getElementById("editStatusForm");
   const deleteBtn = document.getElementById("confirmDeleteProject");
 
-  // ➕ Add New Status
+  //  Add New Status
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     const name = document.getElementById("status_name").value.trim();
@@ -91,6 +91,12 @@ function loadStatus() {
     .then(res => res.json())
     .then(data => {
       const tbody = document.getElementById("statusTableBody");
+
+        // Destroy existing DataTable instance before replacing content
+        if ($.fn.DataTable.isDataTable('#statusTable')) {
+          $('#statusTable').DataTable().destroy();
+        }
+
       tbody.innerHTML = "";
 
       data.forEach((status, index) => {
@@ -105,6 +111,8 @@ function loadStatus() {
           </tr>
         `;
       });
+       // Reinitialize DataTable after DOM update
+       $('#statusTable').DataTable();
     })
     .catch(() => showAlert("Failed to load statuses", "error"));
 }
