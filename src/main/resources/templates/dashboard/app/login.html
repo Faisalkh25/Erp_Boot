@@ -29,13 +29,13 @@
       <!-- My Custom CSS -->
        <link rel="stylesheet" href="../../assets/css/custom.css">
        <style>
-           body, html {
+           /* body, html {
       height: 100%;
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: rgb(90, 90, 158);
       overflow: hidden;
-    }
+    } */
       </style> 
 
   </head>
@@ -307,7 +307,7 @@
       </div>
     </div>
     
-   <div class="container-fluid glass-bg d-flex align-items-center justify-content-center">
+   <!-- <div class="container-fluid glass-bg d-flex align-items-center justify-content-center">
   <div class="col-md-6 col-lg-4">
     <div class="login-card" id="loginCard">
       <div class="text-center mb-4">
@@ -359,7 +359,53 @@
       </div>
     </div>
   </div>
-</div>   
+</div>    -->
+
+
+   <div class="container">
+       <div class="row align-items-center">
+             <div class="col-12 col-md-6 offset-xl-2 offset-md-1 order-md-2 mb-5 mb-md-0">
+                  <div class="text-center">
+                      <img data-th-src="@{/assets/custom_images/erp_image.png}" class="img-fluid" alt="erp_image">
+                  </div>
+             </div>
+
+             <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5"> 
+               <h1 class="display-4 text-center mb-3">Sign in</h1>
+               <p class="text-body-secondary text-center mb-5">Welcome to the dashboard</p>
+
+               <!-- form  -->
+               <form id="loginForm">
+                <div class="mb-3">
+                  <label for="employeeCode" class="form-label">Employee Code</label>
+                  <input type="number" class="form-control" name="empCode" id="employeeCode" placeholder="Enter Employee Code" aria-describedby="emailHelp">
+                  <div id="emp-code-error" style="display: none; color: red;">Only numbers are allowed</div>
+                </div>
+        
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
+                </div>
+        
+                <div class="mb-3 form-check d-flex justify-content-between">
+                    <div>
+                      <input type="checkbox" class="form-check-input" id="rememberCheck">
+                      <label class="form-check-label" for="rememberCheck">Remember Me</label>
+                    </div>
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                  </div>
+        
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary fw-bold">Sign In</button>
+                  </div>
+               
+              </form>
+
+             </div>
+       </div>
+   </div>
+
+
 
 
 

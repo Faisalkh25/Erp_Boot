@@ -50,7 +50,10 @@ public class SecurityConfig {
                                                                 "/showHoliday",
                                                                 "/showHolidayList",
                                                                 "/viewProfile",
-                                                                "/landingPage")
+                                                                "/landingPage",
+                                                                "/tone",
+                                                                "/outline",
+                                                                "/solid")
 
                                                 .permitAll()
                                                 .requestMatchers("/admin/**").hasAuthority("Admin")

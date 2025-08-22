@@ -517,3 +517,11 @@ border-radius: 10px;
       transform: translateX(-100%);
   }
 } */
+
+
+
+.ccbtn {
+    color: white;
+    background-color: #3A57E8;
+    border: none;
+}

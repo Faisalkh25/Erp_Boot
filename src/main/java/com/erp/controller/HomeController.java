@@ -173,4 +173,19 @@ public class HomeController {
     public String showLandingPage() {
         return "dashboard/home";
     }
+
+    @GetMapping("/tone")
+    public String showIcons() {
+        return "dashboard/icons/dual-tone";
+    }
+
+    @GetMapping("/outline")
+    public String showIconsOne() {
+        return "dashboard/icons/outline";
+    }
+
+    @GetMapping("/solid")
+    public String showIconsSolid() {
+        return "dashboard/icons/solid";
+    }
 }
