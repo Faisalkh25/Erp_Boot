@@ -36,6 +36,8 @@
   <!-- Bootstrap Icon -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+   <!-- sweet alert css -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.min.css" rel="stylesheet">
 
 </head>
 <body onload="loadLevels() ">
@@ -1146,6 +1148,7 @@
                 </div>
               </li>
 
+              <div id="customAlert" class="custom-alert"></div>
               <li class="nav-item dropdown custom-drop position-relative">
                 <div class="d-flex align-items-center">
                     <!-- Profile Image -->
@@ -1707,6 +1710,9 @@
   <script data-th-src="@{/assets/js/logout.js}"></script>
 
   <script data-th-src="@{/assets/js/systemInOut.js}"></script>
+
+   <!-- sweet alert -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
 
 
 </body>

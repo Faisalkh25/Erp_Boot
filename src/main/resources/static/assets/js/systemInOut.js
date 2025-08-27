@@ -73,11 +73,21 @@ toggleBtn.addEventListener("click", async () => {
         isSystemIn = true;
         updateButtonUI();
         // alert("System In marked successfully!");
-        showSystemAlert("System In marked successfully!", "success");
+        // showSystemAlert("System In marked successfully!", "success");
+        swal.fire({
+          title: "System In marked successfully",
+          icon: "success",
+          draggable: true
+        });
       } else {
         const err = await response.text();
         // alert("Error (System In): " + err);
-        showSystemAlert("Error (System In): " + err, "error");
+        // showSystemAlert("Error (System In): " + err, "error");
+        swal.fire({
+          title: "Error (System In): " + err,
+          icon: "error",
+          draggable: true
+        });
 
       }
 
@@ -92,12 +102,21 @@ toggleBtn.addEventListener("click", async () => {
         isSystemIn = false;
         updateButtonUI();
         // alert("System Out marked successfully!");
-        showSystemAlert("System Out marked successfully!", "error");
+        // showSystemAlert("System Out marked successfully!", "error");
+        swal.fire({
+          title: "System Out marked successfully",
+          icon: "success",
+          draggable: true
+        });
       } else {
         const err = await response.text();
         // alert("Error (System Out): " + err);
-        showSystemAlert("Error (System Out): " + err, "error");
-
+        // showSystemAlert("Error (System Out): " + err, "error");
+        swal.fire({
+          title: "Error (System Out): " + err,
+          icon: "error",
+          draggable: true
+        });
       }
     }
   } catch (error) {

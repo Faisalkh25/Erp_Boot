@@ -121,7 +121,7 @@ public class HomeController {
         return "dashboard/app/login";
     }
 
-    // handler for showing admin dashboard after login using js
+    // handler for showing HR dashboard after login using js
     @GetMapping("/dashboard/index.html")
     public String adminDashboard() {
         return "dashboard/index";
@@ -174,18 +174,14 @@ public class HomeController {
         return "dashboard/home";
     }
 
-    @GetMapping("/tone")
-    public String showIcons() {
-        return "dashboard/icons/dual-tone";
+    // admin-panel
+    @GetMapping("/dashboard/admin-panel.html")
+    public String showAdminDashboard() {
+        return "dashboard/admin-panel";
     }
 
-    @GetMapping("/outline")
-    public String showIconsOne() {
-        return "dashboard/icons/outline";
-    }
-
-    @GetMapping("/solid")
-    public String showIconsSolid() {
-        return "dashboard/icons/solid";
+    @GetMapping("/viewSaturday")
+    public String showSaturdays() {
+        return "dashboard/app/add-saturday";
     }
 }

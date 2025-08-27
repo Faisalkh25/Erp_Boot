@@ -51,12 +51,10 @@ public class SecurityConfig {
                                                                 "/showHolidayList",
                                                                 "/viewProfile",
                                                                 "/landingPage",
-                                                                "/tone",
-                                                                "/outline",
-                                                                "/solid")
+                                                                "/viewSaturday")
 
                                                 .permitAll()
-                                                .requestMatchers("/admin/**").hasAuthority("Admin")
+                                                .requestMatchers("/admin_home").hasAuthority("Admin")
                                                 .requestMatchers("/api/shifts/**").hasAnyAuthority("Admin", "HR")
                                                 // .requestMatchers("/showHoliday").hasAuthority("HR")
                                                 // .requestMatchers("/index/**").hasAuthority("HR")
@@ -66,8 +64,7 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/tasks/by-employee-today")
                                                 .hasAuthority("Employee")
                                                 .requestMatchers("/api/quotes").hasAuthority("Employee")
-                                                // .requestMatchers("/api/employees/**").hasAnyAuthority("Admin", "HR",
-                                                // "Employee")
+
                                                 .requestMatchers(HttpMethod.GET, "/api/employees/**")
                                                 .hasAnyAuthority("Admin", "HR", "Employee")
                                                 .requestMatchers(HttpMethod.POST, "/api/employees/**")
@@ -75,12 +72,18 @@ public class SecurityConfig {
                                                 .requestMatchers(HttpMethod.PUT, "/api/employees/**")
                                                 .hasAnyAuthority("Admin", "HR")
                                                 .requestMatchers(HttpMethod.DELETE, "/api/employees/**")
-                                                .hasAnyAuthority("Admin", "HR", "Employee")
+                                                .hasAnyAuthority("Admin", "HR")
 
                                                 .requestMatchers("/api/salary/**").hasAnyAuthority("Admin", "HR")
 
-                                                .requestMatchers("/api/employees/personal-info/**")
+                                                .requestMatchers("/api/employees/personal-info",
+                                                                "/api/employees/personal-info/**")
                                                 .hasAuthority("Employee")
+
+                                                .requestMatchers("/api/saturday/**").hasAnyAuthority("Admin", "HR")
+
+                                                // .requestMatchers("/admin_home").hasAuthority("Admin")
+
                                                 .requestMatchers("/api/system/**").hasAnyAuthority("HR", "Employee")
 
                                                 .anyRequest().authenticated())

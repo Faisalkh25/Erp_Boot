@@ -1,6 +1,7 @@
 package com.erp.util;
 
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
@@ -107,6 +108,12 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    // extract authorities
+    public List<String> extractAuthorities(String token) {
+        Claims claims = parseToken(token);
+        return claims.get("authorities", List.class);
     }
 
 }

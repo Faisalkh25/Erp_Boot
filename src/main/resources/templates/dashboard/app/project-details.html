@@ -43,7 +43,8 @@
 <!-- Select2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-
+ <!-- sweet alert css -->
+ <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -1151,6 +1152,7 @@
                                 </div>
                             </li>
 
+                            <div id="customAlert" class="custom-alert"></div>
                             <li class="nav-item dropdown custom-drop position-relative">
                                 <div class="d-flex align-items-center">
                                     <!-- Profile Image -->
@@ -2047,6 +2049,8 @@ async function populateRateTypeDropdown() {
 
     <script data-th-src="@{/assets/js/logout.js}"></script>
     <script data-th-src="@{/assets/js/systemInOut.js}"></script>
+      <!-- sweet alert -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
 
 
 </body>

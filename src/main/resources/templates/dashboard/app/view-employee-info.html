@@ -34,6 +34,9 @@
     <!-- Your Own Custom CSS (always last to override any previous styles) -->
     <link rel="stylesheet" href="../../assets/css/custom.css">
 
+     <!-- sweet alert css -->
+     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -715,6 +718,7 @@
                                 </div>
                             </li>
 
+                            <div id="customAlert" class="custom-alert"></div>
                             <li class="nav-item dropdown custom-drop position-relative">
                                 <div class="d-flex align-items-center">
                                     <!-- Profile Image -->
@@ -1321,6 +1325,10 @@
     <script data-th-src="@{/assets/js/view-employee-list.js}"></script>
 
     <script data-th-src="@{/assets/js/logout.js}"></script>
+    <script data-th-src="@{/assets/js/systemInOut.js}"></script>
+
+     <!-- sweet alert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
 
 
 </body>

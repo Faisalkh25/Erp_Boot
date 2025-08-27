@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default"
+  xmlns:th="http://www.thymeleaf.org">
+
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,6 +13,7 @@
 
   <!-- Library / Plugin Css Build -->
   <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+
 
   <!-- Hope Ui Design System Css -->
   <link rel="stylesheet" href="../../assets/css/hope-ui.min1fc6.css?v=4.0.0">
@@ -33,24 +37,9 @@
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.min.css" rel="stylesheet">
 
 </head>
-<body onload="loadSubjects()">
 
+<body>
 
-
-  
-<!-- ------------------------- -->
-<!------- Alert Placeholder ----->
-<!-- ----------------- -->
-<div id="alertBox"
-     class="alert alert-success alert-dismissible fade show d-none"
-     role="alert"
-     style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: auto; max-width: 90%;">
-  <span id="alertMessage"></span>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<!-- -------------------------- -->
-<!-- Alert Placeholder End Here -->
-<!-- -------------------------- -->
 
   <div class="cursor-dot"></div>
   <div class="cursor-outline"></div>
@@ -258,62 +247,59 @@
                 </svg>
               </i>
             </a>
+
             <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
               <li class="nav-item">
-                <a class="nav-link " data-th-href="@{/user-profile}">
-                  <i class="icon">
-                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                      fill="currentColor">
-                      <g>
-                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                      </g>
-                    </svg>
-                  </i>
-                  <i class="sidenav-mini-icon"> U </i>
-                  <span class="item-name">Employee Profile</span>
-                </a>
+                  <a class="nav-link "  data-th-href="@{/user-profile}" >
+                      <i class="icon">
+                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                              <g>
+                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                              </g>
+                          </svg>
+                      </i>
+                      <i class="sidenav-mini-icon"> U </i>
+                      <span class="item-name">Employee Profile</span>
+                  </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " data-th-href="@{/show-add-department}">
-                  <i class="icon">
-                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                      fill="currentColor">
-                      <g>
-                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                      </g>
-                    </svg>
-                  </i>
-                  <i class="sidenav-mini-icon"> U </i>
-                  <span class="item-name">Add Department</span>
-                </a>
+                  <a class="nav-link " data-th-href="@{/show-add-department}">
+                      <i class="icon">
+                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                              <g>
+                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                              </g>
+                          </svg>
+                      </i>
+                      <i class="sidenav-mini-icon"> U </i>
+                      <span class="item-name">Add Department</span>
+                  </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " data-th-href="@{/show-shift}">
-                  <i class="icon">
-                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                      fill="currentColor">
-                      <g>
-                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                      </g>
-                    </svg>
-                  </i>
-                  <i class="sidenav-mini-icon"> U </i>
-                  <span class="item-name">Add Shift</span>
-                </a>
+                  <a class="nav-link " data-th-href="@{/show-shift}">
+                      <i class="icon">
+                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                              <g>
+                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                              </g>
+                          </svg>
+                      </i>
+                      <i class="sidenav-mini-icon"> U </i>
+                      <span class="item-name">Add Shift</span>
+                  </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " data-th-href="@{/show-level}">
-                  <i class="icon">
-                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                      fill="currentColor">
-                      <g>
-                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                      </g>
-                    </svg>
-                  </i>
-                  <i class="sidenav-mini-icon"> U </i>
-                  <span class="item-name">Add Level</span>
-                </a>
+                  <a class="nav-link " data-th-href="@{/show-level}">
+                      <i class="icon">
+                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                              <g>
+                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                              </g>
+                          </svg>
+                      </i>
+                      <i class="sidenav-mini-icon"> U </i>
+                      <span class="item-name">Add Level</span>
+                  </a>
               </li>
 
               <li class="nav-item">
@@ -329,37 +315,36 @@
                     <span class="item-name">Add Reporting Manager</span>
                 </a>
             </li>
-
+              
               <li class="nav-item">
-                <a class="nav-link " data-th-href="@{/show-add-employee}">
-                  <i class="icon">
-                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                      fill="currentColor">
-                      <g>
-                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                      </g>
-                    </svg>
-                  </i>
-                  <i class="sidenav-mini-icon"> A </i>
-                  <span class="item-name">Add Employee</span>
-                </a>
+                  <a class="nav-link " data-th-href="@{/show-add-employee}">
+                      <i class="icon">
+                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                              <g>
+                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                              </g>
+                          </svg>
+                      </i>
+                      <i class="sidenav-mini-icon"> A </i>
+                      <span class="item-name">Add Employee</span>
+                  </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " data-th-href="@{/show-list-employee}">
-                  <i class="icon">
-                    <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                      fill="currentColor">
-                      <g>
-                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                      </g>
-                    </svg>
-                  </i>
-                  <i class="sidenav-mini-icon"> U </i>
-                  <span class="item-name">Employee List</span>
-                </a>
+                  <a class="nav-link " data-th-href="@{/show-list-employee}">
+                      <i class="icon">
+                          <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                              <g>
+                              <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                              </g>
+                          </svg>
+                      </i>
+                      <i class="sidenav-mini-icon"> U </i>
+                      <span class="item-name">Employee List</span>
+                  </a>
               </li>
              
-            </ul>
+          </ul>
+            
           </li>
 
           <li class="nav-item">
@@ -600,7 +585,7 @@
                   </a>
               </li> -->
 </ul>
-      </li>
+        </li>
 
           <li class="nav-item">
             <a class="nav-link " href="../admin.html">
@@ -617,6 +602,7 @@
               <span class="item-name">Admin</span>
             </a>
           </li>
+
           <li>
             <hr class="hr-horizontal">
           </li>
@@ -1188,6 +1174,14 @@
                     </a>
 
                     <!-- Caption -->
+                    <!-- <div class="caption ms-3">
+                        <button id="toggleBtn" class="toggle-btn">
+                            <span id="textOut" class="toggle-text active fw-bold">System Out</span>
+                            <span id="textIn" class="toggle-text fw-bold">System In</span>
+                        </button>
+                    </div> -->
+
+
                     <div class="caption ms-3">
                       <button id="toggleBtn" class="toggle-btn">System In</button>
                     </div>
@@ -1199,7 +1193,6 @@
                     <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
                 </ul>
             </li>
-
 
             </ul>
           </div>
@@ -1220,7 +1213,7 @@
                         stroke-linejoin="round" />
                     </svg>
                   </span>
-                  <h5 class="mb-0">ADD TASK SUBJECT</h5>
+                  <h5 class="mb-0">ADD SATURDAY</h5>
                 </div>
                 <div>
                   <a href="#" class="btn btn-link btn-soft-light">
@@ -1257,7 +1250,7 @@
       <!--Nav End-->
     </div>
 
-    <div class="container px-5 mt-n5 py-0">
+    <div class="container px-5 mt-n5 py-0"> 
       <div>
         <div class="row">
 
@@ -1265,25 +1258,48 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
-                  <h4 class="card-title typing-text">Add New Task Subject</h4>
+                  <h4 class="card-title typing-text">Add New Saturday</h4>
                 </div>
               </div>
               <div class="card-body">
                 <div class="new-user-info">
-                  <form id="taskSubjectForm">
+
+                  <form id="saturdayForm" >
 
                     <div class="row">
-                      <div class="form-group col-md-12">
-                        <label class="form-label" for="subject">Subject Name</label>
-                        <input type="hidden" class="form-control" id="subject_id" required="true"
-                          placeholder="Subject Id">
-                        <input type="text" class="form-control" id="subject_name" required="true"
-                          placeholder="Subject Name">
-                      </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Month</label>
+                            <select id="month" class="form-select" required>
+                              <option value="">-- Select Month --</option>
+                              <option value="1">January</option>
+                              <option value="2">February</option>
+                              <option value="3">March</option>
+                              <option value="4">April</option>
+                              <option value="5">May</option>
+                              <option value="6">June</option>
+                              <option value="7">July</option>
+                              <option value="8">August</option>
+                              <option value="9">September</option>
+                              <option value="10">October</option>
+                              <option value="11">November</option>
+                              <option value="12">December</option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label class="form-label">Year</label>
+                            <input type="number" id="year" class="form-control" value="2025" required>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label class="form-label">Date</label>
+                            <input type="date" id="saturdayDate" class="form-control" required>
+                          </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Add New Task Subject</button>
+                    <button type="submit" class="btn btn-primary mt-3">Generate & Save</button>
                   </form>
+
                 </div>
               </div>
             </div>
@@ -1301,24 +1317,23 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
-                  <h4 class="card-title typing-text">Task Subjects List</h4>
+                  <h4 class="card-title">Saturday List</h4>
                 </div>
               </div>
               <div class="card-body px-0">
                 <div class="table-responsive">
-                  <table id="subject-table" class="table table-striped" role="grid" data-bs-toggle="data-table">
+                  <table id="saturday-list-table" class="table table-striped" role="grid" data-bs-toggle="data-table">
                     <thead>
                       <tr class="ligth">
-                        <th class="text-center">Subject Id</th>
-                        <th class="text-center">Subject Name</th>
-                        <th class="text-center" style="min-width: 100px">Action</th>
+                        <th>Saturday Id</th>
+                        <th>Date</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th style="min-width: 100px">Action</th>
                       </tr>
                     </thead>
-                    <tbody id="subjectTableBody">
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
+                    <tbody id="saturdayList">
+                       
                     </tbody>
                   </table>
                 </div>
@@ -1605,19 +1620,20 @@
 <!-- -------------------------------- -->
 <!-- Edit Department Modal Start Here -->
 <!-- -------------------------------- -->
-<div class="modal fade edit-model" id="editSubjectModal" tabindex="-1" aria-labelledby="editDepartmentLabel" aria-hidden="true">
+<div class="modal fade edit-model" id="editDepartmentModal" tabindex="-1" aria-labelledby="editDepartmentLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+
       <form id="editForm">
         <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title text-white" id="editDepartmentLabel">Edit Task Subject</h5>
+          <h5 class="modal-title text-white" id="editDepartmentLabel">Edit Department</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="edit_subject_id">
+          <input type="hidden" id="edit_dept_id">
           <div class="mb-3">
-            <label for="edit_subject_name" class="form-label">Subject Name</label>
-            <input type="text" class="form-control" id="edit_subject_name" required>
+            <label for="edit_dept_name" class="form-label">Department Name</label>
+            <input type="text" class="form-control" id="edit_dept_name" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -1625,6 +1641,7 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         </div>
       </form>
+
     </div>
   </div>
 </div>
@@ -1632,6 +1649,18 @@
 <!-- ------------------------------ -->
 <!-- Edit Department Modal End Here -->
 <!-- ------------------------------ -->
+
+
+
+
+
+<!-- ------------------------- -->
+<!------- Alert Placeholder ----->
+<!-- ----------------- -->
+<div id="alertPlaceholder" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1055;"></div>
+<!-- -------------------------- -->
+<!-- Alert Placeholder End Here -->
+<!-- -------------------------- -->
 
 
   <!-- ------------------------------------ -->
@@ -1695,17 +1724,18 @@
   <!-- App Script -->
   <script src="../../assets/js/hope-ui.js" defer></script>
 
-  <script src="../../assets/js/task-subject.js"></script>
+  <script data-th-src="@{/assets/js/saturday.js}"></script>
 
   <script data-th-src="@{/assets/js/logout.js}"></script>
 
   <script data-th-src="@{/assets/js/systemInOut.js}"></script>
-
-  <!-- sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
 
+
+
+
+
+
 </body>
-
-
 
 </html>

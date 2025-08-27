@@ -32,7 +32,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
 
                 if(role === 'Admin') {
-                      window.location.href = '/dashboard/index.html';
+                      window.location.href = '/dashboard/admin-panel.html';
                 } else if(role === 'HR') {
                     window.location.href = '/dashboard/index.html';
                 } else if(role === 'Employee') {

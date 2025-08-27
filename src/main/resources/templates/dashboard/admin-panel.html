@@ -2,64 +2,50 @@
 <html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Barrownz | Holiday</title>
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="../../assets/custom_images/barrownz-logo.png" type="image/png">
-
-  <!-- Library / Plugin Css Build -->
-  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-
-  <!-- Hope Ui Design System Css -->
-  <link rel="stylesheet" href="../../assets/css/hope-ui.min1fc6.css?v=4.0.0">
-
-  <!-- Custom Css -->
-  <link rel="stylesheet" href="../../assets/css/custom.min1fc6.css?v=4.0.0">
-
-  <!-- Customizer Css -->
-  <link rel="stylesheet" href="../../assets/css/customizer.min1fc6.css?v=4.0.0">
-
-  <!-- RTL Css -->
-  <link rel="stylesheet" href="../../assets/css/rtl.min1fc6.css?v=4.0.0">
-
-  <!-- My Custom CSS -->
-  <link rel="stylesheet" href="../../assets/css/custom.css">
-
-  <!-- font awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-   <!-- sweet alert css -->
-   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.min.css" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barrownz | Admin Dashboard </title>
+  <!-- <link rel="shortcut icon" href="https://templates.iqonic.design/hope-ui/html/dist/assets/images/favicon.ico"> -->
+  <link rel="stylesheet" data-th-href="@{/assets/custom_images/barrownz-logo.png}">
+  <link rel="stylesheet" data-th-href="@{/assets/css/core/libs.min.css}">
+  <link rel="stylesheet" data-th-href="@{/assets/vendor/aos/dist/aos.css}">
+  <link rel="stylesheet" data-th-href="@{/assets/css/hope-ui.min1fc6.css?v=4.0.0}">
+  <link rel="stylesheet" data-th-href="@{/assets/css/custom.min1fc6.css?v=4.0.0}">
+  <link rel="stylesheet" data-th-href="@{/assets/css/customizer.min1fc6.css?v=4.0.0}">
+  <link rel="stylesheet" data-th-href="@{/assets/css/rtl.min1fc6.css?v=4.0.0}">
+  <!-- Custom CSS -->
+   <link rel="stylesheet" data-th-href="@{/assets/css/custom.css}">
+    <!-- sweet alert css -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
-
-<body onload="fetchAllHolidays()">
-
-
+<body class="  ">
   <div class="cursor-dot"></div>
   <div class="cursor-outline"></div>
+  <!-- ------------ -->
   <!-- loader Start -->
+  <!-- ------------ -->
   <div id="loading">
     <div class="loader simple-loader">
       <div class="loader-body">
       </div>
     </div>
   </div>
+  <!-- ---------- -->
   <!-- loader END -->
+  <!-- ---------- -->
 
   <aside class="sidebar sidebar-default sidebar-white sidebar-base navs-rounded-all ">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
-      <a href="../index.html" class="navbar-brand">
+      <a data-th-href="@{/index}" class="navbar-brand">
 
+        <!-- -------- -->
         <!--Logo start-->
+        <!-- -------- -->
         <div class="logo-main">
           <div class="logo-normal">
-
-            <img src="../../assets/custom_images/barrownz-logo.png" class="img-fluid" style="height: 30px; width: 30px;"
+            <img src="../assets/custom_images/barrownz-logo.png" class="img-fluid" style="height: 30px; width: 30px;"
               alt="">
           </div>
+
           <div class="logo-mini">
             <svg class=" icon-30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="-0.757324" y="19.2427" width="28" height="4" rx="2" transform="rotate(-45 -0.757324 19.2427)"
@@ -73,7 +59,9 @@
             </svg>
           </div>
         </div>
+        <!-- ------ -->
         <!--logo End-->
+        <!-- ------ -->
 
 
 
@@ -91,9 +79,9 @@
         </i>
       </div>
     </div>
-        <div class="sidebar-body pt-0 data-scrollbar">
-            <div class="sidebar-list">
-                <!-- ------------------ -->
+    <div class="sidebar-body pt-0 data-scrollbar">
+      <div class="sidebar-list">
+      <!-- ------------------ -->
       <!-- Sidebar Menu Start -->
       <!-- ------------------ -->
         <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
@@ -311,7 +299,19 @@
                                     <span class="item-name">Employee List</span>
                                 </a>
                             </li>
-                           
+                            <!-- <li class="nav-item">
+                                <a class="nav-link " data-th-href="@{/show-leave}" >
+                                    <i class="icon">
+                                        <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Add Leave Type </span>
+                                </a>
+                            </li> -->
                         </ul>
                     </li>
 
@@ -319,10 +319,30 @@
                       <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-task" role="button" aria-expanded="false"
                         aria-controls="sidebar-user">
                         <i class="icon">
+                          <!-- <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z"
+                              fill="currentColor"></path>
+                            <path opacity="0.4"
+                              d="M11.949 12.467C14.2851 12.467 16.1583 10.5831 16.1583 8.23351C16.1583 5.88306 14.2851 4 11.949 4C9.61293 4 7.73975 5.88306 7.73975 8.23351C7.73975 10.5831 9.61293 12.467 11.949 12.467Z"
+                              fill="currentColor"></path>
+                            <path opacity="0.4"
+                              d="M21.0881 9.21923C21.6925 6.84176 19.9205 4.70654 17.664 4.70654C17.4187 4.70654 17.1841 4.73356 16.9549 4.77949C16.9244 4.78669 16.8904 4.802 16.8725 4.82902C16.8519 4.86324 16.8671 4.90917 16.8895 4.93889C17.5673 5.89528 17.9568 7.0597 17.9568 8.30967C17.9568 9.50741 17.5996 10.6241 16.9728 11.5508C16.9083 11.6462 16.9656 11.775 17.0793 11.7948C17.2369 11.8227 17.3981 11.8371 17.5629 11.8416C19.2059 11.8849 20.6807 10.8213 21.0881 9.21923Z"
+                              fill="currentColor"></path>
+                            <path
+                              d="M22.8094 14.817C22.5086 14.1722 21.7824 13.73 20.6783 13.513C20.1572 13.3851 18.747 13.205 17.4352 13.2293C17.4155 13.232 17.4048 13.2455 17.403 13.2545C17.4003 13.2671 17.4057 13.2887 17.4316 13.3022C18.0378 13.6039 20.3811 14.916 20.0865 17.6834C20.074 17.8032 20.1698 17.9068 20.2888 17.8888C20.8655 17.8059 22.3492 17.4853 22.8094 16.4866C23.0637 15.9589 23.0637 15.3456 22.8094 14.817Z"
+                              fill="currentColor"></path>
+                            <path opacity="0.4"
+                              d="M7.04459 4.77973C6.81626 4.7329 6.58077 4.70679 6.33543 4.70679C4.07901 4.70679 2.30701 6.84201 2.9123 9.21947C3.31882 10.8216 4.79355 11.8851 6.43661 11.8419C6.60136 11.8374 6.76343 11.8221 6.92013 11.7951C7.03384 11.7753 7.09115 11.6465 7.02668 11.551C6.3999 10.6234 6.04263 9.50765 6.04263 8.30991C6.04263 7.05904 6.43303 5.89462 7.11085 4.93913C7.13234 4.90941 7.14845 4.86348 7.12696 4.82926C7.10906 4.80135 7.07593 4.78694 7.04459 4.77973Z"
+                              fill="currentColor"></path>
+                            <path
+                              d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z"
+                              fill="currentColor"></path>
+                          </svg> -->
                           <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> 
-                            <path opacity="0.4" d="M16.191 2H7.81C4.77 2 3 3.78 3 6.83V17.16C3 20.26 4.77 22 7.81 22H16.191C19.28 22 21 20.26 21 17.16V6.83C21 3.78 19.28 2 16.191 2Z" fill="currentColor"></path>                               
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.07996 6.6499V6.6599C7.64896 6.6599 7.29996 7.0099 7.29996 7.4399C7.29996 7.8699 7.64896 8.2199 8.07996 8.2199H11.069C11.5 8.2199 11.85 7.8699 11.85 7.4289C11.85 6.9999 11.5 6.6499 11.069 6.6499H8.07996ZM15.92 12.7399H8.07996C7.64896 12.7399 7.29996 12.3899 7.29996 11.9599C7.29996 11.5299 7.64896 11.1789 8.07996 11.1789H15.92C16.35 11.1789 16.7 11.5299 16.7 11.9599C16.7 12.3899 16.35 12.7399 15.92 12.7399ZM15.92 17.3099H8.07996C7.77996 17.3499 7.48996 17.1999 7.32996 16.9499C7.16996 16.6899 7.16996 16.3599 7.32996 16.1099C7.48996 15.8499 7.77996 15.7099 8.07996 15.7399H15.92C16.319 15.7799 16.62 16.1199 16.62 16.5299C16.62 16.9289 16.319 17.2699 15.92 17.3099Z" fill="currentColor"></path>
-                           </svg> 
+                           <path opacity="0.4" d="M16.191 2H7.81C4.77 2 3 3.78 3 6.83V17.16C3 20.26 4.77 22 7.81 22H16.191C19.28 22 21 20.26 21 17.16V6.83C21 3.78 19.28 2 16.191 2Z" fill="currentColor"></path>                               
+                         <path fill-rule="evenodd" clip-rule="evenodd" d="M8.07996 6.6499V6.6599C7.64896 6.6599 7.29996 7.0099 7.29996 7.4399C7.29996 7.8699 7.64896 8.2199 8.07996 8.2199H11.069C11.5 8.2199 11.85 7.8699 11.85 7.4289C11.85 6.9999 11.5 6.6499 11.069 6.6499H8.07996ZM15.92 12.7399H8.07996C7.64896 12.7399 7.29996 12.3899 7.29996 11.9599C7.29996 11.5299 7.64896 11.1789 8.07996 11.1789H15.92C16.35 11.1789 16.7 11.5299 16.7 11.9599C16.7 12.3899 16.35 12.7399 15.92 12.7399ZM15.92 17.3099H8.07996C7.77996 17.3499 7.48996 17.1999 7.32996 16.9499C7.16996 16.6899 7.16996 16.3599 7.32996 16.1099C7.48996 15.8499 7.77996 15.7099 8.07996 15.7399H15.92C16.319 15.7799 16.62 16.1199 16.62 16.5299C16.62 16.9289 16.319 17.2699 15.92 17.3099Z" fill="currentColor"></path>
+                          </svg>                            
                         </i>
                         <span class="item-name">Task</span>
                         <i class="right-icon">
@@ -900,22 +920,26 @@
         <!-- ---------------- -->
         <!-- Sidebar Menu End -->
         <!-- ---------------- -->
-            </div>
-        </div>
+      </div>
+    </div>
+
     <div class="sidebar-footer"></div>
   </aside>
   <main class="main-content">
     <div class="position-relative iq-banner">
+      <!-- ------- -->
       <!--Nav Start-->
+      <!-- ------- -->
       <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar">
         <div class="container-fluid navbar-inner">
-          <a href="../index.html" class="navbar-brand">
+          <a href="index.html" class="navbar-brand">
 
-            <!--Logo start-->
+          <!-- -------- -->
+          <!--Logo start-->
+          <!-- -------- -->
             <div class="logo-main">
               <div class="logo-normal">
-
-                <img src="../../assets/custom_images/barrownz-logo.png" class="img-fluid"
+                <img src="../assets/custom_images/barrownz-logo.png" class="img-fluid"
                   style="height: 30px; width: 30px;" alt="">
               </div>
               <div class="logo-mini">
@@ -931,9 +955,9 @@
                 </svg>
               </div>
             </div>
+            <!-- ------ -->
             <!--logo End-->
-
-
+            <!-- ------ -->
 
 
             <h4 class="logo-title">Barrownz</h4>
@@ -990,8 +1014,8 @@
                     <div class="p-0 card-body">
                       <a href="#" class="iq-sub-card">
                         <div class="d-flex align-items-center">
-                          <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                            src="../../assets/images/shapes/01.png" alt="">
+                          <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="../assets/images/shapes/01.png"
+                            alt="">
                           <div class="ms-3 w-100">
                             <h6 class="mb-0 text-start iq-text">Emma Watson Bni</h6>
                             <div class="d-flex justify-content-between align-items-center">
@@ -1005,7 +1029,7 @@
                         <div class="d-flex align-items-center">
                           <div class="">
                             <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                              src="../../assets/images/shapes/02.png" alt="">
+                              src="../assets/images/shapes/02.png" alt="">
                           </div>
                           <div class="ms-3 w-100">
                             <h6 class="mb-0 text-start  iq-text">New customer is join</h6>
@@ -1018,8 +1042,8 @@
                       </a>
                       <a href="#" class="iq-sub-card">
                         <div class="d-flex align-items-center">
-                          <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                            src="../../assets/images/shapes/03.png" alt="">
+                          <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="../assets/images/shapes/03.png"
+                            alt="">
                           <div class="ms-3 w-100">
                             <h6 class="mb-0 text-start iq-text">Two customer is left</h6>
                             <div class="d-flex justify-content-between align-items-center">
@@ -1031,8 +1055,8 @@
                       </a>
                       <a href="#" class="iq-sub-card">
                         <div class="d-flex align-items-center">
-                          <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                            src="../../assets/images/shapes/04.png" alt="">
+                          <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="../assets/images/shapes/04.png"
+                            alt="">
                           <div class="w-100 ms-3">
                             <h6 class="mb-0 text-start  iq-text">New Mail from Fenny</h6>
                             <div class="d-flex justify-content-between align-items-center">
@@ -1046,7 +1070,6 @@
                   </div>
                 </div>
               </li>
-
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link" id="mail-drop" data-bs-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
@@ -1072,7 +1095,7 @@
                         <div class="d-flex align-items-center">
                           <div class="">
                             <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                              src="../../assets/images/shapes/01.png" alt="">
+                              src="../assets/images/shapes/01.png" alt="">
                           </div>
                           <div class="ms-3">
                             <h6 class="mb-0 ">Bni Emma Watson</h6>
@@ -1084,7 +1107,7 @@
                         <div class="d-flex align-items-center">
                           <div class="">
                             <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                              src="../../assets/images/shapes/02.png" alt="">
+                              src="../assets/images/shapes/02.png" alt="">
                           </div>
                           <div class="ms-3">
                             <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
@@ -1096,7 +1119,7 @@
                         <div class="d-flex align-items-center">
                           <div class="">
                             <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                              src="../../assets/images/shapes/03.png" alt="">
+                              src="../assets/images/shapes/03.png" alt="">
                           </div>
                           <div class="ms-3">
                             <h6 class="mb-0 ">Why do we use it?</h6>
@@ -1108,7 +1131,7 @@
                         <div class="d-flex align-items-center">
                           <div class="">
                             <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                              src="../../assets/images/shapes/04.png" alt="">
+                              src="../assets/images/shapes/04.png" alt="">
                           </div>
                           <div class="ms-3">
                             <h6 class="mb-0 ">Variations Passages</h6>
@@ -1120,7 +1143,7 @@
                         <div class="d-flex align-items-center">
                           <div class="">
                             <img class="p-1 avatar-40 rounded-pill bg-primary-subtle"
-                              src="../../assets/images/shapes/05.png" alt="">
+                              src="../assets/images/shapes/05.png" alt="">
                           </div>
                           <div class="ms-3">
                             <h6 class="mb-0 ">Lorem Ipsum generators</h6>
@@ -1132,7 +1155,7 @@
                   </div>
                 </div>
               </li>
-
+              
               <div id="customAlert" class="custom-alert"></div>
               <li class="nav-item dropdown custom-drop position-relative">
                 <div class="d-flex align-items-center">
@@ -1144,6 +1167,13 @@
                     </a>
 
                     <!-- Caption -->
+                    <!-- <div class="caption ms-3">
+                        <button id="toggleBtn" class="toggle-btn">
+                            <span id="textOut" class="toggle-text active fw-bold">System Out</span>
+                            <span id="textIn" class="toggle-text fw-bold">System In</span>
+                        </button>
+                    </div> -->
+
                     <div class="caption ms-3">
                       <button id="toggleBtn" class="toggle-btn">System In</button>
                     </div>
@@ -1155,27 +1185,29 @@
                     <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
                 </ul>
             </li>
+             
+             
 
+              
+              
+            
             </ul>
           </div>
         </div>
       </nav>
 
+      <!-- -------------------------- -->
       <!-- Nav Header Component Start -->
+      <!-- -------------------------- -->
       <div class="iq-navbar-header" style="height: 215px;">
         <div class="container-fluid iq-container">
           <div class="row">
             <div class="col-md-12">
               <div class="flex-wrap d-flex justify-content-between align-items-center">
-                <div class="breadcrumb-line d-flex align-items-center gap-2">
-                  <h5 class="mb-0">HOME</h5>
-                  <span>
-                    <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    </svg>
-                  </span>
-                  <h5 class="mb-0">ADD HOLIDAY</h5>
+                <div>
+                  <h1>Hello Admin!</h1>
+                  <p>We are on a mission to help developers build successful projects.</p>
+
                 </div>
                 <div>
                   <a href="#" class="btn btn-link btn-soft-light">
@@ -1195,112 +1227,419 @@
           </div>
         </div>
         <div class="iq-header-img">
-          <img src="../../assets/images/dashboard/top-header.png" alt="header"
+          <img src="../assets/images/dashboard/top-header.png" alt="header"
             class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
-          <img src="../../assets/images/dashboard/top-header1.png" alt="header"
+          <img src="../assets/images/dashboard/top-header1.png" alt="header"
             class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX">
-          <img src="../../assets/images/dashboard/top-header2.png" alt="header"
+          <img src="../assets/images/dashboard/top-header2.png" alt="header"
             class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX">
-          <img src="../../assets/images/dashboard/top-header3.png" alt="header"
+          <img src="../assets/images/dashboard/top-header3.png" alt="header"
             class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX">
-          <img src="../../assets/images/dashboard/top-header4.png" alt="header"
+          <img src="../assets/images/dashboard/top-header4.png" alt="header"
             class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX">
-          <img src="../../assets/images/dashboard/top-header5.png" alt="header"
+          <img src="../assets/images/dashboard/top-header5.png" alt="header"
             class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX">
         </div>
-      </div> <!-- Nav Header Component End -->
-      <!--Nav End-->
+      </div> 
+      <!-- ------------------------ -->
+      <!----------Nav End------------->
+      <!-- Nav Header Component End -->
+      <!-- ------------------------ -->
     </div>
 
-    <div class="container px-5 mt-n5 py-0">
-      <div>
-        <div class="row">
-
-          <div class="col-xl-12 col-lg-12">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between">
-                <div class="header-title">
-                  <h4 class="card-title typing-text">Add Holiday</h4>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="new-user-info"> 
-                  <form id="holidayForm">
-
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <label class="form-label" for="holiday-title">Holiday Title</label>
-                        <input type="hidden" class="form-control" id="holiday_id" required="true"
-                          placeholder="Holiday Id">
-                        <input type="text" class="form-control" id="holiday-title" 
-                          placeholder="Holiday Title">
-                      </div>
-
-                      <div class="form-group col-md-6">
-                        <label class="form-label" for="holiday-date">Holiday Date</label>
-                        <input type="date" class="form-control" id="holiday-date">
-                      </div>
-
-                      <div class="form-group col-md-6">
-  <label class="form-label" for="holiday-status">Holiday Status</label>
-  <input type="text" class="form-control" id="holiday-status" readonly disabled>
-</div>
-
-
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Add Holiday</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--Department List-->
-
-    <div class="conatiner-fluid content-inner py-0">
-      <div>
-        <div class="row">
+    <div class="conatiner-fluid content-inner mt-n5 py-0">
+      <div class="row">
           <div class="col-sm-12">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between">
-                <div class="header-title">
-                  <h4 class="card-title typing-text">Holiday's List</h4>
-                </div>
+              <div class="card">
+                  <div class="card-header d-flex justify-content-between flex-wrap">
+                      <div class="header-title">
+                          <h4 class="card-title mb-0">Role & Permission</h4>
+                      </div>
+                      <div class="">
+                          <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                              <i class="btn-inner">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                  </svg>
+                              </i>
+                              <span>New Permission</span>
+                          </a>
+                          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel">Add new permission</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <div class="form-group">
+                                              <label for="email" class="form-label">permission title</label>
+                                              <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Permission Title">
+                                          </div>
+                                          <div class="text-start">
+                                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                                              <button type="button" class="btn btn-danger">Cancel</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop-1">
+                              <i class="btn-inner">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                  </svg>
+                              </i>
+                              <span>New Role</span>
+                          </a>
+                          <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel">Add new role</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <div class="form-group">
+                                              <label for="email" class="form-label">role title</label>
+                                              <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Role Title">
+                                          </div>
+                                          <div>
+                                              <span>status</span>
+                                              <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                                  <label class="form-check-label" for="exampleRadios2">
+                                                      yes
+                                                  </label>
+                                              </div>
+                                              <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                                  <label class="form-check-label" for="exampleRadios2">
+                                                      no
+                                                  </label>
+                                              </div>
+                                          </div>
+                                          <div class="text-start mt-2">
+                                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                                              <button type="button" class="btn btn-danger">Cancel</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-bordered">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th class="text-center">Admin
+                                          <div style="float:right;">
+                                          <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                              <span class="btn-inner">
+                                                  <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                      <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                  </svg>
+                                              </span>
+                                          </a>
+                                          <a class="btn btn-sm btn-icon text-danger"  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                              <span class="btn-inner">
+                                                  <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                      <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                  </svg>
+                                              </span>
+                                          </a>
+                                          </div>
+                                      </th>
+                                      <th class="text-center">HR
+                                          <div style="float:right;">
+                                          <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                              <span class="btn-inner">
+                                                  <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                      <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                  </svg>
+                                              </span>
+                                          </a>
+                                          <a class="btn btn-sm btn-icon text-danger"  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                              <span class="btn-inner">
+                                                  <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                      <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                  </svg>
+                                              </span>
+                                          </a>
+                                          </div>
+                                      </th>
+                                      <th class="text-center">Employee
+                                          <div style="float:right;">
+                                          <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                              <span class="btn-inner">
+                                                  <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                      <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                  </svg>
+                                              </span>
+                                          </a>
+                                          <a class="btn btn-sm btn-icon text-danger"  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                              <span class="btn-inner">
+                                                  <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                      <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                  </svg>
+                                              </span>
+                                          </a>
+                                          </div>
+                                      </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr class="">
+                                      <td class="d-flex justify-content-between">Role
+                                          <div style="float:right;">
+                                              <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                          <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                              <a class="btn btn-sm btn-icon text-danger "  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                          <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                          </div>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox">
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox">
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox">
+                                      </td>
+                                  </tr>
+                                  <tr class="">
+                                      <td class="d-flex justify-content-between">Role Add
+                                          <div style="float:right;">
+                                              <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                          <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                              <a class="btn btn-sm btn-icon text-danger "  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                          <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                          </div>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox">
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                  </tr>
+                                  <tr class="">
+                                      <td class="d-flex justify-content-between">Role List
+                                          <div style="float:right;">
+                                              <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                          <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                              <a class="btn btn-sm btn-icon text-danger "  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                          <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                          </div>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox">
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" >
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" >
+                                      </td>
+                                  </tr>
+                                  <tr class="">
+                                      <td class="d-flex justify-content-between">Permission
+                                          <div style="float:right;">
+                                              <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                          <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                              <a class="btn btn-sm btn-icon text-danger "  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                          <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                          </div>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                  </tr>
+                                  <tr class="">
+                                      <td class="d-flex justify-content-between">Permission Add
+                                          <div style="float:right;">
+                                              <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                          <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                              <a class="btn btn-sm btn-icon text-danger "  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                          <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                          </div>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" checked>
+                                      </td>
+                                  </tr>
+                                  <tr class="">
+                                      <td class="d-flex justify-content-between">Permission List
+                                          <div style="float:right;">
+                                              <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="Edit User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                          <path d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                              <a class="btn btn-sm btn-icon text-danger "  data-bs-toggle="tooltip" title="Delete User" href="#">
+                                                  <span class="btn-inner">
+                                                      <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                                          <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                      </svg>
+                                                  </span>
+                                              </a>
+                                          </div>
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox" >
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox">
+                                      </td>
+                                      <td class="text-center">
+                                          <input class="form-check-input" type="checkbox">
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <div class="text-center">
+                              <a href="admin.html" type="button" class="btn btn-primary">Save</a>
+                          </div>
+                      </div>
+                  </div>
               </div>
-              <div class="card-body px-0">
-                <div class="table-responsive">
-                  <table id="user-list-table" class="table table-striped" role="grid" data-bs-toggle="data-table">
-                    <thead>
-                      <tr class="ligth">
-                        <th class="text-center bg-primary text-light">Holiday Id</th>
-                        <th class="text-center bg-primary text-light">Holiday Title</th>
-                        <th class="text-center bg-primary text-light">Holiday Date</th>
-                        <th class="text-center bg-primary text-light">Holiday Status</th>
-                        <th class="text-center bg-primary text-light" style="min-width: 100px">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody id="holidayTableBody">
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
           </div>
+      </div>
+            </div>
+    <!-- -------------------- -->
+    <!-- Footer Section Start -->
+    <!-- -------------------- -->
+    <footer class="footer">
+      <div class="footer-body">
+        <ul class="left-panel list-inline mb-0 p-0">
+          <li class="list-inline-item"><a href="extra/privacy-policy.html">Privacy Policy</a></li>
+          <li class="list-inline-item"><a href="extra/terms-of-service.html">Terms of Use</a></li>
+        </ul>
+        <div class="right-panel text-center">
+          ©
+          <script>document.write(new Date().getFullYear())</script> Barrownz Group,
+          <span class="">
+            <svg class="icon-15" width="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z"
+                fill="currentColor"></path>
+            </svg>
+          </span>269/9 Vastu Khand, Gomti Nagar, Lucknow.
         </div>
       </div>
-    </div>
-
-
+    </footer>
+    <!-- ------------------ -->
     <!-- Footer Section End -->
+    <!-- ------------------ -->
   </main>
+
   <a class="btn btn-fixed-end btn-primary btn-icon btn-setting" data-bs-toggle="offcanvas"
     data-bs-target="#offcanvasExample" role="button" aria-controls="offcanvasExample">
     <svg width="24" viewBox="0 0 24 24" class="animated-rotate icon-24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1312,8 +1651,9 @@
     </svg>
   </a>
 
-  <!-- Wrapper End-->
+  <!-- --------------- -->
   <!-- offcanvas start -->
+  <!-- --------------- -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" data-bs-scroll="true" data-bs-backdrop="true"
     aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
@@ -1411,19 +1751,19 @@
           <h5 class="mb-3 mt-4">Scheme Direction</h5>
           <div class="d-grid gap-3 grid-cols-2 mb-4">
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/01.png" alt="ltr"
+              <img src="../assets/images/settings/dark/01.png" alt="ltr"
                 class="mode dark-img img-fluid btn-border p-0 flex-column active mb-2" data-setting="dir-mode"
                 data-name="dir" data-value="ltr">
-              <img src="../../assets/images/settings/light/01.png" alt="ltr"
+              <img src="../assets/images/settings/light/01.png" alt="ltr"
                 class="mode light-img img-fluid btn-border p-0 flex-column active mb-2" data-setting="dir-mode"
                 data-name="dir" data-value="ltr">
               <span class=" mt-2"> LTR </span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/02.png" alt=""
+              <img src="../assets/images/settings/dark/02.png" alt=""
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="dir-mode" data-name="dir"
                 data-value="rtl">
-              <img src="../../assets/images/settings/light/02.png" alt=""
+              <img src="../assets/images/settings/light/02.png" alt=""
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="dir-mode" data-name="dir"
                 data-value="rtl">
               <span class="mt-2 "> RTL </span>
@@ -1454,28 +1794,28 @@
           <h5 class="mt-4 mb-3">Sidebar Types</h5>
           <div class="d-grid gap-3 grid-cols-3 mb-4">
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/03.png" alt="mini"
+              <img src="../assets/images/settings/dark/03.png" alt="mini"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-type" data-value="sidebar-mini">
-              <img src="../../assets/images/settings/light/03.png" alt="mini"
+              <img src="../assets/images/settings/light/03.png" alt="mini"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-type" data-value="sidebar-mini">
               <span class="mt-2">Mini</span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/04.png" alt="hover"
+              <img src="../assets/images/settings/dark/04.png" alt="hover"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-type" data-value="sidebar-hover" data-extra-value="sidebar-mini">
-              <img src="../../assets/images/settings/light/04.png" alt="hover"
+              <img src="../assets/images/settings/light/04.png" alt="hover"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-type" data-value="sidebar-hover" data-extra-value="sidebar-mini">
               <span class="mt-2">Hover</span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/05.png" alt="boxed"
+              <img src="../assets/images/settings/dark/05.png" alt="boxed"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-type" data-value="sidebar-boxed">
-              <img src="../../assets/images/settings/light/05.png" alt="boxed"
+              <img src="../assets/images/settings/light/05.png" alt="boxed"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-type" data-value="sidebar-boxed">
               <span class="mt-2">Boxed</span>
@@ -1485,37 +1825,37 @@
           <h5 class="mt-4 mb-3">Sidebar Active Style</h5>
           <div class="d-grid gap-3 grid-cols-2 mb-4">
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/06.png" alt="rounded-one-side"
+              <img src="../assets/images/settings/dark/06.png" alt="rounded-one-side"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-rounded">
-              <img src="../../assets/images/settings/light/06.png" alt="rounded-one-side"
+              <img src="../assets/images/settings/light/06.png" alt="rounded-one-side"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-rounded">
               <span class="mt-2">Rounded One Side</span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/07.png" alt="rounded-all"
+              <img src="../assets/images/settings/dark/07.png" alt="rounded-all"
                 class="mode dark-img img-fluid btn-border p-0 flex-column active mb-2" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-rounded-all">
-              <img src="../../assets/images/settings/light/07.png" alt="rounded-all"
+              <img src="../assets/images/settings/light/07.png" alt="rounded-all"
                 class="mode light-img img-fluid btn-border p-0 flex-column active mb-2" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-rounded-all">
               <span class="mt-2">Rounded All</span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/08.png" alt="pill-one-side"
+              <img src="../assets/images/settings/dark/08.png" alt="pill-one-side"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-pill">
-              <img src="../../assets/images/settings/light/09.png" alt="pill-one-side"
+              <img src="../assets/images/settings/light/09.png" alt="pill-one-side"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-pill">
               <span class="mt-2">Pill One Side</span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/09.png" alt="pill-all"
+              <img src="../assets/images/settings/dark/09.png" alt="pill-all"
                 class="mode dark-img img-fluid btn-border p-0 flex-column" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-pill-all">
-              <img src="../../assets/images/settings/light/08.png" alt="pill-all"
+              <img src="../assets/images/settings/light/08.png" alt="pill-all"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="sidebar"
                 data-name="sidebar-item" data-value="navs-pill-all">
               <span class="mt-2">Pill All</span>
@@ -1525,37 +1865,37 @@
           <h5 class="mt-4 mb-3">Navbar Style</h5>
           <div class="d-grid gap-3 grid-cols-2 ">
             <div class=" text-center">
-              <img src="../../assets/images/settings/dark/11.png" alt="image"
+              <img src="../assets/images/settings/dark/11.png" alt="image"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-target=".iq-navbar" data-name="navbar-type" data-value="nav-glass">
-              <img src="../../assets/images/settings/light/10.png" alt="image"
+              <img src="../assets/images/settings/light/10.png" alt="image"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-target=".iq-navbar" data-name="navbar-type" data-value="nav-glass">
               <span class="mt-2">Glass</span>
             </div>
             <div class=" text-center">
-              <img src="../../assets/images/settings/dark/12.png" alt="sticky"
+              <img src="../assets/images/settings/dark/12.png" alt="sticky"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-target=".iq-navbar" data-name="navbar-type" data-value="navs-sticky">
-              <img src="../../assets/images/settings/light/12.png" alt="sticky"
+              <img src="../assets/images/settings/light/12.png" alt="sticky"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-target=".iq-navbar" data-name="navbar-type" data-value="navs-sticky">
               <span class="mt-2">Sticky</span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/13.png" alt="transparent"
+              <img src="../assets/images/settings/dark/13.png" alt="transparent"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-target=".iq-navbar" data-name="navbar-type" data-value="navs-transparent">
-              <img src="../../assets/images/settings/light/13.png" alt="transparent"
+              <img src="../assets/images/settings/light/13.png" alt="transparent"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-target=".iq-navbar" data-name="navbar-type" data-value="navs-transparent">
               <span class="mt-2">Transparent</span>
             </div>
             <div class="text-center">
-              <img src="../../assets/images/settings/dark/10.png" alt="color"
+              <img src="../assets/images/settings/dark/10.png" alt="color"
                 class="mode dark-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-target=".iq-navbar" data-name="navbar-type" data-value="default">
-              <img src="../../assets/images/settings/light/01.png" alt="color"
+              <img src="../assets/images/settings/light/01.png" alt="color"
                 class="mode light-img img-fluid btn-border p-0 flex-column mb-2" data-setting="navbar"
                 data-name="navbar-default" data-value="default">
               <span class="mt-2">Default</span>
@@ -1569,125 +1909,23 @@
       </div>
     </div>
   </div>
-
-
-<!-- -------------------------------- -->
-<!-- Edit Department Modal Start Here -->
-<!-- -------------------------------- -->
-<!-- Edit Modal -->
-<!-- Edit Holiday Modal -->
-<div class="modal fade" id="editHolidayModal" tabindex="-1" aria-labelledby="editHolidayLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Centered and wider -->
-    <div class="modal-content shadow-lg rounded-4">
-      
-      <div class="modal-header bg-primary text-white rounded-top-4">
-        <h5 class="modal-title text-light" id="editHolidayLabel">Edit Holiday</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body bg-light">
-        <input type="hidden" id="edit-holiday-id">
-
-        <div class="mb-3">
-          <label for="edit-holiday-title" class="form-label">Holiday Title</label>
-          <input type="text" id="edit-holiday-title" class="form-control form-control-lg" placeholder="Enter holiday title">
-        </div>
-
-        <div class="mb-3">
-          <label for="edit-holiday-date" class="form-label">Date</label>
-          <input type="date" id="edit-holiday-date" class="form-control form-control-lg">
-        </div>
-
-        <div class="mb-3">
-          <label for="edit-holiday-status" class="form-label">Status</label>
-          <input type="text" id="edit-holiday-status" class="form-control form-control-lg bg-white" readonly>
-        </div>
-      </div>
-      
-      <div class="modal-footer bg-white rounded-bottom-4">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-success px-4" id="updateHolidayBtn">Update</button>
-      </div>
-    
-    </div>
-  </div>
-</div>
-
-<!-- ------------------------------ -->
-<!-- Edit Department Modal End Here -->
-<!-- ------------------------------ -->
-
-
-
-
-
-<!-- ------------------------- -->
-<!------- Alert Placeholder ----->
-<!-- ----------------- -->
-<!-- Alert Placeholder -->
-<div id="alertPlaceholder" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1055;"></div>
-<!-- -------------------------- -->
-<!-- Alert Placeholder End Here -->
-<!-- -------------------------- -->
-
-
-  <!-- ------------------------------------ -->
-  <!-- Delete Confirmation Modal Start Here -->
-  <!-- ------------------------------------ -->
-<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header"><h5>Confirm Delete</h5></div>
-      <div class="modal-body">Are you sure you want to delete this holiday?</div>
-      <div class="modal-footer">
-        <button class="btn btn-danger" id="deleteHolidayBtn">Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <!-- ------------------------------------ -->
-  <!-- Delete Confirmation Modal End Here -->
-  <!-- ------------------------------------ -->
-
-
+  <script src="../assets/js/core/libs.min.js"></script>
+  <script src="../assets/js/core/external.min.js"></script>
+  <script src="../assets/js/charts/widgetcharts.js"></script>
+  <script src="../assets/js/charts/vectore-chart.js"></script>
+  <script src="../assets/js/charts/dashboard.js"></script>
+  <script src="../assets/js/plugins/fslightbox.js"></script>
+  <script src="../assets/js/plugins/setting.js"></script>
+  <script src="../assets/js/plugins/slider-tabs.js"></script>
+  <script src="../assets/js/plugins/form-wizard.js"></script>
+  <script src="../assets/vendor/aos/dist/aos.js"></script>
+  <script src="../assets/js/hope-ui.js" defer></script>
   <!-- Custom JS -->
-  <script th:src="@{/assets/js/Custom.js}"></script>
-
-  <!-- Library Bundle Script -->
-  <script src="../../assets/js/core/libs.min.js"></script>
-
-  <!-- External Library Bundle Script -->
-  <script src="../../assets/js/core/external.min.js"></script>
-
-  <!-- Widgetchart Script -->
-  <script src="../../assets/js/charts/widgetcharts.js"></script>
-
-  <!-- mapchart Script -->
-  <script src="../../assets/js/charts/vectore-chart.js"></script>
-  <script src="../../assets/js/charts/dashboard.js"></script>
-
-  <!-- fslightbox Script -->
-  <script src="../../assets/js/plugins/fslightbox.js"></script>
-
-  <!-- Settings Script -->
-  <script src="../../assets/js/plugins/setting.js"></script>
-
-  <!-- Slider-tab Script -->
-  <script src="../../assets/js/plugins/slider-tabs.js"></script>
-
-  <!-- Form Wizard Script -->
-  <script src="../../assets/js/plugins/form-wizard.js"></script>
-
-  <!-- App Script -->
-  <script src="../../assets/js/hope-ui.js" ></script>
-
-  <script data-th-src="@{/assets/js/holiday.js}"></script>
-  <script data-th-src="@{/assets/js/logout.js}"></script>
-  <script data-th-src="@{/assets/js/systemInOut.js}"></script>
-   <!-- sweet alert -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
-
-
+   <script src="../assets/js/Custom.js"></script>
+   <script data-th-src="@{/assets/js/logout.js}"></script>
+   <script data-th-src="@{/assets/js/systemInOut.js}"></script>
+     <!-- sweet alert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
 
 </body>
 </html>

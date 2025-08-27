@@ -165,7 +165,7 @@ async function submitForm(e) {
   const res = await fetch(id ? `${API}/employees/${id}` : `${API}/employees`, {
     method: id ? 'PUT' : 'POST',
     body: formData,
-    headers: getAuthHeaders()  //added jwt token
+    headers: getAuthHeaders(false)  //added jwt token
   });
 
   if (res.ok) {
@@ -350,7 +350,7 @@ document.getElementById('editEmpForm').addEventListener('submit', async function
   const res = await fetch(`${API}/employees/${id}`, {
     method: 'PUT',
     body: formData,
-    headers: getAuthHeaders()  //added jwt token
+    headers: getAuthHeaders(false)  //added jwt token
   });
 
   if (res.ok) {
