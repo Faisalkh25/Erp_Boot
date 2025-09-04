@@ -169,9 +169,9 @@ public class HomeController {
 
     // handler for showing landing page
 
-    @GetMapping("/landingPage")
+    @GetMapping("/home")
     public String showLandingPage() {
-        return "dashboard/home";
+        return "dashboard/app/home";
     }
 
     // admin-panel
@@ -184,4 +184,9 @@ public class HomeController {
     public String showSaturdays() {
         return "dashboard/app/add-saturday";
     }
+
+    // @GetMapping("/signin")
+    // public String showSignIn() {
+    // return "dashboard/auth/sign-in";
+    // }
 }

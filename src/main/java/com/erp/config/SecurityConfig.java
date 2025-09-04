@@ -37,6 +37,7 @@ public class SecurityConfig {
                                                 .requestMatchers("/",
                                                                 "/api/auth/login",
                                                                 "/api/auth/logout",
+                                                                "/api/auth/refresh",
                                                                 "/show-*",
                                                                 "/dashboard/**",
                                                                 "/css/**", "/js/**", "/images/**", "/assets/**",
@@ -50,8 +51,9 @@ public class SecurityConfig {
                                                                 "/showHoliday",
                                                                 "/showHolidayList",
                                                                 "/viewProfile",
-                                                                "/landingPage",
-                                                                "/viewSaturday")
+                                                                "/home",
+                                                                "/viewSaturday",
+                                                                "/signin")
 
                                                 .permitAll()
                                                 .requestMatchers("/admin_home").hasAuthority("Admin")
@@ -74,17 +76,29 @@ public class SecurityConfig {
                                                 .requestMatchers(HttpMethod.DELETE, "/api/employees/**")
                                                 .hasAnyAuthority("Admin", "HR")
 
-                                                .requestMatchers("/api/salary/**").hasAnyAuthority("Admin", "HR")
-
-                                                .requestMatchers("/api/employees/personal-info",
-                                                                "/api/employees/personal-info/**")
+                                                // matchers for employee personal info
+                                                .requestMatchers(HttpMethod.GET,
+                                                                "/api/personal-info/employee/**")
                                                 .hasAuthority("Employee")
+                                                .requestMatchers(HttpMethod.POST, "/api/personal-info",
+                                                                "/api/personal-info/")
+                                                .hasAuthority("Employee")
+                                                .requestMatchers(HttpMethod.PUT,
+                                                                "/api/personal-info/employee/**")
+                                                .hasAuthority("Employee")
+
+                                                // matchers for employee education details
+                                                .requestMatchers("/api/education-details/**").hasAuthority("Employee")
+
+                                                .requestMatchers("/api/salary/**").hasAnyAuthority("Admin", "HR")
 
                                                 .requestMatchers("/api/saturday/**").hasAnyAuthority("Admin", "HR")
 
                                                 // .requestMatchers("/admin_home").hasAuthority("Admin")
 
                                                 .requestMatchers("/api/system/**").hasAnyAuthority("HR", "Employee")
+                                                // .requestMatchers("/api/auth/**")
+                                                // .hasAnyAuthority("Admin", "HR", "Employee")
 
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session

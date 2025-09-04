@@ -443,7 +443,7 @@
                           </a>
                         </li>
           
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                           <a class="nav-link " data-th-href="@{/show-assign-employee}">
                             <i class="icon">
                               <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -456,7 +456,7 @@
                             <i class="sidenav-mini-icon"> U </i>
                             <span class="item-name">Assign Employee Project</span>
                           </a>
-                        </li>
+                        </li> -->
           
                         <li class="nav-item">
                           <a class="nav-link " data-th-href="@{/show-projectDetails}">
@@ -1238,7 +1238,7 @@
             <div class="col-md-12">
               <div class="flex-wrap d-flex justify-content-between align-items-center">
                 <div>
-                  <h1>Hello HR!</h1>
+                  <h1 id="welcomeHeading">Welcome HR!</h1>
                   <p>We are on a mission to help developers build successful projects.</p>
 
                 </div>
@@ -1934,6 +1934,54 @@
       </div>
     </div>
   </div>
+
+  <script>
+        //helper function
+function getAuthHeaders(isJson = true) {
+    const token = localStorage.getItem('token');
+    const headers = {
+        "Authorization": `Bearer ${token}`
+    };
+    if (isJson) {
+        headers["Content-Type"] = "application/json";
+    }
+    return headers;
+}
+// 
+       //fetching employee profile and set welcome name
+document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        fetch("http://localhost:8080/api/employees/profile", {
+            method: "GET",
+            headers: getAuthHeaders()
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch employee profile");
+                }
+                return response.json();
+            })
+            .then(employee => {
+                const fullName = `${employee.first_name} ${employee.last_name}`;
+                localStorage.setItem("employeeName", fullName);
+
+                const heading = document.getElementById("welcomeHeading");
+                if (heading) {
+                    heading.textContent = `Welcome ${fullName}..!`;
+                }
+            })
+            .catch(error => {
+                console.error("Error loading employee data:", error);
+            });
+    } else {
+        console.warn("JWT token not found. Please login first.");
+    }
+  });
+  </script>
+
+
   <script src="../assets/js/core/libs.min.js"></script>
   <script src="../assets/js/core/external.min.js"></script>
   <script src="../assets/js/charts/widgetcharts.js"></script>
@@ -1949,8 +1997,10 @@
    <script src="../assets/js/Custom.js"></script>
    <script data-th-src="@{/assets/js/logout.js}"></script>
    <script data-th-src="@{/assets/js/systemInOut.js}"></script>
+   <script data-th-src="@{/assets/js/sessionHandler.js}"></script>
      <!-- sweet alert -->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
+     
 
 </body>
 </html>

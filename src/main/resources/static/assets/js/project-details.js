@@ -65,8 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
       select.innerHTML = `<option value="" disabled selected>-Select-</option>`;
       data.forEach(emp => {
         const fullName = `${emp.first_name} ${emp.last_name || ""}`.trim();
-        if (emp.emp_id) {
-          select.innerHTML += `<option value="${emp.emp_id}">${fullName}</option>`;
+        if (emp.empId) {
+          select.innerHTML += `<option value="${emp.empId}">${fullName}</option>`;
         }
       });
     } catch (err) {
@@ -87,13 +87,13 @@ async function loadTeamCheckboxes() {
 
     employees.forEach(emp => {
       const fullName = `${emp.first_name} ${emp.last_name || ""}`.trim();
-      if (!emp.emp_id) return;
+      if (!emp.empId) return;
 
       const li = document.createElement("li");
       li.innerHTML = `
         <div class="form-check ms-2">
-          <input class="form-check-input team-checkbox" type="checkbox" value="${emp.emp_id}" id="emp_${emp.emp_id}">
-          <label class="form-check-label" for="emp_${emp.emp_id}">${fullName}</label>
+          <input class="form-check-input team-checkbox" type="checkbox" value="${emp.empId}" id="emp_${emp.empId}">
+          <label class="form-check-label" for="emp_${emp.empId}">${fullName}</label>
         </div>
       `;
       teamDropdownList.appendChild(li);

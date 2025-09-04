@@ -1,3 +1,4 @@
+//helper function
 function getAuthHeaders(isJson = true) {
     const token = localStorage.getItem('token');
     const headers = {
@@ -8,8 +9,9 @@ function getAuthHeaders(isJson = true) {
     }
     return headers;
 }
+//
 
-// On page load, fetch employee profile and set welcome name
+//fetching employee profile and set welcome name
 document.addEventListener("DOMContentLoaded", function () {
     const token = localStorage.getItem("token");
 

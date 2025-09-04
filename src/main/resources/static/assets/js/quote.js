@@ -1,4 +1,4 @@
-// ================= Helper for JWT =================
+// helper function
 function getAuthHeaders(isJson = true) {
     const token = localStorage.getItem('token');
     const headers = {
@@ -9,11 +9,12 @@ function getAuthHeaders(isJson = true) {
     }
     return headers;
 }
+//
 
-// ================= Constants =================
+// basi api
 const apiUrl = "http://localhost:8080/api/quotes";
 
-// ================= Submit Quote =================
+// submit quote
 document.addEventListener("DOMContentLoaded", () => {
     const quoteForm = document.getElementById("quoteForm");
 
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
 
             const quoteText = document.getElementById("quoteText").value.trim();
-            const empCode = localStorage.getItem("empCode"); // Ensure this is correct (check in browser's console)
+            const empCode = localStorage.getItem("empCode"); 
 
             if (!quoteText || !empCode) {
                 alert("Quote text or employee code is missing.");
@@ -54,7 +55,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     const savedQuote = await response.json();
                     displayQuote(savedQuote);
                     document.getElementById("quoteText").value = "";
-                    alert("Quote saved successfully.");
+                    // alert("Quote saved successfully.");
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Quote saved successfully.",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        customClass: {
+                              confirmButton: "btn-custom"
+                        },
+                        buttonsStyling: false
+                    });
+
+                    //close modal
+                    const modalElement = document.getElementById("addQuoteModal");
+                    const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+                    modalInstance.hide();
                 } else {
                     const errorText = await response.text();
                     console.error("Status:", response.status);
@@ -63,15 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } catch (error) {
                 console.error("Error:", error);
-                alert("An error occurred while saving the quote.");
+                // alert("An error occurred while saving the quote.");
+                Swal.fire("Something went wrong. Try Again");
             }
         });
 
-        loadAllQuotesAndShowLatest(); // Load latest quote on page load
+        loadAllQuotesAndShowLatest(); // Load latest quote 
     }
 });
 
-// ================= Load All Quotes and Display Latest =================
+// load all quotes and display all
 async function loadAllQuotesAndShowLatest() {
     try {
         const response = await fetch(apiUrl, {
@@ -98,7 +116,7 @@ async function loadAllQuotesAndShowLatest() {
 }
 
 
-// ================= Display Quote =================
+// display quotes
 function displayQuote(quote) {
     const container = document.getElementById("quoteContainer");
     if (!container || !quote) return;

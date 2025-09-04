@@ -140,7 +140,7 @@ public class EmployeeRestController {
     public ResponseEntity<Employee> getEmployeeByEmpCode(@PathVariable int empCode) {
 
         Employee emp = employeeService.findByEmpCode(empCode);
-        return new ResponseEntity<>(emp, HttpStatus.OK);                                            
+        return new ResponseEntity<>(emp, HttpStatus.OK);
 
     }
 

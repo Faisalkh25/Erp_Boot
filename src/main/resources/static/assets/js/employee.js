@@ -171,10 +171,31 @@ async function submitForm(e) {
   if (res.ok) {
     resetForm();
     await loadEmployees();
-    showSuccessAlert(id ? 'Employee updated successfully' : 'Employee added successfully');
-  } else {
-    console.error('Error submitting form:', await res.text());
-  }
+
+
+  //   showSuccessAlert(id ? 'Employee updated successfully' : 'Employee added successfully');
+  // } else {
+  //   console.error('Error submitting form:', await res.text());
+  // }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: id ? 'Employee updated successfully' : 'Employee added successfully',
+      showConfirmButton: true,
+      timer: 2000
+    });
+}
+else {
+  const errorMsg = await res.text();
+  console.error('Error submitting form:', errorMsg);
+
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops..',
+    text: errorMsg || 'Something went wrong!'
+  })
+}
 }
 
 // Load employees
@@ -356,9 +377,24 @@ document.getElementById('editEmpForm').addEventListener('submit', async function
   if (res.ok) {
     bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
     await loadEmployees();
-    showSuccessAlert("Employee updated successfully");
+    
+    // showSuccessAlert("Employee updated successfully");
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: 'Employee updated successfully',
+      showConfirmButton: true,
+      timer: 2000
+    })
   } else {
-    console.error(await res.text());
+    const errorMsg = await res.text();
+    console.error(errorMsg);
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops..',
+      text: errorMsg || 'Something went wrong!'
+    });
   }
 });
 
@@ -501,7 +537,7 @@ function scrollTable(direction) {
 document.getElementById('employeeForm').addEventListener('submit', function(event) {
   event.preventDefault();
   if (validateForm()) {
-      buildEmpFromForm(event); // Call your existing form submission function
+      buildEmpFromForm(event); 
   }
 });
 

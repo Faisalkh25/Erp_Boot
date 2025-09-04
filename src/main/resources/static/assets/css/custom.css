@@ -525,3 +525,35 @@ border-radius: 10px;
     background-color: #3A57E8;
     border: none;
 }
+
+/* personal info button css styling starts */
+.info-btn {
+  color: white;
+  background-color: #3A57E8;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+}
+
+.info-btn-cancel {
+   color: white;
+   background-color: #dc3545;
+   border: none;
+   padding: 8px 14px;
+   border-radius: 5px;
+}
+
+.btn-main-setting {
+     border-radius: 50px;
+     padding: 10px 30px;
+     background-color: #3A57E8;
+     color: white;
+}
+
+.btn-custom {
+   background-color: #3A57E8;
+   color: #fff;
+   border: none;
+   padding: 5px 8px;
+   border-radius: 2px;
+}

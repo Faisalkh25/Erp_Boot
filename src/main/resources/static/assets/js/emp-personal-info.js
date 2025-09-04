@@ -69,7 +69,7 @@ async function fetchPersonalInfo() {
         const empId = parseInt(localStorage.getItem('empId'));
         if (!empId) return;
         
-        const response = await fetch(`${API_BASE_URL}/employees/personal-info/employee/${empId}`, {
+        const response = await fetch(`${API_BASE_URL}/personal-info/employee/${empId}`, {
             headers: getAuthHeaders()
         });
         
@@ -103,7 +103,7 @@ async function savePersonalInfo(event) {
             employeeId: empId
         };
         
-        const response = await fetch(`${API_BASE_URL}/employees/personal-info`, {
+        const response = await fetch(`${API_BASE_URL}/personal-info`, {
             method: "POST",
             headers: getAuthHeaders(),
             body: JSON.stringify(formData)

@@ -20,7 +20,7 @@ import com.erp.repository.EmployeeRepository;
 import com.erp.service.EmployeePersonalInfoService;
 
 @RestController
-@RequestMapping("/api/employees/personal-info")
+@RequestMapping("/api/personal-info")
 @CrossOrigin("*")
 public class EmployeePersonalInfoRestController {
 

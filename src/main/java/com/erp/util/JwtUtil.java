@@ -28,23 +28,6 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    /*
-     * public String generateToken(String empCode, int empId) {
-     * SecretKey key = (SecretKey) getSignKey();
-     * 
-     * return Jwts.builder()
-     * .subject(empCode)
-     * .claim("empId", empId) // custom claim
-     * .issuedAt(new Date())
-     * .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30
-     * minutes
-     * .signWith(key)
-     * .compact();
-     * 
-     * }
-     * 
-     */
-
     public String generateToken(UserDetails userDetails, int empId) {
         SecretKey key = (SecretKey) getSignKey();
 
@@ -98,7 +81,7 @@ public class JwtUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return parseToken(token).getExpiration().before(new Date());
     }
 
