@@ -41,7 +41,7 @@ public class JwtUtil {
                         .collect(Collectors.toList()))
 
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30 minutes
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
                 .signWith(key)
                 .compact();
 

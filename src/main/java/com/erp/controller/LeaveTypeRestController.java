@@ -40,7 +40,7 @@ public class LeaveTypeRestController {
         return new ResponseEntity<>(l_type, HttpStatus.CREATED);
     }
 
-    // handler for getall departments
+    // handler for getall leave types
     @GetMapping
     public ResponseEntity<List<LeaveType>> getAllLeaveTypes() {
         List<LeaveType> allLeaveTypes = leaveTypeService.getAllLeavetypes();

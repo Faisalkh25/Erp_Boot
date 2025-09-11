@@ -814,6 +814,7 @@
                                             
                                         </div>
                                     </div>
+
                                   <form id="applyLeaveForm" enctype="multipart/form-data">
                                    
                                         <div class="row">
@@ -904,6 +905,7 @@
                                          <button type="submit" class="btn btn-primary mt-3">Apply Leave</button>
                                         </div>
                                     </form>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -924,14 +926,14 @@
 
         <!-- CC Modal -->
 <div class="modal fade" id="ccModal" tabindex="-1" aria-labelledby="ccModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ccModalLabel">Select Employees for CC</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-           
+             
              <div class="card">
                   <div class="card-body">
                       <div class="row">
@@ -1072,10 +1074,10 @@
                   </div>
              </div>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="saveCcBtn">Add</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="saveCcBtn">Add</button>
+            </div>
       </div>
     </div>
   </div>
@@ -1435,6 +1437,7 @@
      <!-- sweet alert -->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
      <script data-th-src="@{/assets/js/sessionHandler.js}"></script>
+     <script data-th-src="@{/assets/js/leaveApplication.js}"></script>
 
  
 </body>

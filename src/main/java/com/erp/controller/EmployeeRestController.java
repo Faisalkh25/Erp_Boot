@@ -2,14 +2,9 @@ package com.erp.controller;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -84,10 +79,17 @@ public class EmployeeRestController {
 
     // handler for single employee
 
+    // @GetMapping("/{id}")
+    // public ResponseEntity<Employee> showSingleEmployee(@PathVariable int id) {
+    // Employee singleEmployee = employeeService.getSingleEmployee(id);
+    // return new ResponseEntity<>(singleEmployee, HttpStatus.OK);
+    // }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> showSingleEmployee(@PathVariable int id) {
-        Employee singleEmployee = employeeService.getSingleEmployee(id);
-        return new ResponseEntity<>(singleEmployee, HttpStatus.OK);
+    public ResponseEntity<EmployeeDto> showSingleEmployee(@PathVariable int id) {
+        Employee emp = employeeService.getSingleEmployee(id);
+        EmployeeDto dto = employeeService.convertToDto(emp);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     // handler for delete Employee

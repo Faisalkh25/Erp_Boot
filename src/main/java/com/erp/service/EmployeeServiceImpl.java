@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmailService emailService;
 
-    @Value("${file.upload-dir}")
+    @Value("${file.upload-dir.employees}")
     private String uploadDir;
 
     @Override

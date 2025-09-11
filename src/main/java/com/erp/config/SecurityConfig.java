@@ -96,6 +96,9 @@ public class SecurityConfig {
 
                                                 // .requestMatchers("/admin_home").hasAuthority("Admin")
 
+                                                // matchers for employee [applying leave]
+                                                .requestMatchers("/api/leaves/**").hasAuthority("Employee")
+
                                                 .requestMatchers("/api/system/**").hasAnyAuthority("HR", "Employee")
                                                 // .requestMatchers("/api/auth/**")
                                                 // .hasAnyAuthority("Admin", "HR", "Employee")

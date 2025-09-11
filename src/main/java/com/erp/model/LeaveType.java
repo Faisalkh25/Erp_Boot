@@ -2,6 +2,8 @@ package com.erp.model;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,19 +21,20 @@ public class LeaveType {
     private int leavetype_id;
     private String leave_type;
 
-    // @CreationTimestamp
-    // @Column(name = "date_created", updatable = false)
-    // private Timestamp dateCreated;
+    @Column(name = "allowed_for_probation")
+    private Boolean allowedForProbation = false;
 
+    @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dateCreated = LocalDateTime.now();
 
     public LeaveType() {
     }
 
-    public LeaveType(int leavetype_id, String leave_type, LocalDateTime dateCreated) {
+    public LeaveType(int leavetype_id, String leave_type, Boolean allowedForProbation, LocalDateTime dateCreated) {
         this.leavetype_id = leavetype_id;
         this.leave_type = leave_type;
+        this.allowedForProbation = allowedForProbation;
         this.dateCreated = dateCreated;
     }
 
@@ -57,6 +60,14 @@ public class LeaveType {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Boolean getAllowedForProbation() {
+        return allowedForProbation;
+    }
+
+    public void setAllowedForProbation(Boolean allowedForProbation) {
+        this.allowedForProbation = allowedForProbation;
     }
 
 }

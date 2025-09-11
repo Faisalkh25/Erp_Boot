@@ -54,6 +54,8 @@ function loadLeaveTypes() {
                 tr.innerHTML = `
                     <td class="text-center">${leave.leavetype_id}</td>
                     <td class="text-center">${leave.leave_type}</td>
+
+                    <td class="text-center">${leave.allowedForProbation ? '✅ Yes' : '❌ No'}</td>
                     <td class="text-center">
                         <i class="fa-solid fa-pen-to-square text-primary me-2"
                             onclick="showEditModal(${leave.leavetype_id})"
@@ -74,11 +76,14 @@ function loadLeaveTypes() {
 
 function addLeaveType() {
     const leaveTypeInput = document.getElementById("leave_type").value;
+    const allowedForProbation = document.getElementById("allowedForProbation").checked;
 
     fetch(apiUrl, {
         method: 'POST',
         headers: getAuthHeaders(),  //added jwt token
-        body: JSON.stringify({ leave_type: leaveTypeInput })
+        body: JSON.stringify({ leave_type: leaveTypeInput,
+              allowedForProbation: allowedForProbation
+         })
     })
         .then(res => res.json())
         .then(() => {
@@ -96,13 +101,18 @@ function showEditModal(id) {
         .then(data => {
             document.getElementById("edit_dept_id").value = data.leavetype_id;
             document.getElementById("level_type").value = data.leave_type;
+
+            //  set checkbox value if you add it in edit modal
+        document.getElementById("edit_allowedForProbation").checked = data.allowedForProbation === true;
+
             new bootstrap.Modal(document.getElementById('editLeveltypeModal')).show();
         });
 }
 
 function updateLeaveType(id) {
     const updatedLeaveType = {
-        leave_type: document.getElementById("level_type").value
+        leave_type: document.getElementById("level_type").value,
+        allowedForProbation: document.getElementById("edit_allowedForProbation").checked
     };
 
     fetch(`${apiUrl}/${id}`, {
