@@ -189,4 +189,9 @@ public class HomeController {
     // public String showSignIn() {
     // return "dashboard/auth/sign-in";
     // }
+
+    @GetMapping("/show-AllLeave")
+    public String showHrAllLeaves() {
+        return "dashboard/app/hr-allLeave";
+    }
 }

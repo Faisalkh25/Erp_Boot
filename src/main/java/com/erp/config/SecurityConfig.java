@@ -103,6 +103,13 @@ public class SecurityConfig {
                                                 // .requestMatchers("/api/auth/**")
                                                 // .hasAnyAuthority("Admin", "HR", "Employee")
 
+                                                // Show All Leaves Request for HR and Admin
+                                                .requestMatchers("/show-AllLeave").hasAnyAuthority("HR", "Admin")
+
+                                                // HR leave management (approve/reject/fetch all)
+                                                .requestMatchers("/api/hr/leaves/**").hasAnyAuthority("HR", "Admin")
+                                                .requestMatchers("/api/admin/leaves/**").hasAuthority("Admin")
+
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
