@@ -27,4 +27,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> findByJoiningDateBetween(@Param("startDate") LocalDate starDate,
             @Param("endDate") LocalDate endDate);
 
+    public Employee findByFirstNameAndLastName(String firstName, String lastName);
+
 }

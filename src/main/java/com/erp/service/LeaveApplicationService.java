@@ -15,4 +15,8 @@ public interface LeaveApplicationService {
 
     public String saveAttachment(MultipartFile file);
 
+    public boolean updateLeaveStatusByRM(int leaveId, String status, int rmEmpId);
+
+    public List<LeaveApplicationDto> getLeavesForRM(int rmEmpId);
+
 }

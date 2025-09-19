@@ -192,8 +192,8 @@ public class ProjectDetailsServiceImpl implements ProjectDetailsService {
         dto.setSubmissionDate(project.getSubmissionDate());
 
         dto.setProjectLeaderId(project.getProjectLeader().getEmpId());
-        dto.setProjectLeaderName(project.getProjectLeader().getFirst_name() + " " +
-                (project.getProjectLeader().getLast_name() != null ? project.getProjectLeader().getLast_name() : ""));
+        dto.setProjectLeaderName(project.getProjectLeader().getFirstName() + " " +
+                (project.getProjectLeader().getLastName() != null ? project.getProjectLeader().getLastName() : ""));
 
         dto.setRate(project.getRate());
         dto.setRateType(project.getRateType());
@@ -212,7 +212,7 @@ public class ProjectDetailsServiceImpl implements ProjectDetailsService {
 
         // Team member names
         List<String> teamNames = project.getTeamMembers().stream()
-                .map(emp -> emp.getFirst_name() + " " + (emp.getLast_name() != null ? emp.getLast_name() : ""))
+                .map(emp -> emp.getFirstName() + " " + (emp.getLastName() != null ? emp.getLastName() : ""))
                 .collect(Collectors.toList());
         dto.setTeamMemberName(teamNames);
 

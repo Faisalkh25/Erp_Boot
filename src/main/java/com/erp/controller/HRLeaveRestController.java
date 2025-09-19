@@ -2,6 +2,7 @@ package com.erp.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,11 @@ public class HRLeaveRestController {
         LeaveApplication leave = leaveRepo.findById(leaveId)
                 .orElseThrow(() -> new RuntimeException("Leave not found"));
 
+        // only allow approve if status is "pending"
+        if (!"PENDING".equalsIgnoreCase(leave.getStatus())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("only pending leaves can be  approved by HR");
+        }
+
         leave.setStatus("APPROVED");
         leaveRepo.save(leave);
         return ResponseEntity.ok("Leave Approved successfully");
@@ -44,6 +50,12 @@ public class HRLeaveRestController {
     @PutMapping("/{leaveId}/reject")
     public ResponseEntity<?> rejectLeave(@PathVariable int leaveId) {
         LeaveApplication leave = leaveRepo.findById(leaveId).orElseThrow(() -> new RuntimeException("Leave not found"));
+
+        // only allow reject if status is pending
+        if (!"PENDING".equalsIgnoreCase(leave.getStatus())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Only pending leaves can be rejected by HR");
+        }
 
         leave.setStatus("REJECTED");
         leaveRepo.save(leave);

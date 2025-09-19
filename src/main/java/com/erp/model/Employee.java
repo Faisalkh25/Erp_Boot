@@ -25,10 +25,10 @@ public class Employee {
     @Column(name = "emp_code", unique = true, nullable = false)
     private int empCode;
 
-    @Column(nullable = false)
-    private String first_name;
-    @Column(nullable = false)
-    private String last_name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
     private LocalDate dateOfBirth;
     @Column(nullable = false, unique = true)
     private String email;
@@ -91,15 +91,15 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int empId, int empCode, String first_name, String last_name, LocalDate dateOfBirth, String email,
+    public Employee(int empId, int empCode, String firstName, String lastName, LocalDate dateOfBirth, String email,
             String personal_email, String address, String contact, LocalDate joining_date, Department department,
             String gender, Level emp_level, String company, Shift shift, String employee_status, String joining_status,
             String working_status, ReportingManager reporting_manager1, ReportingManager reporting_manager2, Role role,
             LocalDateTime dateCreated, LocalDateTime updated_at, String password, String profile_picture) {
         this.empId = empId;
         this.empCode = empCode;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.personal_email = personal_email;
@@ -139,20 +139,20 @@ public class Employee {
         this.empCode = empCode;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public LocalDate getDateOfBirth() {

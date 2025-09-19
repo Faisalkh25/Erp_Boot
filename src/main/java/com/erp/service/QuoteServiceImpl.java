@@ -46,7 +46,7 @@ public class QuoteServiceImpl implements QuoteService {
                 q.getQuoteText(),
                 q.getDateCreated(),
                 q.getEmployee().getEmpCode(),
-                q.getEmployee().getFirst_name() + " " + q.getEmployee().getLast_name()))
+                q.getEmployee().getFirstName() + " " + q.getEmployee().getLastName()))
                 .collect(Collectors.toList());
     }
 

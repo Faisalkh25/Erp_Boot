@@ -154,7 +154,7 @@ public class EmployeeRestController {
 
         List<Map<String, String>> result = employees.stream().map(emp -> {
             Map<String, String> map = new HashMap<>();
-            map.put("name", emp.getFirst_name() + " " + emp.getLast_name());
+            map.put("name", emp.getFirstName() + " " + emp.getLastName());
             map.put("dob", emp.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd MMMM")));
 
             return map;

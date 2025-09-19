@@ -110,6 +110,8 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/hr/leaves/**").hasAnyAuthority("HR", "Admin")
                                                 .requestMatchers("/api/admin/leaves/**").hasAuthority("Admin")
 
+                                                .requestMatchers("/api/rm/leaves/**").hasAuthority("Employee")
+
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

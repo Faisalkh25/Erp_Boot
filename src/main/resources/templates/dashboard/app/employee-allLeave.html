@@ -799,7 +799,7 @@
                                             <thead>
                                                 <tr class="light">
                                                     <th class="text-center bg-primary text-light">Status</th>
-                                                    <th class="text-center bg-primary text-light">EmpId</th>
+                                                    <th class="text-center bg-primary text-light">Employee</th>
                                                     <th class="text-center bg-primary text-light">Type</th>
                                                     <th class="text-center bg-primary text-light">Apply To</th>
                                                     <th class="text-center bg-primary text-light">From</th>
@@ -845,7 +845,7 @@
                                             <thead>
                                                 <tr class="light">
                                                     <th class="text-center bg-primary text-light">Status</th>
-                                                    <th class="text-center bg-primary text-light">EmpId</th>
+                                                    <th class="text-center bg-primary text-light">Employee</th>
                                                     <th class="text-center bg-primary text-light">Forwarded By</th>
                                                     <th class="text-center bg-primary text-light">Type</th>
                                                     <th class="text-center bg-primary text-light">From</th>
@@ -895,7 +895,6 @@
                                                     <th class="text-center bg-primary text-light">From Session</th>
                                                     <th class="text-center bg-primary text-light">To Session</th>
                                                     <th class="text-center bg-primary text-light">Apply To</th>
-                                                    <th class="text-center bg-primary text-light">Quantity</th>
                                                     <th class="text-center bg-primary text-light">CC To</th>
                                                     <th class="text-center bg-primary text-light">Qty</th>
                                                     <th class="text-center bg-primary text-light">Applied Date</th>
@@ -1270,8 +1269,7 @@
     </script>
 
 
-    <!-- Add Task Custom JS-->
-    <script data-th-src="@{/assets/js/employee-add-task.js}"></script>
+
 
     <!-- Library Bundle Script -->
     <script src="../../assets/js/core/libs.min.js"></script>
@@ -1312,6 +1310,8 @@
      <!-- sweet alert -->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.4/dist/sweetalert2.all.min.js"></script>
      <script data-th-src="@{/assets/js/sessionHandler.js}"></script>
+
+     <script data-th-src="@{/assets/js/rm-approveLeave.js}"></script>
 
 </body>
 

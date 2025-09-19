@@ -50,7 +50,7 @@ public class QuoteRestController {
                 savedQuote.getQuoteText(),
                 savedQuote.getDateCreated(),
                 savedQuote.getEmployee().getEmpCode(),
-                savedQuote.getEmployee().getFirst_name() + " " + savedQuote.getEmployee().getLast_name());
+                savedQuote.getEmployee().getFirstName() + " " + savedQuote.getEmployee().getLastName());
 
         return ResponseEntity.ok(dto);
     }
@@ -69,7 +69,7 @@ public class QuoteRestController {
                 latestQuote.getQuoteText(),
                 latestQuote.getDateCreated(),
                 latestQuote.getEmployee().getEmpCode(),
-                latestQuote.getEmployee().getFirst_name() + " " + latestQuote.getEmployee().getLast_name());
+                latestQuote.getEmployee().getFirstName() + " " + latestQuote.getEmployee().getLastName());
 
         return ResponseEntity.ok(dto);
     }

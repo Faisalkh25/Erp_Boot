@@ -26,7 +26,7 @@ public class HRLeaveService {
 
             dto.setLeaveApplicationId(leave.getLeaveApplicationId());
             dto.setEmployeeId(leave.getEmployee().getEmpId());
-            dto.setEmployeeName(leave.getEmployee().getFirst_name() + " " + leave.getEmployee().getLast_name());
+            dto.setEmployeeName(leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
             dto.setEmployeeCode(leave.getEmployee().getEmpCode());
 
             dto.setLeaveTypeId(leave.getLeaveType().getLeavetype_id());
@@ -42,7 +42,7 @@ public class HRLeaveService {
             dto.setDateCreated(leave.getDateCreated());
 
             dto.setApplyToId(leave.getApplyTo().getEmpId());
-            dto.setApplyToName(leave.getApplyTo().getFirst_name() + " " + leave.getApplyTo().getLast_name());
+            dto.setApplyToName(leave.getApplyTo().getFirstName() + " " + leave.getApplyTo().getLastName());
 
             // calculating leave days
             long days = ChronoUnit.DAYS.between(leave.getFromDate(), leave.getToDate()) + 1;

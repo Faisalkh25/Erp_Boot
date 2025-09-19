@@ -15,7 +15,7 @@ public class SystemInOutMapper {
         if (systemInOut.getEmployee() != null) {
             dto.setEmployeeId(systemInOut.getEmployee().getEmpId());
             dto.setEmployeeName(
-                    systemInOut.getEmployee().getFirst_name() + " " + systemInOut.getEmployee().getLast_name());
+                    systemInOut.getEmployee().getFirstName() + " " + systemInOut.getEmployee().getLastName());
 
         }
 

@@ -36,6 +36,8 @@ public class EmployeeDto {
     private Integer reportingManager1Id;
     private String reportingManager1Name;
 
+    private Integer reportingManager1EmployeeId;
+
     private Integer reportingManager2Id;
     private String reportingManager2Name;
 
@@ -49,8 +51,9 @@ public class EmployeeDto {
             String gender, String email, String personal_email, String address, String contact, LocalDate joining_date,
             String company, String employee_status, String joining_status, String working_status, int departmentId,
             String departmentName, int levelId, BigDecimal levelName, int shiftId, String shiftName, int roleId,
-            String roleName, Integer reportingManager1Id, String reportingManager1Name, Integer reportingManager2Id,
-            String reportingManager2Name, String password, String profile_picture) {
+            String roleName, Integer reportingManager1Id, String reportingManager1Name,
+            Integer reportingManager1EmployeeId, Integer reportingManager2Id, String reportingManager2Name,
+            String password, String profile_picture) {
         this.empId = empId;
         this.emp_code = emp_code;
         this.first_name = first_name;
@@ -76,6 +79,7 @@ public class EmployeeDto {
         this.roleName = roleName;
         this.reportingManager1Id = reportingManager1Id;
         this.reportingManager1Name = reportingManager1Name;
+        this.reportingManager1EmployeeId = reportingManager1EmployeeId;
         this.reportingManager2Id = reportingManager2Id;
         this.reportingManager2Name = reportingManager2Name;
         this.password = password;
@@ -312,6 +316,14 @@ public class EmployeeDto {
 
     public void setProfile_picture(String profile_picture) {
         this.profile_picture = profile_picture;
+    }
+
+    public Integer getReportingManager1EmployeeId() {
+        return reportingManager1EmployeeId;
+    }
+
+    public void setReportingManager1EmployeeId(Integer reportingManager1EmployeeId) {
+        this.reportingManager1EmployeeId = reportingManager1EmployeeId;
     }
 
 }

@@ -10,4 +10,6 @@ public interface LeaveApplicationRepository extends JpaRepository<LeaveApplicati
 
     List<LeaveApplication> findByEmployeeEmpId(int empId);
 
+    List<LeaveApplication> findByApplyToEmpId(int empId);
+
 }

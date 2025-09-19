@@ -1,5 +1,6 @@
 package com.erp.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.erp.dto.LeaveApplicationDto;
+import com.erp.model.Employee;
 import com.erp.model.LeaveApplication;
+import com.erp.repository.EmployeeRepository;
 import com.erp.service.LeaveApplicationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -28,10 +31,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class LeaveApplicationRestController {
 
     private LeaveApplicationService leaveService;
+    private EmployeeRepository employeeRepo;
 
-    public LeaveApplicationRestController(LeaveApplicationService leaveService) {
+    public LeaveApplicationRestController(LeaveApplicationService leaveService, EmployeeRepository employeeRepo) {
         this.leaveService = leaveService;
-    };
+        this.employeeRepo = employeeRepo;
+    }
 
     @PostMapping(consumes = { "multipart/form-data" })
     public ResponseEntity<LeaveApplication> applyLeave(
@@ -62,6 +67,20 @@ public class LeaveApplicationRestController {
     @GetMapping("/employee/{employeeId}")
     public ResponseEntity<List<LeaveApplicationDto>> getLeavesByEmployee(@PathVariable int employeeId) {
         return ResponseEntity.ok(leaveService.getLeavesByEmployee(employeeId));
+    }
+
+    @GetMapping("/my-leaves")
+    public ResponseEntity<List<LeaveApplicationDto>> getMyLeaves(Principal principal) {
+        // principal.getName() = empCode (because login is with empCode)
+        int empCode = Integer.parseInt(principal.getName());
+
+        Employee emp = employeeRepo.findByEmpCode(empCode);
+        if (emp == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        List<LeaveApplicationDto> leaves = leaveService.getLeavesByEmployee(emp.getEmpId());
+        return ResponseEntity.ok(leaves);
     }
 
 }

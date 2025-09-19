@@ -1326,7 +1326,7 @@
                                               <thead>
                                                   <tr class="light">
                                                       <th class="text-center bg-primary text-light">Status</th>
-                                                      <th class="text-center bg-primary text-light">EmpId</th>
+                                                      <th class="text-center bg-primary text-light">Employee</th>
                                                       <th class="text-center bg-primary text-light">Type</th>
                                                       <th class="text-center bg-primary text-light">Apply To</th>
                                                       <th class="text-center bg-primary text-light">From</th>
@@ -1336,6 +1336,7 @@
                                                       <th class="text-center bg-primary text-light">Qty</th>
                                                       <th class="text-center bg-primary text-light">Applied Date</th>
                                                       <th class="text-center bg-primary text-light">Attachment</th>
+                                                      <th class="text-center bg-primary text-light">View Details</th>
                                                       <th class="text-center bg-primary text-light">Action</th>
                                                   </tr>
                                               </thead>
@@ -1362,7 +1363,7 @@
                       </div>
 
                       <!-- Rejected Tab Content -->
-                      <div id="forwardedLeavesContent" class="leave-box" style="display: none;">
+                          <div id="forwardedLeavesContent" class="leave-box" style="display: none;">
                           <div class="row">
                               <div class="col-md-12">
                                   <div class="card-body px-0">
@@ -1372,7 +1373,7 @@
                                               <thead>
                                                 <tr class="light">
                                                   <th class="text-center bg-primary text-light">Status</th>
-                                                  <th class="text-center bg-primary text-light">EmpId</th>
+                                                  <th class="text-center bg-primary text-light">Employee</th>
                                                   <th class="text-center bg-primary text-light">Type</th>
                                                   <th class="text-center bg-primary text-light">Apply To</th>
                                                   <th class="text-center bg-primary text-light">From</th>
@@ -1382,6 +1383,7 @@
                                                   <th class="text-center bg-primary text-light">Qty</th>
                                                   <th class="text-center bg-primary text-light">Applied Date</th>
                                                   <th class="text-center bg-primary text-light">Attachment</th>
+                                                  <th class="text-center bg-primary text-light">View Details</th>
                                                   <th class="text-center bg-primary text-light">Action</th>
                                               </tr>
                                               </thead>
@@ -1418,7 +1420,7 @@
                                               <thead>
                                                 <tr class="light">
                                                   <th class="text-center bg-primary text-light">Status</th>
-                                                  <th class="text-center bg-primary text-light">EmpId</th>
+                                                  <th class="text-center bg-primary text-light">Employee</th>
                                                   <th class="text-center bg-primary text-light">Type</th>
                                                   <th class="text-center bg-primary text-light">Apply To</th>
                                                   <th class="text-center bg-primary text-light">From</th>
@@ -1428,6 +1430,7 @@
                                                   <th class="text-center bg-primary text-light">Qty</th>
                                                   <th class="text-center bg-primary text-light">Applied Date</th>
                                                   <th class="text-center bg-primary text-light">Attachment</th>
+                                                  <th class="text-center bg-primary text-light">View Details</th>
                                                   <th class="text-center bg-primary text-light">Action</th>
                                               </tr>
                                               </thead>
@@ -1462,6 +1465,31 @@
         <!-- --------------------------------- -->
         <!-- APPLY LEAVE FORM SECTION END HERE -->
         <!-- --------------------------------- -->
+
+        <!-- view details modal starts here -->
+            <!-- Leave Details Modal -->
+<div class="modal fade" id="leaveDetailsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title text-white">Leave Details</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tbody id="leaveDetailsBody">
+            <!-- dynamic rows go here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+         <!-- view details modal ends here -->
 
 
         <!-- -------------------- -->

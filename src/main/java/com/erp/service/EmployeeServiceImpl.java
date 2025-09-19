@@ -169,8 +169,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         System.out.println("DTO password value during update: " + dto.getPassword());
 
         // employee.setEmp_code(dto.getEmp_code());
-        employee.setFirst_name(dto.getFirst_name());
-        employee.setLast_name(dto.getLast_name());
+        employee.setFirstName(dto.getFirst_name());
+        employee.setLastName(dto.getLast_name());
         employee.setDateOfBirth(dto.getDateOfBirth());
         employee.setEmail(dto.getEmail());
         employee.setPersonal_email(dto.getPersonal_email());
@@ -225,8 +225,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         dto.setEmpId(emp.getEmpId());
         dto.setEmp_code(emp.getEmpCode());
-        dto.setFirst_name(emp.getFirst_name());
-        dto.setLast_name(emp.getLast_name());
+        dto.setFirst_name(emp.getFirstName());
+        dto.setLast_name(emp.getLastName());
         dto.setDateOfBirth(emp.getDateOfBirth());
         dto.setGender(emp.getGender());
         dto.setEmail(emp.getEmail());
@@ -263,16 +263,63 @@ public class EmployeeServiceImpl implements EmployeeService {
             dto.setRoleName(emp.getRole().getRole_name());
         }
 
-        if (emp.getReporting_manager1() != null) {
-            dto.setReportingManager1Id(emp.getReporting_manager1().getRm_id());
-            dto.setReportingManager1Name(emp.getReporting_manager1().getRm_name1());
-        }
+        // if (emp.getReporting_manager1() != null) {
+        // dto.setReportingManager1Id(emp.getReporting_manager1().getRm_id());
+        // dto.setReportingManager1Name(emp.getReporting_manager1().getRm_name1());
+        // }
 
-        if (emp.getReporting_manager2() != null) {
-            dto.setReportingManager2Id(emp.getReporting_manager2().getRm_id());
-            dto.setReportingManager2Name(emp.getReporting_manager2().getRm_name2());
-        }
+        // new code
+        if (emp.getReporting_manager1() != null && emp.getReporting_manager1().getRm_name1() != null) {
 
+            String rmName1 = emp.getReporting_manager1().getRm_name1();
+            String[] part1 = rmName1.split(" ", 2);
+
+            if (part1.length == 2) {
+                Employee rmEmployee1 = employeeRepo.findByFirstNameAndLastName(part1[0], part1[1]);
+                if (rmEmployee1 != null) {
+                    dto.setReportingManager1Id(rmEmployee1.getEmpId());
+                    dto.setReportingManager1Name(rmEmployee1.getFirstName() + " " + rmEmployee1.getLastName());
+                } else {
+                    System.out.println("No employee found with name: " + rmName1);
+                    dto.setReportingManager1Id(null);
+                    dto.setReportingManager1Name(rmName1);
+                }
+            } else {
+                System.out.println("⚠️ Invalid RM1 format: " + rmName1);
+                dto.setReportingManager1Id(null);
+                dto.setReportingManager1Name(rmName1);
+            }
+
+            // if (emp.getReporting_manager2() != null) {
+            // dto.setReportingManager2Id(emp.getReporting_manager2().getRm_id());
+            // dto.setReportingManager2Name(emp.getReporting_manager2().getRm_name2());
+            // }
+
+            // For Reporting Manager 2
+            if (emp.getReporting_manager2() != null && emp.getReporting_manager2().getRm_name2() != null) {
+
+                String rmName2 = emp.getReporting_manager2().getRm_name2(); // e.g. "Dinesh Jaiswal"
+                String[] parts2 = rmName2.split(" ", 2);
+
+                if (parts2.length == 2) {
+                    Employee rmEmployee2 = employeeRepo.findByFirstNameAndLastName(parts2[0], parts2[1]);
+                    if (rmEmployee2 != null) {
+                        dto.setReportingManager2Id(rmEmployee2.getEmpId());
+                        dto.setReportingManager2Name(rmEmployee2.getFirstName() + " " + rmEmployee2.getLastName());
+                    } else {
+                        System.out.println("⚠️ No employee found with name: " + rmName2);
+                        dto.setReportingManager2Id(null);
+                        dto.setReportingManager2Name(rmName2);
+                    }
+                } else {
+                    System.out.println("Invalid RM2 format: " + rmName2);
+                    dto.setReportingManager2Id(null);
+                    dto.setReportingManager2Name(rmName2);
+                }
+
+            }
+
+        }
         return dto;
     }
 
@@ -299,7 +346,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .map(emp -> {
                     Map<String, Object> map = new HashMap<>();
                     map.put("empCode", emp.getEmpCode());
-                    map.put("employeeName", emp.getFirst_name() + " " + emp.getLast_name());
+                    map.put("employeeName", emp.getFirstName() + " " + emp.getLastName());
                     map.put("joinedOn", emp.getJoining_date().format(DateTimeFormatter.ofPattern("dd MM yyyy")));
 
                     return map;

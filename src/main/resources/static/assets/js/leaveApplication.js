@@ -162,15 +162,27 @@ document.addEventListener('DOMContentLoaded', () => {
          populateApplyTo(emp);
     }
 
-    function populateApplyTo(emp) {
-         applyToSelect.innerHTML = '<option value="" disabled selected>-Select-</option>';
+    // function populateApplyTo(emp) {
+    //      applyToSelect.innerHTML = '<option value="" disabled selected>-Select-</option>';
 
-         if(emp.reportingManager1Id && emp.reportingManager1Name) {
-              applyToSelect.innerHTML += `
-               <option value="${emp.reportingManager1Id}">${emp.reportingManager1Name}</option>
-              `;
-         }
-    }
+    //      if(emp.reportingManager1Id && emp.reportingManager1Name) {
+    //           applyToSelect.innerHTML += `
+    //            <option value="${emp.reportingManager1Id}">${emp.reportingManager1Name}</option>
+    //           `;
+    //      }
+    // }
+
+    function populateApplyTo(emp) {
+        applyToSelect.innerHTML = '<option value="" disabled selected>-Select-</option>';
+     
+        if(emp.reportingManager1Id && emp.reportingManager1Name) {
+             // Instead of reportingManager1Id (rm_id), use reportingManager1EmployeeId
+             applyToSelect.innerHTML += `
+              <option value="${emp.reportingManager1Id}">${emp.reportingManager1Name}</option>
+             `;
+        }
+     }
+     
 
     //load leave types and filtering for probation employees
     async function loadLeaveTypes() {

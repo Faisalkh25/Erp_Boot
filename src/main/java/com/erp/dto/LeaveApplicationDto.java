@@ -1,15 +1,19 @@
 package com.erp.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LeaveApplicationDto {
 
+    private int LeaveApplicationId;
+
     private int employeeId;
     private String employeeName;
     private int employeeCode;
+
     private int leaveTypeId;
     private String leaveTypeName;
 
@@ -22,18 +26,29 @@ public class LeaveApplicationDto {
     private LocalDate fromDate;
     private LocalDate toDate;
     private String contactDetails;
+
     private int applyToId;
+    private String applyToName;
+
     private List<Integer> ccEmployeeIds;
+    private List<String> ccEmployeeNames;
+
     private String reason;
 
     private String status;
 
+    private LocalDateTime appliedDate;
+    private Double leaveQuantity;
+
     public LeaveApplicationDto() {
     }
 
-    public LeaveApplicationDto(int employeeId, String employeeName, int employeeCode, int leaveTypeId,
-            String leaveTypeName, String sessionFrom, String sessionTo, LocalDate fromDate, LocalDate toDate,
-            String contactDetails, int applyToId, List<Integer> ccEmployeeIds, String reason, String status) {
+    public LeaveApplicationDto(int leaveApplicationId, int employeeId, String employeeName, int employeeCode,
+            int leaveTypeId, String leaveTypeName, String sessionFrom, String sessionTo, LocalDate fromDate,
+            LocalDate toDate, String contactDetails, int applyToId, String applyToName, List<Integer> ccEmployeeIds,
+            List<String> ccEmployeeNames, String reason, String status, LocalDateTime appliedDate,
+            Double leaveQuantity) {
+        LeaveApplicationId = leaveApplicationId;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeeCode = employeeCode;
@@ -45,9 +60,13 @@ public class LeaveApplicationDto {
         this.toDate = toDate;
         this.contactDetails = contactDetails;
         this.applyToId = applyToId;
+        this.applyToName = applyToName;
         this.ccEmployeeIds = ccEmployeeIds;
+        this.ccEmployeeNames = ccEmployeeNames;
         this.reason = reason;
         this.status = status;
+        this.appliedDate = appliedDate;
+        this.leaveQuantity = leaveQuantity;
     }
 
     public int getEmployeeId() {
@@ -160,6 +179,46 @@ public class LeaveApplicationDto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getLeaveApplicationId() {
+        return LeaveApplicationId;
+    }
+
+    public void setLeaveApplicationId(int leaveApplicationId) {
+        LeaveApplicationId = leaveApplicationId;
+    }
+
+    public String getApplyToName() {
+        return applyToName;
+    }
+
+    public void setApplyToName(String applyToName) {
+        this.applyToName = applyToName;
+    }
+
+    public List<String> getCcEmployeeNames() {
+        return ccEmployeeNames;
+    }
+
+    public void setCcEmployeeNames(List<String> ccEmployeeNames) {
+        this.ccEmployeeNames = ccEmployeeNames;
+    }
+
+    public LocalDateTime getAppliedDate() {
+        return appliedDate;
+    }
+
+    public void setAppliedDate(LocalDateTime appliedDate) {
+        this.appliedDate = appliedDate;
+    }
+
+    public Double getLeaveQuantity() {
+        return leaveQuantity;
+    }
+
+    public void setLeaveQuantity(Double leaveQuantity) {
+        this.leaveQuantity = leaveQuantity;
     }
 
 }

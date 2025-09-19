@@ -39,8 +39,8 @@ public interface EmployeeService {
 
         dto.setEmpId(employee.getEmpId());
         dto.setEmp_code(employee.getEmpCode());
-        dto.setFirst_name(employee.getFirst_name());
-        dto.setLast_name(employee.getLast_name());
+        dto.setFirst_name(employee.getFirstName());
+        dto.setLast_name(employee.getLastName());
 
         return dto;
 
