@@ -30,8 +30,9 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
         LeaveType existingLeaveType = leavetypeRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("leavetype not found with id: " + id));
 
-        existingLeaveType.setLeave_type(leavetype.getLeave_type());
+        existingLeaveType.setLeaveType(leavetype.getLeaveType());
         existingLeaveType.setAllowedForProbation(leavetype.getAllowedForProbation());
+        existingLeaveType.setRequiresBalance(leavetype.getRequiresBalance());
 
         LeaveType updatedLeaveType = leavetypeRepo.save(existingLeaveType);
         return updatedLeaveType;

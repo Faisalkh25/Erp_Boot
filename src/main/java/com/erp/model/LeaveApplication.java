@@ -57,6 +57,13 @@ public class LeaveApplication {
     @Column(name = "reason", columnDefinition = "TEXT")
     private String reason;
 
+    @Column(name = "leave_quantity")
+    private double leaveQuantity;
+
+    @ManyToOne
+    @JoinColumn(name = "action_by")
+    private Employee actionBy;
+
     private String status = "PENDING";
 
     @CreationTimestamp
@@ -68,8 +75,8 @@ public class LeaveApplication {
 
     public LeaveApplication(int leaveApplicationId, String sessionFrom, String sessionTo, LocalDate fromDate,
             LocalDate toDate, String contactDetails, Employee employee, LeaveType leaveType, Employee applyTo,
-            List<Employee> ccEmployees, String attachmentPath, String reason, String status,
-            LocalDateTime dateCreated) {
+            List<Employee> ccEmployees, String attachmentPath, String reason, double leaveQuantity, Employee actionBy,
+            String status, LocalDateTime dateCreated) {
         this.leaveApplicationId = leaveApplicationId;
         this.sessionFrom = sessionFrom;
         this.sessionTo = sessionTo;
@@ -82,6 +89,8 @@ public class LeaveApplication {
         this.ccEmployees = ccEmployees;
         this.attachmentPath = attachmentPath;
         this.reason = reason;
+        this.leaveQuantity = leaveQuantity;
+        this.actionBy = actionBy;
         this.status = status;
         this.dateCreated = dateCreated;
     }
@@ -196,6 +205,22 @@ public class LeaveApplication {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public double getLeaveQuantity() {
+        return leaveQuantity;
+    }
+
+    public void setLeaveQuantity(double leaveQuantity) {
+        this.leaveQuantity = leaveQuantity;
+    }
+
+    public Employee getActionBy() {
+        return actionBy;
+    }
+
+    public void setActionBy(Employee actionBy) {
+        this.actionBy = actionBy;
     }
 
 }

@@ -22,8 +22,11 @@ public class LeaveApplicationHRDto {
 
     private int applyToId;
     private String applyToName;
-    private long qty;
+    private double qty;
     private String attachmentPath;
+
+    private Integer actionById;
+    private String actionByName;
 
     public LeaveApplicationHRDto() {
     }
@@ -31,7 +34,8 @@ public class LeaveApplicationHRDto {
     public LeaveApplicationHRDto(int leaveApplicationId, int employeeId, String employeeName, int employeeCode,
             int leaveTypeId, String leaveTypeName, LocalDate fromDate, LocalDate toDate, String sessionFrom,
             String sessionTo, String contactDetails, String reason, String status, LocalDateTime dateCreated,
-            int applyToId, String applyToName, long qty, String attachmentPath) {
+            int applyToId, String applyToName, double qty, String attachmentPath, Integer actionById,
+            String actionByName) {
         this.leaveApplicationId = leaveApplicationId;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
@@ -50,6 +54,8 @@ public class LeaveApplicationHRDto {
         this.applyToName = applyToName;
         this.qty = qty;
         this.attachmentPath = attachmentPath;
+        this.actionById = actionById;
+        this.actionByName = actionByName;
     }
 
     public int getLeaveApplicationId() {
@@ -188,12 +194,28 @@ public class LeaveApplicationHRDto {
         this.attachmentPath = attachmentPath;
     }
 
-    public long getQty() {
+    public double getQty() {
         return qty;
     }
 
-    public void setQty(long qty) {
+    public void setQty(double qty) {
         this.qty = qty;
+    }
+
+    public Integer getActionById() {
+        return actionById;
+    }
+
+    public void setActionById(Integer actionById) {
+        this.actionById = actionById;
+    }
+
+    public String getActionByName() {
+        return actionByName;
+    }
+
+    public void setActionByName(String actionByName) {
+        this.actionByName = actionByName;
     }
 
 }

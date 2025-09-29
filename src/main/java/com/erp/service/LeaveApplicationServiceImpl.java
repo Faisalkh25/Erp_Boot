@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +15,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.erp.dto.LeaveApplicationDto;
+import com.erp.exception.BalanceNotConfiguredException;
+import com.erp.exception.InsufficientBalanceException;
+import com.erp.model.Employee;
 import com.erp.model.LeaveApplication;
+import com.erp.model.LeaveBalance;
 import com.erp.repository.EmployeeRepository;
 import com.erp.repository.LeaveApplicationRepository;
+import com.erp.repository.LeaveBalanceRepository;
 import com.erp.repository.LeaveTypeRepository;
 import com.erp.util.LeaveCalculator;
 
@@ -26,33 +32,37 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
     private final LeaveApplicationRepository leaveRepo;
     private final EmployeeRepository employeeRepo;
     private final LeaveTypeRepository leaveTypeRepo;
+    private final LeaveBalanceRepository leaveBalanceRepo;
+    private final EmailService emailService;
 
     @Value("${file.upload-dir.leaves}")
     private String leaveUploadDir;
 
     public LeaveApplicationServiceImpl(LeaveApplicationRepository leaveRepo, EmployeeRepository employeeRepo,
-            LeaveTypeRepository leaveTypeRepo) {
+            LeaveTypeRepository leaveTypeRepo, LeaveBalanceRepository leaveBalanceRepo, EmailService emailService) {
         this.leaveRepo = leaveRepo;
         this.employeeRepo = employeeRepo;
         this.leaveTypeRepo = leaveTypeRepo;
+        this.leaveBalanceRepo = leaveBalanceRepo;
+        this.emailService = emailService;
     }
 
     @Override
     public LeaveApplication applyLeave(LeaveApplicationDto dto, String attachmentPath) {
 
-        System.out.println("Applying leave for empId=" + dto.getEmployeeId()
-                + ", leaveTypeId=" + dto.getLeaveTypeId()
-                + ", applyToId=" + dto.getApplyToId());
-
         LeaveApplication leave = new LeaveApplication();
-        leave.setEmployee(employeeRepo.findById(dto.getEmployeeId()).orElseThrow());
-        leave.setLeaveType(leaveTypeRepo.findById(dto.getLeaveTypeId()).orElseThrow());
+        leave.setEmployee(employeeRepo.findById(dto.getEmployeeId())
+                .orElseThrow(() -> new RuntimeException("Employee not found.")));
+        leave.setLeaveType(leaveTypeRepo.findById(dto.getLeaveTypeId())
+                .orElseThrow(() -> new RuntimeException("Leave type not found.")));
         leave.setSessionFrom(dto.getSessionFrom());
         leave.setSessionTo(dto.getSessionTo());
         leave.setFromDate(dto.getFromDate());
         leave.setToDate(dto.getToDate());
         leave.setContactDetails(dto.getContactDetails());
-        leave.setApplyTo(employeeRepo.findById(dto.getApplyToId()).orElseThrow());
+        leave.setApplyTo(employeeRepo.findById(dto.getApplyToId())
+                .orElseThrow(() -> new RuntimeException("ApplyTo Employee not found")));
+
         if (dto.getCcEmployeeIds() != null && !dto.getCcEmployeeIds().isEmpty()) {
             leave.setCcEmployees(employeeRepo.findAllById(dto.getCcEmployeeIds()));
         } else {
@@ -63,7 +73,50 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 
         leave.setStatus("PENDING");
 
-        return leaveRepo.save(leave);
+        // calculate leave quantity
+        int fromSession = mapSession(dto.getSessionFrom());
+        int toSession = mapSession(dto.getSessionTo());
+        double quantity = LeaveCalculator.calculateLeaveQuantity(
+                dto.getFromDate(),
+                dto.getToDate(),
+                fromSession,
+                toSession);
+        leave.setLeaveQuantity(quantity);
+
+        // balance check for paid leave
+        if (leave.getLeaveType().getRequiresBalance() != null && leave.getLeaveType().getRequiresBalance()) {
+            LeaveBalance balance = leaveBalanceRepo.findByEmployeeEmpIdAndLeaveTypeLeavetypeId(
+                    dto.getEmployeeId(), dto.getLeaveTypeId())
+                    .orElseThrow(
+                            () -> new InsufficientBalanceException("No Leave Balance configured for this employee"));
+
+            if (balance.getBalance() <= 0) {
+                throw new InsufficientBalanceException(
+                        "You do not have sufficient leave balance. Please choose a leave type that do not require balance.");
+            }
+
+            if (balance.getBalance() < quantity) {
+                throw new InsufficientBalanceException("Insufficient leave balance for requested days.");
+            }
+        }
+
+        // LeaveBalance balance = leaveBalanceRepo
+        // .findByEmployeeEmpIdAndLeaveTypeLeavetypeId(dto.getEmployeeId(),
+        // dto.getLeaveTypeId())
+        // .orElseThrow(() -> new RuntimeException("No leave balance configured"));
+
+        // // checking if employee jas extra balance
+        // if (balance.getLeaveType().getLeaveType().equalsIgnoreCase("Paid Leave")) {
+        // if (balance.getBalance() < quantity) {
+        // throw new RuntimeException("Insufficient leave balance");
+        // }
+        // }
+
+        leave.setStatus("PENDING");
+
+        LeaveApplication savedLeave = leaveRepo.save(leave);
+        emailService.sendLeaveAppliedEmail(savedLeave);
+        return savedLeave;
     }
 
     // @Override
@@ -86,8 +139,8 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             dto.setEmployeeCode(leave.getEmployee().getEmpCode());
 
             // leave type
-            dto.setLeaveTypeId(leave.getLeaveType().getLeavetype_id());
-            dto.setLeaveTypeName(leave.getLeaveType().getLeave_type());
+            dto.setLeaveTypeId(leave.getLeaveType().getLeavetypeId());
+            dto.setLeaveTypeName(leave.getLeaveType().getLeaveType());
 
             // dates
             dto.setSessionFrom(leave.getSessionFrom());
@@ -97,13 +150,16 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             dto.setAppliedDate(leave.getDateCreated());
 
             // qty
-            int fromSession = mapSession(leave.getSessionFrom());
-            int toSession = mapSession(leave.getSessionTo());
+            // int fromSession = mapSession(leave.getSessionFrom());
+            // int toSession = mapSession(leave.getSessionTo());
 
-            double quantity = LeaveCalculator.calculateLeaveQuantity(leave.getFromDate(), leave.getToDate(),
-                    fromSession, toSession);
+            // double quantity = LeaveCalculator.calculateLeaveQuantity(leave.getFromDate(),
+            // leave.getToDate(),
+            // fromSession, toSession);
 
-            dto.setLeaveQuantity(quantity);
+            // dto.setLeaveQuantity(quantity);
+
+            dto.setLeaveQuantity(leave.getLeaveQuantity());
 
             dto.setContactDetails(leave.getContactDetails());
 
@@ -121,6 +177,13 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
                     leave.getCcEmployees().stream()
                             .map(e -> e.getFirstName() + " " + e.getLastName())
                             .toList());
+
+            // getActionBy
+            if (leave.getActionBy() != null) {
+                dto.setActionById(leave.getActionBy().getEmpId());
+                dto.setActionByName(
+                        leave.getActionBy().getFirstName() + " " + leave.getActionBy().getLastName());
+            }
 
             dto.setStatus(leave.getStatus());
 
@@ -168,8 +231,37 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             return false;
         }
 
+        // deduct balance
+        if ("APPROVED".equalsIgnoreCase(status)
+                && leave.getLeaveType().getRequiresBalance() != null
+                && leave.getLeaveType().getRequiresBalance()) {
+
+            LeaveBalance balance = leaveBalanceRepo
+                    .findByEmployeeEmpIdAndLeaveTypeLeavetypeId(
+                            leave.getEmployee().getEmpId(), leave.getLeaveType().getLeavetypeId())
+                    .orElseThrow(() -> new BalanceNotConfiguredException("Leave balance not configured"));
+
+            double newBalance = balance.getBalance() - leave.getLeaveQuantity();
+            if (newBalance < 0) {
+                throw new InsufficientBalanceException("Insufficient balance at approval");
+            }
+
+            balance.setBalance(newBalance);
+            leaveBalanceRepo.save(balance);
+        }
+
         leave.setStatus(status.toUpperCase());
+
+        // code for setting action(approved/reject by) taken by..
+        Employee rm = employeeRepo.findById(rmEmpId).orElseThrow(() -> new RuntimeException("RM not found"));
+
+        leave.setActionBy(rm);
+
         leaveRepo.save(leave);
+
+        // sending mail
+        emailService.sendLeaveStatusUpdateEmail(leave);
+
         return true;
     }
 
@@ -189,8 +281,8 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             dto.setEmployeeCode(leave.getEmployee().getEmpCode());
 
             // leave type
-            dto.setLeaveTypeId(leave.getLeaveType().getLeavetype_id());
-            dto.setLeaveTypeName(leave.getLeaveType().getLeave_type());
+            dto.setLeaveTypeId(leave.getLeaveType().getLeavetypeId());
+            dto.setLeaveTypeName(leave.getLeaveType().getLeaveType());
 
             // dates
             dto.setSessionFrom(leave.getSessionFrom());
@@ -200,13 +292,16 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             dto.setAppliedDate(leave.getDateCreated());
 
             // qty
-            int fromSession = mapSession(leave.getSessionFrom());
-            int toSession = mapSession(leave.getSessionTo());
+            // int fromSession = mapSession(leave.getSessionFrom());
+            // int toSession = mapSession(leave.getSessionTo());
 
-            double quantity = LeaveCalculator.calculateLeaveQuantity(leave.getFromDate(), leave.getToDate(),
-                    fromSession, toSession);
+            // double quantity = LeaveCalculator.calculateLeaveQuantity(leave.getFromDate(),
+            // leave.getToDate(),
+            // fromSession, toSession);
 
-            dto.setLeaveQuantity(quantity);
+            // dto.setLeaveQuantity(quantity);
+
+            dto.setLeaveQuantity(leave.getLeaveQuantity());
 
             dto.setContactDetails(leave.getContactDetails());
 
@@ -217,13 +312,23 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             dto.setReason(leave.getReason());
 
             // cc employees
+            // dto.setCcEmployeeIds(
+            // leave.getCcEmployees().stream().map(e -> e.getEmpId()).toList());
             dto.setCcEmployeeIds(
-                    leave.getCcEmployees().stream().map(e -> e.getEmpId()).toList());
+                    leave.getCcEmployees().stream()
+                            .map(Employee::getEmpId)
+                            .toList());
 
             dto.setCcEmployeeNames(
                     leave.getCcEmployees().stream()
                             .map(e -> e.getFirstName() + " " + e.getLastName())
                             .toList());
+
+            // get action By
+            if (leave.getActionBy() != null) {
+                dto.setActionById(leave.getActionBy().getEmpId());
+                dto.setActionByName(leave.getActionBy().getFirstName() + " " + leave.getActionBy().getLastName());
+            }
 
             dto.setStatus(leave.getStatus());
 
@@ -242,6 +347,18 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             case "session 4", "4", "four" -> 4;
             default -> 1;
         };
+    }
+
+    @Override
+    public double getMonthlyLeaveTotal(int employeeId, int month, int year) {
+        YearMonth ym = YearMonth.of(year, month);
+        LocalDate startOfMonth = ym.atDay(1);
+        LocalDate endOfMonth = ym.atEndOfMonth();
+
+        return leaveRepo.findByEmployeeAndMonth(employeeId, startOfMonth, endOfMonth)
+                .stream()
+                .mapToDouble(LeaveApplication::getLeaveQuantity)
+                .sum();
     }
 
 }

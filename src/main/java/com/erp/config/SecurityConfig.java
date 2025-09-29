@@ -112,6 +112,9 @@ public class SecurityConfig {
 
                                                 .requestMatchers("/api/rm/leaves/**").hasAuthority("Employee")
 
+                                                // leave-balance
+                                                .requestMatchers("/api/leave-balances/**").hasAuthority("Employee")
+
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

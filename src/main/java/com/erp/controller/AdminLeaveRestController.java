@@ -7,35 +7,40 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erp.model.Employee;
 import com.erp.model.LeaveApplication;
+import com.erp.model.LeaveBalance;
+import com.erp.repository.EmployeeRepository;
 import com.erp.repository.LeaveApplicationRepository;
+import com.erp.repository.LeaveBalanceRepository;
+import com.erp.service.AdminLeaveService;
+import com.erp.util.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/admin/leaves")
 public class AdminLeaveRestController {
 
-    private final LeaveApplicationRepository leaveRepo;
+    private final AdminLeaveService adminLeaveService;
+    private final JwtUtil jwtUtil;
 
-    public AdminLeaveRestController(LeaveApplicationRepository leaveRepo) {
-        this.leaveRepo = leaveRepo;
+    public AdminLeaveRestController(AdminLeaveService adminLeaveService, JwtUtil jwtUtil) {
+        this.adminLeaveService = adminLeaveService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PutMapping("/{leaveId}/status/{status}")
     @PreAuthorize("hasAuthority('Admin')")
-    public ResponseEntity<?> updateLeaveStatus(@PathVariable int leaveId, @PathVariable String status) {
-
-        LeaveApplication leave = leaveRepo.findById(leaveId).orElseThrow(() -> new RuntimeException("Leave not found"));
-
-        if (!status.equalsIgnoreCase("APPROVED") &&
-                !status.equalsIgnoreCase("REJECTED") &&
-                !status.equalsIgnoreCase("PENDING")) {
-            return ResponseEntity.badRequest().body("Invalid status");
+    public ResponseEntity<?> updateLeaveStatus(@PathVariable int leaveId,
+            @PathVariable String status,
+            HttpServletRequest request) {
+        try {
+            int adminEmpId = jwtUtil.extractEmpIdFromRequest(request);
+            String result = adminLeaveService.updateLeaveStatus(leaveId, status, adminEmpId);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-        leave.setStatus(status.toUpperCase());
-        leaveRepo.save(leave);
-
-        return ResponseEntity.ok("Leave status updated to " + status);
     }
-
 }

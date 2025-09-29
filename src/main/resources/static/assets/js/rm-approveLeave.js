@@ -117,7 +117,7 @@ function renderTable(selector, leaves, type) {
                 <td>${leave.toDate || leave.endDate}</td>
                 <td>${leave.sessionFrom || leave.fromSession || "-"}</td>
                 <td>${leave.sessionTo || leave.toSession || "-"}</td>
-                <td>${leave.qty || leave.leaveQuantity || "-"}</td>
+                <td>${leave.leaveQuantity || "-"}</td>
                 <td>${leave.dateCreated || leave.appliedDate || "-"}</td>
                 <td>${leave.attachmentPath ? `<a href="${leave.attachmentPath}" target="_blank">View</a>` : "N/A"}</td>
                 <td>
@@ -153,6 +153,7 @@ function renderTable(selector, leaves, type) {
                 <td>${leave.qty || leave.leaveQuantity || "-"}</td>
                 <td>${leave.dateCreated || leave.appliedDate || "-"}</td>
                 <td><span class="text-muted">N/A</span></td>
+                <td>${leave.actionByName}</td>
             `;
         }
 

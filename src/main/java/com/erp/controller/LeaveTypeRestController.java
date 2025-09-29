@@ -33,7 +33,7 @@ public class LeaveTypeRestController {
         this.leaveTypeRepository = leaveTypeRepository;
     }
 
-    // handler for savng department
+    
     @PostMapping
     public ResponseEntity<LeaveType> saveLeaveType(@RequestBody LeaveType leavetype) {
         LeaveType l_type = leaveTypeService.createLeaveType(leavetype);

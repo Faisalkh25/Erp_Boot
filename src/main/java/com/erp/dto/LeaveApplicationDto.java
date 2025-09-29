@@ -40,14 +40,17 @@ public class LeaveApplicationDto {
     private LocalDateTime appliedDate;
     private Double leaveQuantity;
 
+    private Integer actionById;
+    private String actionByName;
+
     public LeaveApplicationDto() {
     }
 
     public LeaveApplicationDto(int leaveApplicationId, int employeeId, String employeeName, int employeeCode,
             int leaveTypeId, String leaveTypeName, String sessionFrom, String sessionTo, LocalDate fromDate,
             LocalDate toDate, String contactDetails, int applyToId, String applyToName, List<Integer> ccEmployeeIds,
-            List<String> ccEmployeeNames, String reason, String status, LocalDateTime appliedDate,
-            Double leaveQuantity) {
+            List<String> ccEmployeeNames, String reason, String status, LocalDateTime appliedDate, Double leaveQuantity,
+            Integer actionById, String actionByName) {
         LeaveApplicationId = leaveApplicationId;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
@@ -67,6 +70,8 @@ public class LeaveApplicationDto {
         this.status = status;
         this.appliedDate = appliedDate;
         this.leaveQuantity = leaveQuantity;
+        this.actionById = actionById;
+        this.actionByName = actionByName;
     }
 
     public int getEmployeeId() {
@@ -219,6 +224,22 @@ public class LeaveApplicationDto {
 
     public void setLeaveQuantity(Double leaveQuantity) {
         this.leaveQuantity = leaveQuantity;
+    }
+
+    public Integer getActionById() {
+        return actionById;
+    }
+
+    public void setActionById(Integer actionById) {
+        this.actionById = actionById;
+    }
+
+    public String getActionByName() {
+        return actionByName;
+    }
+
+    public void setActionByName(String actionByName) {
+        this.actionByName = actionByName;
     }
 
 }

@@ -54,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private EmailService emailService;
+    private LeaveBalanceServiceImpl leaveBalanceService;
 
     @Value("${file.upload-dir.employees}")
     private String uploadDir;
@@ -62,14 +62,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee createEmployee(EmployeeDto dto, MultipartFile file) throws IOException {
 
+        // Map DTO to Employee entity
         Employee employee = mapDtoToEmployee(dto, new Employee());
 
-        // auto-generate empCode
+        // Auto-generate empCode
         Integer maxCode = employeeRepo.findMaxEmpCode();
         int nextEmpCode = (maxCode == null) ? 1000 : maxCode + 1;
-
         employee.setEmpCode(nextEmpCode);
 
+        // Upload profile picture if provided
         if (file != null && !file.isEmpty()) {
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             Path uploadPath = Paths.get(uploadDir);
@@ -82,30 +83,27 @@ public class EmployeeServiceImpl implements EmployeeService {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             employee.setProfile_picture(fileName);
-
         }
 
-        // code for sending email to their personal email with password and empCode
-
+        // Save employee first
         Employee savedEmployee = employeeRepo.save(employee);
 
-        if (savedEmployee.getPersonal_email() != null &&
-                savedEmployee.getEmpCode() != 0 &&
-                savedEmployee.getPassword() != null &&
-                savedEmployee.getEmail() != null) {
+        leaveBalanceService.initializeLeaveBalance(savedEmployee);
 
-            emailService.sendEmployeeDetails(
-                    savedEmployee.getPersonal_email(),
-                    savedEmployee.getEmail(),
-                    String.valueOf(savedEmployee.getEmpCode()),
-                    savedEmployee.getPassword());
-        }
+        // Send employee details via email
+        // if (savedEmployee.getPersonal_email() != null &&
+        // savedEmployee.getEmpCode() != 0 &&
+        // savedEmployee.getPassword() != null &&
+        // savedEmployee.getEmail() != null) {
 
-        // System.out.println("DTO Department ID: " + dto.getDepartmentId());
-        // System.out.println("Resolved Department: " +
-        // departmentRepo.findById(dto.getDepartmentId()).orElse(null));
+        // emailService.sendEmployeeDetails(
+        // savedEmployee.getPersonal_email(),
+        // savedEmployee.getEmail(),
+        // String.valueOf(savedEmployee.getEmpCode()),
+        // savedEmployee.getPassword());
+        // }
 
-        return employeeRepo.save(employee);
+        return savedEmployee;
     }
 
     @Override
@@ -298,7 +296,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             // For Reporting Manager 2
             if (emp.getReporting_manager2() != null && emp.getReporting_manager2().getRm_name2() != null) {
 
-                String rmName2 = emp.getReporting_manager2().getRm_name2(); // e.g. "Dinesh Jaiswal"
+                String rmName2 = emp.getReporting_manager2().getRm_name2();
                 String[] parts2 = rmName2.split(" ", 2);
 
                 if (parts2.length == 2) {

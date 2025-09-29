@@ -19,4 +19,7 @@ public interface LeaveApplicationService {
 
     public List<LeaveApplicationDto> getLeavesForRM(int rmEmpId);
 
+    // get total monthly leave
+    public double getMonthlyLeaveTotal(int employeeId, int month, int year);
+
 }

@@ -18,11 +18,16 @@ public class LeaveType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "leavetype_id")
-    private int leavetype_id;
-    private String leave_type;
+    private int leavetypeId;
+
+    @Column(name = "leave_type")
+    private String leaveType;
 
     @Column(name = "allowed_for_probation")
     private Boolean allowedForProbation = false;
+
+    @Column(name = "requires_balance", nullable = false)
+    private Boolean requiresBalance = false;
 
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -31,35 +36,29 @@ public class LeaveType {
     public LeaveType() {
     }
 
-    public LeaveType(int leavetype_id, String leave_type, Boolean allowedForProbation, LocalDateTime dateCreated) {
-        this.leavetype_id = leavetype_id;
-        this.leave_type = leave_type;
+    public LeaveType(int leavetypeId, String leaveType, Boolean allowedForProbation, Boolean requiresBalance,
+            LocalDateTime dateCreated) {
+        this.leavetypeId = leavetypeId;
+        this.leaveType = leaveType;
         this.allowedForProbation = allowedForProbation;
+        this.requiresBalance = requiresBalance;
         this.dateCreated = dateCreated;
     }
 
-    public int getLeavetype_id() {
-        return leavetype_id;
+    public int getLeavetypeId() {
+        return leavetypeId;
     }
 
-    public void setLeavetype_id(int leavetype_id) {
-        this.leavetype_id = leavetype_id;
+    public void setLeavetypeId(int leavetypeId) {
+        this.leavetypeId = leavetypeId;
     }
 
-    public String getLeave_type() {
-        return leave_type;
+    public String getLeaveType() {
+        return leaveType;
     }
 
-    public void setLeave_type(String leave_type) {
-        this.leave_type = leave_type;
-    }
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setLeaveType(String leaveType) {
+        this.leaveType = leaveType;
     }
 
     public Boolean getAllowedForProbation() {
@@ -68,6 +67,22 @@ public class LeaveType {
 
     public void setAllowedForProbation(Boolean allowedForProbation) {
         this.allowedForProbation = allowedForProbation;
+    }
+
+    public Boolean getRequiresBalance() {
+        return requiresBalance;
+    }
+
+    public void setRequiresBalance(Boolean requiresBalance) {
+        this.requiresBalance = requiresBalance;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
 }

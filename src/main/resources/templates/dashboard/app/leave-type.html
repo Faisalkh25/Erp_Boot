@@ -1137,7 +1137,7 @@
                           <input type="hidden" id="leavetype_id" />
                            <div class="row">
                               <div class="form-group col-md-12">
-                                 <label class="form-label" for="uname">Leave Type</label>
+                                 <label class="form-label" for="leave_type">Leave Type</label>
                                  <input type="text" class="form-control" id="leave_type" required="true" placeholder="Leave Type..">
                               </div>
                            </div>
@@ -1149,6 +1149,15 @@
                                 Allowed for Probation Employees
                               </label>
                             </div>
+                          </div>
+
+                          <div class="row">
+                               <div class="form-group col-md-12">
+                                    <label for="form-label">
+                                      <input type="checkbox" id="requiresBalance">
+                                      Requires Balance (Paid Leave)
+                                    </label>
+                               </div>
                           </div>
                            
                            <button type="submit" class="btn btn-primary">Add New Leave Type</button>
@@ -1181,7 +1190,8 @@
                                                 <tr class="light">
                                                     <th>Leave Type Id</th>
                                                     <th>Leave Type</th>
-                                                    <th>Probation Employees (Yes/No)</th>
+                                                    <th>Probation Employees</th>
+                                                    <th>Requires Balance</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

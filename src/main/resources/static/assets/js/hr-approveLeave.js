@@ -54,73 +54,39 @@ function renderLeaveTable(selector, leaves, showActions, statusType) {
   }
 
   leaves.forEach((leave) => {
-    const row = document.createElement("tr");
-
-    // // decide actions
-    // let actionButtons = "-";
-    // if (showActions) {
-    //   if (userRole === "HR") {
-    //     // HR can only act on Pending
-    //     if (statusType === "PENDING") {
-    //       actionButtons = `
-    //         <button class="btn btn-success btn-sm me-1 approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
-    //         <button class="btn btn-danger btn-sm reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>
-    //       `;
-    //     }
-    //   } else if (userRole === "Admin") {
-    //     if (statusType === "PENDING") {
-    //       actionButtons = `
-    //         <button class="btn btn-success btn-sm me-1 approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
-    //         <button class="btn btn-danger btn-sm reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>
-    //       `;
-    //     } else if (statusType === "APPROVED") {
-    //       actionButtons = `
-    //         <button class="btn btn-warning btn-sm override-reject-btn" data-leave-id="${leave.leaveApplicationId}">Override → Reject</button>
-    //       `;
-    //     } else if (statusType === "REJECTED") {
-    //       actionButtons = `
-    //         <button class="btn btn-primary btn-sm override-approve-btn" data-leave-id="${leave.leaveApplicationId}">Override → Approve</button>
-    //       `;
-    //     }
-    //   }
-    // }
-
-    //decide actions
     let actionButtons = "-";
 
-    if(showActions) {
-       if(userRole === "HR") {
-          //hr will only approve/reject on pending leave
-          if(statusType === "PENDING") {
-             actionButtons = `
-               <button class="btn btn-success btn-sm me-1 approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
-               <button class="btn btn-danger btn-sm reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>
-             `;
-          }
-       }  else if(userRole === "Admin") {
-           if(statusType === "PENDING") {
-              actionButtons = `
-                    <button class="btn btn-success btn-sm me-1 approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
-                    <button class="btn btn-danger btn-sm reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>       
-              `;     
-           } else if(statusType === "APPROVED") {
-                actionButtons = `
-                   <button class="btn btn-warning btn-sm override-reject-btn" data-leave-id="${leave.leaveApplicationId}">Override → Reject</button>
-                `;
-           } else if(statusType === "REJECTED") {
-            actionButtons = `
+    if (showActions) {
+      if (userRole === "HR" && statusType === "PENDING") {
+        actionButtons = `
+          <button class="btn btn-success btn-sm me-1 approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
+          <button class="btn btn-danger btn-sm reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>
+        `;
+      } else if (userRole === "Admin") {
+        if (statusType === "PENDING") {
+          actionButtons = `
+            <button class="btn btn-success btn-sm me-1 approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
+            <button class="btn btn-danger btn-sm reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>
+          `;
+        } else if (statusType === "APPROVED") {
+          actionButtons = `
+            <button class="btn btn-warning btn-sm override-reject-btn" data-leave-id="${leave.leaveApplicationId}">Override → Reject</button>
+          `;
+        } else if (statusType === "REJECTED") {
+          actionButtons = `
             <button class="btn btn-primary btn-sm override-approve-btn" data-leave-id="${leave.leaveApplicationId}">Override → Approve</button>
-             `;
-           }
-       }  else if(userRole === "Employee" && leave.applyToId === loggedInUserId) {
-            actionButtons = `
-                <button class="btn btn-success btn-sm me-1 rm-approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
-                <button class="btn btn-danger btn-sm rm-reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>
-            `;
-       }
+          `;
+        }
+      } else if (userRole === "Employee" && leave.applyToId === loggedInUserId) {
+        actionButtons = `
+          <button class="btn btn-success btn-sm me-1 rm-approve-btn" data-leave-id="${leave.leaveApplicationId}">Approve</button>
+          <button class="btn btn-danger btn-sm rm-reject-btn" data-leave-id="${leave.leaveApplicationId}">Reject</button>
+        `;
+      }
     }
 
-    row.innerHTML = `
+    // ✅ Build row HTML completely in one string
+    let rowHtml = `
       <td>${leave.status || "Pending"}</td>
       <td>${leave.employeeName ? `${leave.employeeName} (${leave.employeeCode})` : "-"}</td>
       <td>${leave.leaveTypeName || "-"}</td>
@@ -133,14 +99,23 @@ function renderLeaveTable(selector, leaves, showActions, statusType) {
       <td>${leave.dateCreated ? leave.dateCreated.split("T")[0] : "N/A"}</td>
       <td>${leave.attachmentPath ? `<a href="/${leave.attachmentPath}" target="_blank">View</a>` : "N/A"}</td>
       <td>
-      <button class="btn btn-sm text-white bg-primary view-details-btn" 
-        data-leaves="${encodeURIComponent(JSON.stringify(leave))}">
-       <i class="fa-solid fa-eye"></i>
-      </button>
+        <button class="btn btn-sm text-white bg-primary view-details-btn" 
+          data-leaves="${encodeURIComponent(JSON.stringify(leave))}">
+          <i class="fa-solid fa-eye"></i>
+        </button>
       </td>
-      <td>${actionButtons}</td>
     `;
 
+    // Add Action By column only for Approved/Rejected
+    if (statusType !== "PENDING") {
+      rowHtml += `<td>${leave.actionByName || "-"}</td>`;
+    }
+
+    // Always add Action column
+    rowHtml += `<td>${actionButtons}</td>`;
+
+    const row = document.createElement("tr");
+    row.innerHTML = rowHtml;
     tbody.appendChild(row);
   });
 

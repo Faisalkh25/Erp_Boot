@@ -52,16 +52,17 @@ function loadLeaveTypes() {
                 const tr = document.createElement("tr");
 
                 tr.innerHTML = `
-                    <td class="text-center">${leave.leavetype_id}</td>
-                    <td class="text-center">${leave.leave_type}</td>
+                    <td class="text-center">${leave.leavetypeId}</td>
+                    <td class="text-center">${leave.leaveType}</td>
 
                     <td class="text-center">${leave.allowedForProbation ? '✅ Yes' : '❌ No'}</td>
+                    <td class="text-center">${leave.requiresBalance ? '✅ Yes' : '❌ No'}</td>
                     <td class="text-center">
                         <i class="fa-solid fa-pen-to-square text-primary me-2"
-                            onclick="showEditModal(${leave.leavetype_id})"
+                            onclick="showEditModal(${leave.leavetypeId})"
                             style="cursor: pointer; font-size: 18px;"></i>
                         <i class="fa-solid fa-trash text-danger"
-                            onclick="showDeleteModal(${leave.leavetype_id})"
+                            onclick="showDeleteModal(${leave.leavetypeId})"
                             style="cursor: pointer; font-size: 18px;"></i>
                     </td>
                 `;
@@ -77,12 +78,14 @@ function loadLeaveTypes() {
 function addLeaveType() {
     const leaveTypeInput = document.getElementById("leave_type").value;
     const allowedForProbation = document.getElementById("allowedForProbation").checked;
+               const requiresBalance = document.getElementById("requiresBalance").checked;
 
     fetch(apiUrl, {
         method: 'POST',
         headers: getAuthHeaders(),  //added jwt token
-        body: JSON.stringify({ leave_type: leaveTypeInput,
-              allowedForProbation: allowedForProbation
+        body: JSON.stringify({ leaveType: leaveTypeInput,
+              allowedForProbation: allowedForProbation,
+              requiresBalance: requiresBalance
          })
     })
         .then(res => res.json())
@@ -99,11 +102,11 @@ function showEditModal(id) {
     })
         .then(res => res.json())
         .then(data => {
-            document.getElementById("edit_dept_id").value = data.leavetype_id;
-            document.getElementById("level_type").value = data.leave_type;
-
-            //  set checkbox value if you add it in edit modal
-        document.getElementById("edit_allowedForProbation").checked = data.allowedForProbation === true;
+            document.getElementById("edit_dept_id").value = data.leavetypeId;
+            document.getElementById("level_type").value = data.leaveType;
+            document.getElementById("edit_requiresBalance").checked = data.requiresBalance === true; 
+            
+           document.getElementById("edit_allowedForProbation").checked = data.allowedForProbation === true;
 
             new bootstrap.Modal(document.getElementById('editLeveltypeModal')).show();
         });
@@ -111,8 +114,9 @@ function showEditModal(id) {
 
 function updateLeaveType(id) {
     const updatedLeaveType = {
-        leave_type: document.getElementById("level_type").value,
-        allowedForProbation: document.getElementById("edit_allowedForProbation").checked
+        leaveType: document.getElementById("level_type").value,
+        allowedForProbation: document.getElementById("edit_allowedForProbation").checked,
+        requiresBalance: document.getElementById("edit_requiresBalance").checked 
     };
 
     fetch(`${apiUrl}/${id}`, {
