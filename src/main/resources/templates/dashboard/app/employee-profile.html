@@ -703,7 +703,7 @@
                             <li class="nav-item dropdown custom-drop position-relative">
                                 <div class="d-flex align-items-center">
                                     <!-- Profile Image -->
-                                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button">
+                                    <a class="nav-link py-0" href="#" id="customDropdown" role="button">
                                         <img id="navbarEmpImage" data-th-src="@{/assets/images/avatars/default.png}"
                                             alt="User-Profile" class="img-fluid rounded-circle"
                                             style="height: 40px; width: 40px; object-fit: cover; cursor: pointer;">
@@ -715,8 +715,8 @@
                                 </div>
 
                                 <!-- Dropdown menu -->
-                                <ul class="dropdown-menu dropdown-menu-end" id="customDropdown">
-                                    <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
+                                <ul class="dropdown-menu dropdown-menu-end" id="customDropdownMenu">
+                                    <li><a class="dropdown-item" data-th-href="@{/viewProfile}">Profile</a></li>
                                     <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
                                 </ul>
                             </li>

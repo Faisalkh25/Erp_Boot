@@ -53,7 +53,31 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
             LeaveType type = balance.getLeaveType();
 
             // Only credit Paid Leave (PPL)
-            if (type.getLeavetypeId() == 5 && emp.getJoining_status().equalsIgnoreCase("confirmed")) {
+            // if (type.getLeavetypeId() == 5 &&
+            // emp.getJoining_status().equalsIgnoreCase("confirmed")) {
+            // LocalDateTime lastUpdate = balance.getUpdatedAt() != null ?
+            // balance.getUpdatedAt()
+            // : balance.getDateCreated();
+
+            // long monthsElapsed = ChronoUnit.MONTHS.between(
+            // lastUpdate.toLocalDate().withDayOfMonth(1),
+            // LocalDate.now().withDayOfMonth(1));
+
+            // if (monthsElapsed > 0) {
+            // double monthlyCredit = 1.5;
+            // double totalCredit = monthlyCredit * monthsElapsed;
+
+            // balance.setBalance(balance.getBalance() + totalCredit);
+            // balance.setTotalAllocated(balance.getTotalAllocated() + totalCredit);
+            // balance.setUpdatedAt(LocalDateTime.now());
+
+            // leaveBalanceRepo.save(balance);
+            // }
+            // }
+
+            if (type.getRequiresBalance() != null && type.getRequiresBalance()
+                    && emp.getEmployee_status().equalsIgnoreCase("confirm")) {
+
                 LocalDateTime lastUpdate = balance.getUpdatedAt() != null ? balance.getUpdatedAt()
                         : balance.getDateCreated();
 
@@ -72,6 +96,7 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
                     leaveBalanceRepo.save(balance);
                 }
             }
+
         }
     }
 
@@ -82,13 +107,23 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
             Employee emp = balance.getEmployee();
             LeaveType type = balance.getLeaveType();
 
-            // Credit only Paid Leave (PPL)
-            if (type.getLeavetypeId() == 5 && emp.getJoining_status().equalsIgnoreCase("confirmed")) {
+            // Credit only leave type that requires balance (ppl)
+            if (type.getRequiresBalance() != null && type.getRequiresBalance()
+                    && emp.getEmployee_status().equalsIgnoreCase("confirm")) {
+
                 LocalDateTime lastUpdate = balance.getUpdatedAt() != null ? balance.getUpdatedAt()
                         : balance.getDateCreated();
+
                 long monthsElapsed = ChronoUnit.MONTHS.between(
                         lastUpdate.toLocalDate().withDayOfMonth(1),
                         LocalDate.now().withDayOfMonth(1));
+
+                // debug print
+                System.out.println("Emp=" + emp.getEmpId() +
+                        ", Status='" + emp.getEmployee_status() + "'" +
+                        ", LeaveType=" + type.getLeaveType() +
+                        ", RequiresBalance=" + type.getRequiresBalance() +
+                        ", MonthsElapsed=" + monthsElapsed);
 
                 if (monthsElapsed > 0) {
                     double monthlyCredit = 1.5;
@@ -100,8 +135,9 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 
                     leaveBalanceRepo.save(balance);
                 }
+
             }
         }
-    }
 
+    }
 }

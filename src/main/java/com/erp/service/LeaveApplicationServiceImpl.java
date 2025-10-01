@@ -83,6 +83,28 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
                 toSession);
         leave.setLeaveQuantity(quantity);
 
+        // 3 ppl rstriction afgter 15 days
+        if (Boolean.TRUE.equals(leave.getLeaveType().getRequiresBalance())) {
+            LocalDate startOfMonth = leave.getFromDate().withDayOfMonth(1);
+            LocalDate endOfMonth = leave.getFromDate().withDayOfMonth(leave.getFromDate().lengthOfMonth());
+
+            List<LeaveApplication> monthlyPaidLeaves = leaveRepo.findByEmployeeAndMonth(
+                    leave.getEmployee().getEmpId(),
+                    startOfMonth,
+                    endOfMonth)
+                    .stream().filter(l -> Boolean.TRUE.equals(l.getLeaveType().getRequiresBalance()))
+                    .toList();
+
+            double totalPaidLeavesTaken = monthlyPaidLeaves.stream()
+                    .mapToDouble(LeaveApplication::getLeaveQuantity)
+                    .sum();
+
+            if (leave.getFromDate().getDayOfMonth() > 15 && (totalPaidLeavesTaken + quantity) > 3) {
+                throw new IllegalArgumentException(
+                        "You are trying to take 3 paid leaves after 15th of the month. Please chose LOP instead.");
+            }
+        }
+
         // balance check for paid leave
         if (leave.getLeaveType().getRequiresBalance() != null && leave.getLeaveType().getRequiresBalance()) {
             LeaveBalance balance = leaveBalanceRepo.findByEmployeeEmpIdAndLeaveTypeLeavetypeId(

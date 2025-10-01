@@ -38,31 +38,52 @@ public class AdminLeaveService {
         Employee admin = employeeRepo.findById(adminEmpId)
                 .orElseThrow(() -> new RuntimeException("Admin employee not found"));
 
-        // Deduct balance only if APPROVED
-        if ("APPROVED".equalsIgnoreCase(status) && Boolean.TRUE.equals(leave.getLeaveType().getRequiresBalance())) {
+        String previousStatus = leave.getStatus();
+        double leaveQty = leave.getLeaveQuantity();
+
+        // adjust balance only if leave type requires balance
+        if (Boolean.TRUE.equals(leave.getLeaveType().getRequiresBalance())) {
             LeaveBalance balance = leaveBalanceRepo.findByEmployeeEmpIdAndLeaveTypeLeavetypeId(
                     leave.getEmployee().getEmpId(),
                     leave.getLeaveType().getLeavetypeId())
                     .orElseThrow(() -> new RuntimeException("Leave balance not found"));
 
-            double newBalance = balance.getBalance() - leave.getLeaveQuantity();
-            if (newBalance < 0) {
-                throw new RuntimeException("Insufficient leave balance at approval");
+            // case 1: Admin approves the leave that was previously rejected or pending
+            if ("APPROVED".equalsIgnoreCase(status) && !"APPROVED".equalsIgnoreCase(previousStatus)) {
+                double newBalance = balance.getBalance() - leaveQty;
+                if (newBalance < 0) {
+                    throw new RuntimeException("Insufficient leave balance at admin approval");
+                }
+                balance.setBalance(newBalance);
+                leaveBalanceRepo.save(balance);
             }
 
-            balance.setBalance(newBalance);
-            leaveBalanceRepo.save(balance);
+            // case 2: if admin rejects a leave that was previously approved
+            if ("REJECTED".equalsIgnoreCase(status) && "APPROVED".equalsIgnoreCase(previousStatus)) {
+                balance.setBalance(balance.getBalance() + leaveQty);
+                leaveBalanceRepo.save(balance);
+            }
+            // case 3: pending status changes
+            if ("PENDING".equalsIgnoreCase(status)) {
+                // if previously approved restore the balance
+                if ("APPROVED".equalsIgnoreCase(previousStatus)) {
+                    balance.setBalance(balance.getBalance() + leaveQty);
+                    leaveBalanceRepo.save(balance);
+                }
+            }
+
         }
 
         leave.setStatus(status.toUpperCase());
         leave.setActionBy(admin);
         leaveRepo.save(leave);
 
-        // sending mail
+        // send mail
         emailService.sendLeaveStatusUpdateEmail(leave);
 
-        return "Leave status updated to " + status.toUpperCase() +
-                " by " + admin.getFirstName() + " " + admin.getLastName();
+        return "Leave status updated to " + status.toUpperCase() + " by " + admin.getFirstName() + " "
+                + admin.getLastName();
+
     }
 
 }

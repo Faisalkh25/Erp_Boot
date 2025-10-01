@@ -206,6 +206,9 @@ if (applyLeaveForm) {
             ccToInput.value = '';
             nodInput.value = '';
             balanceInput.value = '';
+
+            populateApplyTo(currentEmployee);
+
         } catch (err) {
             console.error('Apply leave failed', err);
             Swal.fire('Error', err.message || 'Failed to apply leave', 'error');
@@ -218,7 +221,7 @@ if (applyLeaveForm) {
         //load details of current employee(to know wbout confirm/probation/ & reporting manager)
 
         async function loadEmployeeDetails(empId) {
-            console.log("Fetching employee details for empId:", empId);  // debug log   
+            console.log("Fetching employee details for empId:", empId); //consoling debug 
             const res = await fetch(`/api/employees/${empId}`, {
                 headers: getAuthHeaders()
             });
